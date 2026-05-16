@@ -1280,6 +1280,190 @@ svg.leaflet-zoom-animated{will-change:transform}
 
 
 
+<!-- ══════════════════════ SETTINGS PAGE ══════════════════════════ -->
+<div class="page" id="page-settings">
+  <div class="settings-max">
+
+    <!-- ── App Purpose Banner ── -->
+    <div style="background:var(--sky-dark);border-radius:8px;padding:22px 26px;margin-bottom:32px;border-left:4px solid var(--gold);">
+      <div style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;opacity:.8;">Core Purpose</div>
+      <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:1.05rem;color:#e8dfc8;line-height:1.72;">
+        This app exists to help every person who reads the Book of Mormon to better understand the teachings, character, and Atonement of Jesus Christ — to live His commandments more faithfully and strengthen their personal testimony of Him.
+      </div>
+    </div>
+
+    <!-- ══ SECTION: ACCOUNT ══ -->
+    <div class="settings-section" id="acct-section">
+      <div class="settings-title">✦ Account</div>
+      <div id="account-area"></div>
+    </div>
+
+    <!-- ══ SECTION: APPEARANCE / THEMES ══ -->
+    <div class="settings-section">
+      <div class="settings-title">🎨 Website Appearance</div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Theme</div>
+          <div class="settings-sub">Choose a background style for the entire app</div>
+        </div>
+      </div>
+      <div class="theme-opts" style="margin-top:10px;margin-bottom:6px;">
+        <button class="theme-opt active" data-theme="parchment" onclick="setTheme('parchment',this)">📜 Parchment</button>
+        <button class="theme-opt" data-theme="sepia"     onclick="setTheme('sepia',this)">🟤 Sepia</button>
+        <button class="theme-opt" data-theme="white"     onclick="setTheme('white',this)">☀️ Light</button>
+        <button class="theme-opt" data-theme="dark"      onclick="setTheme('dark',this)">🌙 Dark</button>
+      </div>
+
+      <!-- Custom Background Color -->
+      <div class="settings-row" style="margin-top:12px;">
+        <div>
+          <div class="settings-label">Custom Background Color</div>
+          <div class="settings-sub">Override the theme background with any color you choose</div>
+        </div>
+        <div class="color-custom">
+          <label for="custom-bg">BG</label>
+          <input type="color" id="custom-bg" value="#f6f1e7"
+            oninput="setCustomBg(this.value); saveData();"
+            title="Custom background color">
+        </div>
+      </div>
+
+      <!-- Custom Text Color -->
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Custom Text Color</div>
+          <div class="settings-sub">Override the ink/text color used throughout the reader</div>
+        </div>
+        <div class="color-custom">
+          <label for="custom-text">Text</label>
+          <input type="color" id="custom-text" value="#18120a"
+            oninput="setCustomText(this.value); saveData();"
+            title="Custom text color">
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION: READER TEXT SIZE ══ -->
+    <div class="settings-section">
+      <div class="settings-title">📖 Reader Text</div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Scripture Font Size</div>
+          <div class="settings-sub">Adjust the size of the verse text in both reading panels</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="fbtn" onclick="changeFontSize(-0.05)" title="Decrease font size">A−</button>
+          <span id="font-size-display" style="font-family:'Cinzel',serif;font-size:.72rem;color:var(--ink-mid);min-width:38px;text-align:center;">1.02</span>
+          <button class="fbtn" onclick="changeFontSize(+0.05)" title="Increase font size">A+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION: HIGHLIGHT COLORS ══ -->
+    <div class="settings-section">
+      <div class="settings-title">🖊 Custom Highlight Colors</div>
+      <div style="font-family:'EB Garamond',serif;font-size:.88rem;color:var(--ink-light);font-style:italic;margin-bottom:14px;line-height:1.6;">
+        Customize each of the five highlight colors used when annotating scripture verses. Changes apply immediately to all existing highlights.
+      </div>
+
+      <!-- 5 color pickers in a responsive grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;">
+        <div style="background:var(--parchment-mid);border:1px solid var(--panel-border);border-radius:6px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="settings-label">Highlight 1</div>
+            <div class="settings-sub" style="margin-top:2px;">Yellow (default)</div>
+          </div>
+          <input type="color" id="hlc1" value="#ffd766"
+            style="width:36px;height:30px;border:1px solid var(--panel-border);border-radius:4px;cursor:pointer;padding:0;"
+            oninput="updateHLColor(1,this.value)" title="Highlight color 1">
+        </div>
+        <div style="background:var(--parchment-mid);border:1px solid var(--panel-border);border-radius:6px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="settings-label">Highlight 2</div>
+            <div class="settings-sub" style="margin-top:2px;">Green</div>
+          </div>
+          <input type="color" id="hlc2" value="#68d391"
+            style="width:36px;height:30px;border:1px solid var(--panel-border);border-radius:4px;cursor:pointer;padding:0;"
+            oninput="updateHLColor(2,this.value)" title="Highlight color 2">
+        </div>
+        <div style="background:var(--parchment-mid);border:1px solid var(--panel-border);border-radius:6px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="settings-label">Highlight 3</div>
+            <div class="settings-sub" style="margin-top:2px;">Blue</div>
+          </div>
+          <input type="color" id="hlc3" value="#63b3ed"
+            style="width:36px;height:30px;border:1px solid var(--panel-border);border-radius:4px;cursor:pointer;padding:0;"
+            oninput="updateHLColor(3,this.value)" title="Highlight color 3">
+        </div>
+        <div style="background:var(--parchment-mid);border:1px solid var(--panel-border);border-radius:6px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="settings-label">Highlight 4</div>
+            <div class="settings-sub" style="margin-top:2px;">Red / Pink</div>
+          </div>
+          <input type="color" id="hlc4" value="#fc8181"
+            style="width:36px;height:30px;border:1px solid var(--panel-border);border-radius:4px;cursor:pointer;padding:0;"
+            oninput="updateHLColor(4,this.value)" title="Highlight color 4">
+        </div>
+        <div style="background:var(--parchment-mid);border:1px solid var(--panel-border);border-radius:6px;padding:12px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div class="settings-label">Highlight 5</div>
+            <div class="settings-sub" style="margin-top:2px;">Purple</div>
+          </div>
+          <input type="color" id="hlc5" value="#d6bcfa"
+            style="width:36px;height:30px;border:1px solid var(--panel-border);border-radius:4px;cursor:pointer;padding:0;"
+            oninput="updateHLColor(5,this.value)" title="Highlight color 5">
+        </div>
+      </div>
+
+      <!-- Reset highlights to defaults -->
+      <div style="margin-top:14px;">
+        <button onclick="resetHighlightColors()"
+          style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.07em;padding:7px 16px;border-radius:4px;border:1px solid var(--panel-border);background:none;color:var(--ink-light);cursor:pointer;transition:all .15s;"
+          onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--accent)';"
+          onmouseout="this.style.borderColor='var(--panel-border)';this.style.color='var(--ink-light)';">
+          ↺ Reset All Highlights to Default
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ SECTION: DATA ══ -->
+    <div class="settings-section">
+      <div class="settings-title">💾 Data & Storage</div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Clear All Annotations</div>
+          <div class="settings-sub">Permanently removes all highlights and verse notes</div>
+        </div>
+        <button onclick="confirmClearAnnotations()"
+          style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.07em;padding:7px 14px;border-radius:4px;border:1px solid rgba(180,60,60,.4);background:none;color:#b04040;cursor:pointer;white-space:nowrap;">
+          Clear Annotations
+        </button>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Clear Journal</div>
+          <div class="settings-sub">Permanently removes all journal entries</div>
+        </div>
+        <button onclick="confirmClearJournal()"
+          style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.07em;padding:7px 14px;border-radius:4px;border:1px solid rgba(180,60,60,.4);background:none;color:#b04040;cursor:pointer;white-space:nowrap;">
+          Clear Journal
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ SECTION: ABOUT ══ -->
+    <div class="settings-section">
+      <div class="settings-title">ℹ️ About</div>
+      <div style="font-family:'EB Garamond',serif;font-size:.95rem;color:var(--ink-mid);line-height:1.75;padding:12px 0;">
+        <p style="margin-bottom:10px;">This is an independent, faith-promoting scripture study companion for the Book of Mormon. It is not affiliated with, endorsed by, or sponsored by The Church of Jesus Christ of Latter-day Saints.</p>
+        <p style="margin-bottom:10px;">All data — annotations, highlights, journal entries, and settings — is stored <em>locally in your browser</em> and never transmitted to any server.</p>
+        <p style="color:var(--ink-light);font-style:italic;font-size:.88rem;">Cross-references draw upon the Doctrine &amp; Covenants, Pearl of Great Price, Ethiopian Bible, and Preach My Gospel to enrich your study.</p>
+      </div>
+    </div>
+
+  </div><!-- /.settings-max -->
+</div><!-- /#page-settings -->
+
 <!-- ══════════════════════ VERSE NOTE MODAL ══════════════════════════ -->
 <div class="vnote-overlay" id="vnote-modal">
   <div class="vnote-dialog">
@@ -4216,7 +4400,31 @@ function showPage(id) {
   // Push to browser history (skipped during popstate handling)
   _pushHistory(id, id === 'reader' ? S.current : null);
   if (id === 'annotations') renderAnnotations();
-  if (id === 'settings') renderAccount();
+  if (id === 'settings') {
+    renderAccount();
+    // Sync font size display
+    const disp = document.getElementById('font-size-display');
+    if (disp) disp.textContent = S.fontSize.toFixed(2);
+    // Sync highlight color pickers from live S.hlColors
+    S.hlColors.forEach((rgba, i) => {
+      const m = rgba.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+      if (m) {
+        const hex = '#' + [m[1],m[2],m[3]].map(n => parseInt(n).toString(16).padStart(2,'0')).join('');
+        const inp = document.getElementById('hlc' + (i + 1));
+        if (inp) inp.value = hex;
+      }
+    });
+    // Sync theme active state
+    const themeName = S._themeName || 'parchment';
+    document.querySelectorAll('.theme-opt').forEach(t => t.classList.toggle('active', t.dataset.theme === themeName));
+    // Sync custom color inputs from current CSS vars
+    const bgInp = document.getElementById('custom-bg');
+    const txtInp = document.getElementById('custom-text');
+    const curBg  = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    const curTxt = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
+    if (bgInp  && /^#[0-9a-f]{6}$/i.test(curBg))  bgInp.value  = curBg;
+    if (txtInp && /^#[0-9a-f]{6}$/i.test(curTxt)) txtInp.value = curTxt;
+  }
   if (id === 'book-picker') {
     renderBookPicker();
   }
@@ -5431,6 +5639,54 @@ function adjustFont(d){
   saveData();
   document.querySelectorAll('.vtext').forEach(el => el.style.fontSize = S.fontSize + 'rem');
   document.querySelectorAll('#panel-modern .vtext').forEach(el => el.style.fontSize = S.fontSize + 'rem');
+}
+
+// ══ Settings helpers ══
+/** Alias so settings page A− / A+ buttons work */
+function changeFontSize(d) {
+  adjustFont(d > 0 ? 1 : -1);
+  // Update the font-size display in settings
+  const disp = document.getElementById('font-size-display');
+  if (disp) disp.textContent = S.fontSize.toFixed(2);
+}
+
+/** Reset all 5 highlight colors to their original defaults */
+const HL_DEFAULTS = [
+  'rgba(255,217,102,.65)',
+  'rgba(104,211,145,.55)',
+  'rgba(99,179,237,.55)',
+  'rgba(252,129,129,.55)',
+  'rgba(214,188,250,.65)'
+];
+const HL_HEX_DEFAULTS = ['#ffd766','#68d391','#63b3ed','#fc8181','#d6bcfa'];
+
+function resetHighlightColors() {
+  S.hlColors = HL_DEFAULTS.slice();
+  HL_HEX_DEFAULTS.forEach((hex, i) => {
+    const inp = document.getElementById('hlc' + (i + 1));
+    if (inp) inp.value = hex;
+  });
+  if (_annToolbar) { _annToolbar.remove(); _annToolbar = null; }
+  renderAll();
+  saveData();
+  showToast('Highlight colors reset to defaults.');
+}
+
+/** Confirm then wipe all annotations */
+function confirmClearAnnotations() {
+  if (!confirm('Clear ALL highlights and verse notes? This cannot be undone.')) return;
+  S.annotations = {};
+  saveData();
+  renderAll();
+  showToast('All annotations cleared.');
+}
+
+/** Confirm then wipe journal */
+function confirmClearJournal() {
+  if (!confirm('Delete ALL journal entries? This cannot be undone.')) return;
+  S.journal = [];
+  saveData();
+  showToast('Journal cleared.');
 }
 
 // ══════════════════════════ SEARCH ══════════════════════════
