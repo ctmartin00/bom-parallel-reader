@@ -38,7 +38,125 @@
 html{scroll-behavior:smooth}
 html,body{height:100%;overflow:hidden;}body{background:var(--bg);color:var(--text);font-family:'EB Garamond',Georgia,serif;height:100%;display:flex;flex-direction:column;transition:background .3s,color .3s;}
 
-/* ════════════════════ DICTIONARY PAGE ════════════════════ */
+/* ════════════════════ DC / PGP SECTION GRID PAGES ════════════════════ */
+#page-dc-grid, #page-pgp-grid {
+  background:var(--parchment);overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.sg-header {
+  position:sticky;top:0;z-index:10;
+  background:var(--sky-dark);border-bottom:2px solid var(--gold);
+  padding:0 16px;height:54px;
+  display:flex;align-items:center;gap:12px;flex-shrink:0;
+}
+.sg-back {
+  width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  background:rgba(196,154,60,.12);border:1px solid rgba(196,154,60,.3);border-radius:6px;
+  cursor:pointer;color:var(--gold-light);flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.sg-back svg{width:16px;height:16px;stroke:var(--gold-light);stroke-width:2.5;fill:none;}
+.sg-title {
+  font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;
+  color:var(--gold-light);letter-spacing:.06em;flex:1;
+}
+.sg-home-btn {
+  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;
+  padding:5px 10px;border:1px solid rgba(196,154,60,.3);border-radius:4px;
+  background:none;color:var(--divider);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;white-space:nowrap;
+}
+.sg-home-btn:hover{color:var(--gold-light);background:rgba(196,154,60,.1);}
+
+/* Book selector tabs (for PGP) */
+.sg-book-tabs {
+  display:flex;gap:0;border-bottom:2px solid var(--gold);background:var(--parchment-mid);
+  overflow-x:auto;scrollbar-width:none;flex-shrink:0;
+}
+.sg-book-tabs::-webkit-scrollbar{display:none;}
+.sg-book-tab {
+  font-family:'Cinzel',serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:9px 18px;cursor:pointer;border:none;
+  background:var(--parchment-mid);color:var(--ink-light);
+  border-bottom:2px solid transparent;margin-bottom:-2px;
+  transition:all .15s;white-space:nowrap;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.sg-book-tab:hover{color:var(--accent);}
+.sg-book-tab.active{color:var(--gold);background:var(--parchment);border-bottom-color:var(--gold);}
+
+/* Grid body */
+.sg-body {padding:18px 16px 60px;}
+.sg-section-label {
+  font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin:16px 0 10px;display:flex;align-items:center;gap:10px;
+}
+.sg-section-label::after{content:'';flex:1;height:1px;background:rgba(196,154,60,.2);}
+.sg-section-label:first-child{margin-top:0;}
+
+/* Section grid: dense number grid like Gospel Library */
+.sg-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:7px;
+  margin-bottom:4px;
+}
+@media(max-width:360px){.sg-grid{grid-template-columns:repeat(4,1fr);}}
+@media(min-width:500px){.sg-grid{grid-template-columns:repeat(7,1fr);}}
+@media(min-width:700px){.sg-grid{grid-template-columns:repeat(10,1fr);}}
+
+.sg-card {
+  aspect-ratio:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;border-radius:7px;
+  border:1.5px solid rgba(196,154,60,.28);
+  background:var(--surface-raised);
+  cursor:pointer;position:relative;
+  transition:transform .11s,box-shadow .11s,border-color .12s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  min-height:52px;
+}
+.sg-card:active{transform:scale(.93);}
+.sg-card:hover{border-color:var(--gold);box-shadow:0 2px 10px rgba(196,154,60,.15);}
+.sg-card.read{background:rgba(196,154,60,.18);border-color:var(--gold);}
+.sg-card.current{border-color:var(--accent);box-shadow:0 0 0 2px rgba(124,59,29,.22);}
+.sg-card-num {
+  font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;
+  color:var(--ink);line-height:1;
+}
+.sg-card.read .sg-card-num{color:var(--accent);}
+.sg-card-lbl {
+  font-family:'EB Garamond',serif;font-size:.52rem;
+  color:var(--ink-light);letter-spacing:.04em;text-transform:uppercase;
+}
+.sg-check {
+  position:absolute;top:3px;right:4px;
+  font-size:.55rem;color:var(--gold);line-height:1;
+}
+
+/* PGP chapter grid — fewer items, slightly larger */
+.sg-grid-pgp {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:4px;
+}
+@media(min-width:500px){.sg-grid-pgp{grid-template-columns:repeat(6,1fr);}}
+.sg-card-pgp {
+  aspect-ratio:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;border-radius:8px;
+  border:1.5px solid rgba(196,154,60,.28);
+  background:var(--surface-raised);
+  cursor:pointer;position:relative;
+  transition:transform .11s,box-shadow .11s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  min-height:60px;
+}
+.sg-card-pgp:active{transform:scale(.93);}
+.sg-card-pgp:hover{border-color:var(--gold);}
+.sg-card-pgp.read{background:rgba(196,154,60,.18);border-color:var(--gold);}
+.sg-card-pgp .sg-card-num{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:var(--ink);}
+.sg-card-pgp.read .sg-card-num{color:var(--accent);}
 #page-dict{background:var(--parchment);overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .dict-header{
   background:var(--sky-dark);
@@ -178,22 +296,195 @@ html,body{height:100%;overflow:hidden;}body{background:var(--bg);color:var(--tex
 .dict-cat-object{background:rgba(200,100,100,.1);color:#a04040;border:1px solid rgba(200,100,100,.3);}
 .dict-cat-term{background:rgba(160,100,200,.1);color:#7840a0;border:1px solid rgba(160,100,200,.3);}
 
-/* ── NAV ── */
-#gnav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;background:var(--sky-dark);border-bottom:2px solid var(--gold);display:flex;align-items:center;padding:0 16px;gap:10px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-#gnav::-webkit-scrollbar{display:none;}
+/* ══════════════════════ CLEAN NAV (v3.0) ══════════════════════ */
+#gnav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  height:52px;background:var(--sky-dark);
+  border-bottom:2px solid var(--gold);
+  display:flex;align-items:center;padding:0 14px;gap:8px;
+  -webkit-overflow-scrolling:touch;
+}
 #gnav>*{flex-shrink:0;}
-.nav-logo{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--gold-light);letter-spacing:.1em;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.nav-logo span{color:var(--divider);font-weight:400;font-size:.65rem;margin-left:6px;letter-spacing:.14em;}
-.nav-sep{width:1px;height:24px;background:rgba(196,154,60,.2);flex-shrink:0;}
-.ntab{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.08em;padding:8px 12px;min-height:40px;display:inline-flex;align-items:center;border-radius:3px;border:none;cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0;background:none;color:var(--divider);-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
-.ntab:hover{color:var(--gold-light);background:rgba(255,255,255,.06);}
-.ntab.active{color:var(--gold-light);background:rgba(196,154,60,.15);border-bottom:2px solid var(--gold);}
+
+/* Back button */
+.nav-back{
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  background:rgba(196,154,60,.12);border:1px solid rgba(196,154,60,.3);
+  border-radius:6px;cursor:pointer;color:var(--gold-light);
+  transition:all .15s;-webkit-tap-highlight-color:transparent;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.nav-back.visible{opacity:1;pointer-events:all;}
+.nav-back:hover{background:rgba(196,154,60,.22);}
+.nav-back svg{width:18px;height:18px;stroke:var(--gold-light);stroke-width:2.5;fill:none;}
+
+/* Logo / breadcrumb */
+.nav-logo{
+  font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;
+  color:var(--gold-light);letter-spacing:.08em;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:6px;
+}
+.nav-logo-icon{font-size:1rem;opacity:.8;}
+.nav-crumb{
+  font-family:'Cinzel',serif;font-size:.62rem;color:var(--divider);
+  letter-spacing:.12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:200px;
+}
+.nav-crumb-sep{color:rgba(196,154,60,.4);margin:0 2px;font-size:.75rem;}
+
+/* Spacer */
 .nav-spacer{flex:1;}
-.nav-user{font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold);letter-spacing:.08em;cursor:pointer;padding:4px 10px;border:1px solid rgba(196,154,60,.3);border-radius:3px;}
+
+/* Right side action buttons */
+.nav-action{
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.08em;
+  padding:6px 10px;border-radius:4px;border:none;cursor:pointer;
+  color:var(--divider);background:none;
+  transition:all .15s;-webkit-tap-highlight-color:transparent;
+  white-space:nowrap;
+}
+.nav-action:hover{color:var(--gold-light);background:rgba(255,255,255,.06);}
+.nav-action.active-pill{
+  background:rgba(196,154,60,.15);color:var(--gold-light);
+  border:1px solid rgba(196,154,60,.3);
+}
+
+/* Legacy support aliases */
+.nav-sep{width:1px;height:22px;background:rgba(196,154,60,.2);flex-shrink:0;}
+.ntab{display:none !important;} /* hide old tabs — replaced by home tiles */
+.nav-user{font-family:'Cinzel',serif;font-size:.6rem;color:var(--gold);letter-spacing:.06em;cursor:pointer;padding:5px 10px;border:1px solid rgba(196,154,60,.3);border-radius:4px;}
 .nav-user:hover{background:rgba(196,154,60,.1);}
 
+/* ══════════════════════ HOME DASHBOARD ══════════════════════ */
+#page-home{background:var(--parchment);overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+
+/* Dashboard hero — compact */
+.dash-hero{
+  background:var(--sky-dark);
+  padding:32px 24px 28px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.dash-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 50% 120%,rgba(196,154,60,.2) 0%,transparent 70%);
+}
+.dash-hero-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.dash-hero-eye{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;opacity:.75;}
+.dash-hero-title{font-family:'Cinzel',serif;font-size:clamp(1.4rem,5vw,2.2rem);font-weight:700;color:#fff;letter-spacing:.05em;margin-bottom:6px;}
+.dash-hero-sub{font-family:'Cinzel',serif;font-size:.75rem;color:var(--gold-light);letter-spacing:.12em;margin-bottom:20px;opacity:.8;}
+
+/* Verse of Day inline */
+.dash-votd{
+  background:rgba(255,255,255,.06);border:1px solid rgba(196,154,60,.25);
+  border-radius:8px;padding:16px 18px;margin:0 auto;max-width:560px;
+  cursor:pointer;transition:background .15s;
+}
+.dash-votd:hover{background:rgba(196,154,60,.1);}
+.dash-votd-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;color:var(--gold);margin-bottom:8px;text-transform:uppercase;}
+.dash-votd-text{font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;line-height:1.65;color:rgba(255,255,255,.85);margin-bottom:6px;}
+.dash-votd-ref{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;color:var(--gold-light);opacity:.7;}
+
+/* Continue reading bar */
+.dash-continue{
+  background:var(--parchment-mid);
+  border-bottom:1px solid var(--panel-border);
+  padding:14px 20px;
+  display:flex;align-items:center;gap:14px;
+  cursor:pointer;transition:background .15s;
+}
+.dash-continue:hover{background:var(--parchment-dark);}
+.dash-continue-left{flex:1;min-width:0;}
+.dash-continue-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
+.dash-continue-title{font-family:'EB Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dash-continue-btn{
+  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.08em;
+  padding:8px 16px;background:var(--accent);color:var(--gold-pale);
+  border:none;border-radius:4px;cursor:pointer;white-space:nowrap;
+  flex-shrink:0;
+}
+
+/* Section headers */
+.dash-section{padding:22px 18px 8px;}
+.dash-section-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.dash-section-label::after{content:'';flex:1;height:1px;background:rgba(196,154,60,.22);}
+
+/* Main scripture tile grid */
+.dash-scripture-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  padding:0 18px 8px;
+}
+@media(min-width:600px){.dash-scripture-grid{grid-template-columns:repeat(3,1fr);}}
+
+.dash-tile{
+  background:var(--sky-dark);
+  border:1px solid rgba(196,154,60,.25);
+  border-top:3px solid var(--gold);
+  border-radius:8px;
+  padding:18px 14px 16px;
+  cursor:pointer;
+  transition:transform .12s,box-shadow .12s,border-color .15s;
+  position:relative;overflow:hidden;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.dash-tile::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(196,154,60,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.dash-tile:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3);border-color:rgba(196,154,60,.5);}
+.dash-tile:active{transform:scale(.97);}
+.dash-tile-icon{font-size:1.6rem;margin-bottom:10px;display:block;}
+.dash-tile-title{font-family:'Cinzel',serif;font-size:.78rem;font-weight:700;color:var(--gold-light);letter-spacing:.06em;margin-bottom:4px;}
+.dash-tile-sub{font-family:'EB Garamond',serif;font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.4;}
+.dash-tile-badge{
+  position:absolute;top:10px;right:10px;
+  font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;
+  background:rgba(196,154,60,.2);color:var(--gold);
+  padding:2px 7px;border-radius:10px;border:1px solid rgba(196,154,60,.3);
+}
+.dash-tile-progress{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:rgba(255,255,255,.06);border-radius:0 0 8px 8px;overflow:hidden;
+}
+.dash-tile-progress-fill{
+  height:100%;background:var(--gold);transition:width .4s;
+}
+
+/* Tools row */
+.dash-tools-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
+  padding:0 18px 8px;
+}
+@media(min-width:500px){.dash-tools-grid{grid-template-columns:repeat(4,1fr);}}
+
+.dash-tool{
+  background:var(--parchment-mid);
+  border:1px solid var(--panel-border);
+  border-radius:6px;padding:14px 12px;
+  cursor:pointer;text-align:center;
+  transition:all .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.dash-tool:hover{background:var(--parchment-dark);border-color:var(--gold);}
+.dash-tool:active{transform:scale(.96);}
+.dash-tool-icon{font-size:1.3rem;display:block;margin-bottom:6px;}
+.dash-tool-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.07em;color:var(--accent);}
+
+/* Progress section */
+.dash-progress-section{padding:6px 18px 24px;}
+
+/* Footer */
+.dash-footer{
+  background:var(--sky-dark);border-top:1px solid rgba(196,154,60,.15);
+  text-align:center;padding:20px 24px;margin-top:8px;
+}
+.dash-footer-txt{font-family:'Cinzel',serif;font-size:.58rem;color:rgba(255,255,255,.25);letter-spacing:.08em;}
+
 /* ── PAGES ── */
-.page{display:none;position:fixed;top:54px;left:0;right:0;bottom:0;overflow:hidden;}
+.page{display:none;position:fixed;top:52px;left:0;right:0;bottom:0;overflow:hidden;}
 .page.active{display:block;}
 #page-reader.active{display:flex;flex-direction:column;}
 #page-tree.active{display:block;}
@@ -1422,120 +1713,139 @@ svg.leaflet-zoom-animated{will-change:transform}
 </style>
 <body>
 
-<!-- ══════════════════════ GLOBAL NAV ══════════════════════════ -->
+<!-- ══════════════════════ GLOBAL NAV (v3.0) ══════════════════════════ -->
 <nav id="gnav">
-  <div class="nav-logo" onclick="showPage('home')">Book of Mormon <span>Parallel Reader</span></div>
-  <div class="nav-sep"></div>
-  <button class="ntab active" id="tab-home" onclick="showPage('home')">⌂ Home</button>
-  <button class="ntab" id="tab-reader" onclick="onReaderTabClick()">📜 Book of Mormon</button>
-  <button class="ntab" id="tab-dc-nav" onclick="openDCReader()">⚡ D&amp;C</button>
-  <button class="ntab" id="tab-pgp-nav" onclick="openPGPReader()">✦ Pearl of Gt. Price</button>
-  <button class="ntab" id="tab-annotations" onclick="showPage('annotations')">🖊 Notes</button>
-  <button class="ntab" id="tab-tree" onclick="showPage('tree')">⏳ Timeline</button>
-  <button class="ntab" id="tab-studyhub" onclick="showPage('studyhub')">✦ Study Hub</button>
-  <button class="ntab" id="tab-dict" onclick="showPage('dict')">📖 Dictionary</button>
-  <button class="ntab" id="tab-settings" onclick="showPage('settings')">⚙ Settings</button>
+  <!-- Back button — shown when not on home -->
+  <button class="nav-back" id="nav-back-btn" onclick="navGoBack()" aria-label="Go back">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+
+  <!-- Logo — always present, taps home -->
+  <div class="nav-logo" onclick="showPage('home')">
+    <span class="nav-logo-icon">📜</span>Scripture Reader
+  </div>
+
+  <!-- Breadcrumb — shows current page context -->
+  <span class="nav-crumb-sep" id="nav-crumb-sep" style="display:none;">›</span>
+  <span class="nav-crumb" id="nav-crumb-label"></span>
+
   <div class="nav-spacer"></div>
+
+  <!-- Right side actions -->
+  <button class="nav-action" onclick="showPage('settings')" title="Settings">⚙</button>
   <div class="nav-user" id="nav-user-btn" onclick="showPage('settings')">Sign In</div>
 </nav>
 
-<!-- ══════════════════════ HOME PAGE ══════════════════════════ -->
+<!-- ══════════════════════ HOME DASHBOARD ══════════════════════════ -->
 <div class="page active" id="page-home">
-  <!-- ── JUMP BACK IN ── -->
-  <div id="jump-back-bar" onclick="jumpBackIn()">
-    <div class="jbb-inner">
+
+  <!-- Hero with Verse of Day -->
+  <div class="dash-hero">
+    <div class="dash-hero-inner">
+      <div class="dash-hero-eye">A Scripture Study Companion</div>
+      <div class="dash-hero-title">Scripture Reader</div>
+      <div class="dash-hero-sub">Parallel · Study · Annotate · Explore</div>
+      <!-- Verse of Day -->
+      <div class="dash-votd" onclick="goToVotd()">
+        <div class="dash-votd-label">✦ Verse of the Day</div>
+        <div class="dash-votd-text" id="votd-text">Loading…</div>
+        <div class="dash-votd-ref" id="votd-ref"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Continue Reading bar -->
+  <div class="dash-continue" id="jump-back-bar" onclick="jumpBackIn()">
+    <div class="dash-continue-left">
+      <div class="dash-continue-label">Continue Reading</div>
+      <div class="dash-continue-title" id="jbb-title">Loading…</div>
+    </div>
+    <button class="dash-continue-btn">Open →</button>
+  </div>
+
+  <!-- Scripture Library -->
+  <div class="dash-section">
+    <div class="dash-section-label">Scripture Library</div>
+  </div>
+  <div class="dash-scripture-grid">
+    <div class="dash-tile" onclick="onReaderTabClick()">
+      <span class="dash-tile-icon">📜</span>
+      <div class="dash-tile-title">Book of Mormon</div>
+      <div class="dash-tile-sub">Parallel reader with modern English</div>
+      <div class="dash-tile-progress"><div class="dash-tile-progress-fill" id="home-bom-bar" style="width:0%"></div></div>
+    </div>
+    <div class="dash-tile" onclick="openDCReader()">
+      <span class="dash-tile-icon">⚡</span>
+      <div class="dash-tile-title">Doctrine & Covenants</div>
+      <div class="dash-tile-sub">Revelations of the Restoration</div>
+      <div class="dash-tile-badge">D&C</div>
+    </div>
+    <div class="dash-tile" onclick="openPGPReader()">
+      <span class="dash-tile-icon">✦</span>
+      <div class="dash-tile-title">Pearl of Great Price</div>
+      <div class="dash-tile-sub">Moses · Abraham · JS History</div>
+      <div class="dash-tile-badge">PGP</div>
+    </div>
+  </div>
+
+  <!-- Study Tools -->
+  <div class="dash-section">
+    <div class="dash-section-label">Study Tools</div>
+  </div>
+  <div class="dash-tools-grid">
+    <div class="dash-tool" onclick="showPage('studyhub')">
+      <span class="dash-tool-icon">🔍</span>
+      <div class="dash-tool-label">Study Hub</div>
+    </div>
+    <div class="dash-tool" onclick="showPage('annotations')">
+      <span class="dash-tool-icon">🖊</span>
+      <div class="dash-tool-label">Notes & Highlights</div>
+    </div>
+    <div class="dash-tool" onclick="showPage('tree')">
+      <span class="dash-tool-icon">⏳</span>
+      <div class="dash-tool-label">Timeline</div>
+    </div>
+    <div class="dash-tool" onclick="showPage('dict')">
+      <span class="dash-tool-icon">📖</span>
+      <div class="dash-tool-label">Dictionary</div>
+    </div>
+  </div>
+
+  <!-- Reading Progress -->
+  <div class="dash-section">
+    <div class="dash-section-label">Reading Progress</div>
+  </div>
+  <div class="dash-progress-section">
+    <div id="prog-summary-bar" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
       <div>
-        <div class="jbb-label">Continue Reading</div>
-        <div class="jbb-title" id="jbb-title">Loading…</div>
+        <div class="progress-label" id="home-progress-label" style="margin-bottom:6px;">0 of 0 chapters completed</div>
+        <div class="progress-bar-wrap" style="width:220px;max-width:100%;"><div class="progress-bar-fill" id="home-progress-bar" style="width:0%"></div></div>
+        <div id="home-inprog-label" style="font-family:'Cinzel',serif;font-size:.56rem;color:rgba(196,154,60,.7);letter-spacing:.05em;margin-top:4px;min-height:14px;"></div>
       </div>
-      <button class="jbb-btn">Jump Back In →</button>
+      <button onclick="confirmRestartProgress()" style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;padding:7px 14px;border-radius:6px;border:1px solid rgba(180,60,60,.4);background:none;color:#b04040;cursor:pointer;white-space:nowrap;flex-shrink:0;">↺ Restart</button>
     </div>
-  </div>
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-eye" id="hero-eye">A Scripture Study Companion</div>
-      <div class="hero-title" id="hero-title">Book of Mormon</div>
-      <div class="hero-sub">Parallel Translation Reader</div>
-      <div class="hero-tag">"Read the scriptural text alongside a faithful modern English translation — verse by verse."</div>
-      <div class="hero-acts">
-        <button class="hbtn hbtn-p" onclick="onReaderTabClick()">Begin Reading</button>
-        <button id="hero-auth-btn" class="hbtn hbtn-auth" onclick="showPage('settings');setTimeout(()=>document.getElementById('acct-section')&&document.getElementById('acct-section').scrollIntoView({behavior:'smooth'}),80)">Sign In / Sign Up</button>
-        <button class="hbtn hbtn-s" onclick="document.getElementById('intro-anc').scrollIntoView({behavior:'smooth'})">Learn More ↓</button>
-      </div>
-    </div>
-  </div>
-  <div class="gold-rule"><span class="gold-rule-sym">✦</span></div>
-
-  <!-- ── VERSE OF THE DAY ── -->
-  <div class="votd-section">
-    <div class="votd-wrap" id="votd-card">
-      <div class="votd-eye">✦ Verse of the Day</div>
-      <div class="votd-text" id="votd-text">Loading…</div>
-      <div class="votd-ref" id="votd-ref"></div>
-      <button class="votd-read" onclick="goToVotd()">Read in Context →</button>
-    </div>
+    <div id="progress-table" style="margin-bottom:16px;"></div>
+    <div id="books-grid" style="display:none;"></div>
   </div>
 
-  <div class="hcontent">
-    <div style="margin-bottom:42px;">
-      <div class="sec-eye">Why This Tool Exists</div>
-      <div class="sec-title">Purpose of This Reader</div>
-      <div class="sec-body">
-        <p>This parallel reader places the canonical LDS text alongside a faithful modern English translation so that the meaning of every verse is immediately accessible to any reader, regardless of their familiarity with scriptural language.</p>
-        <p>Highlight verses, write annotations and personal notes, and keep a daily journal of your scripture study — all in one place.</p>
-      </div>
-      <div class="purpose-grid">
-        <div class="pcard"><div class="pcard-icon">📜</div><div class="pcard-title">Canonical Text</div><div class="pcard-text">The left panel shows the LDS scriptural text exactly as written.</div></div>
-        <div class="pcard"><div class="pcard-icon">📖</div><div class="pcard-title">Modern Translation</div><div class="pcard-text">The right panel gives a faithful word-for-word rendering in contemporary English.</div></div>
-        <div class="pcard"><div class="pcard-icon">🖊</div><div class="pcard-title">Annotations</div><div class="pcard-text">Highlight verses with color and add personal notes tied to each verse.</div></div>
-        <div class="pcard"><div class="pcard-icon">📓</div><div class="pcard-title">Daily Journal</div><div class="pcard-text">Keep a personal study journal with dated reflections and entries.</div></div>
-      </div>
-    </div>
-    <div style="margin-bottom:48px;" id="intro-anc">
-      <div class="sec-eye">About the Text</div>
-      <div class="sec-title">Introduction to the Book of Mormon</div>
-      <div class="intro-pull">"The Book of Mormon is a volume of holy scripture comparable to the Bible. It is a record of God's dealings with ancient inhabitants of the Americas and contains the fulness of the everlasting gospel."<div style="margin-top:9px;font-size:.8rem;opacity:.62;font-style:normal;letter-spacing:.06em;font-family:'Cinzel',serif;">— Introduction, The Book of Mormon</div></div>
-      <div class="sec-body">
-        <p>The Book of Mormon follows multiple narrative threads: the family of Lehi, who fled Jerusalem before its Babylonian conquest and sailed to the Americas; the civilizations their descendants built; the ministry of Jesus Christ among these people following his resurrection; and the final collapse of Nephite civilization, preserved by the prophet Mormon and his son Moroni.</p>
-      </div>
-    </div>
-    <div style="margin-bottom:48px;">
-      <div class="sec-eye">Contents</div>
-      <div class="sec-title">Reading Progress</div>
-
-      <!-- Summary bar -->
-      <div id="prog-summary-bar" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
-        <div>
-          <div class="progress-label" id="home-progress-label" style="margin-bottom:6px;">0 of 0 chapters completed</div>
-          <div class="progress-bar-wrap" style="width:220px;max-width:100%;"><div class="progress-bar-fill" id="home-progress-bar" style="width:0%"></div></div>
-          <div id="home-inprog-label" style="font-family:'Cinzel',serif;font-size:.56rem;color:rgba(196,154,60,.7);letter-spacing:.05em;margin-top:4px;min-height:14px;"></div>
-        </div>
-        <button onclick="confirmRestartProgress()"
-          style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;padding:7px 14px;border-radius:6px;border:1px solid rgba(180,60,60,.4);background:none;color:#b04040;cursor:pointer;white-space:nowrap;flex-shrink:0;">
-          ↺ Restart Study Plan
-        </button>
-      </div>
-
-      <!-- Per-book progress table -->
-      <div id="progress-table" style="margin-bottom:20px;"></div>
-      <div id="books-grid" style="display:none;"></div>
-    </div>
-    
+  <!-- About pull -->
+  <div style="margin:0 18px 24px;">
+    <div class="intro-pull">"The Book of Mormon is a volume of holy scripture comparable to the Bible. It contains the fulness of the everlasting gospel."<div style="margin-top:9px;font-size:.78rem;opacity:.62;font-style:normal;letter-spacing:.06em;font-family:'Cinzel',serif;">— Introduction, The Book of Mormon</div></div>
   </div>
 
-  <!-- Disclaimer -->
-  <div style="padding:20px 20px 40px;text-align:center;">
-    <p style="font-family:'EB Garamond',serif;font-size:.76rem;color:var(--ink-light);opacity:.65;line-height:1.6;max-width:400px;margin:0 auto;">
-      This app is an independent scripture study tool and is not affiliated with, endorsed by, or sponsored by The Church of Jesus Christ of Latter-day Saints.
-    </p>
+  <div class="dash-footer">
+    <div class="dash-footer-txt">Scripture Study Companion · Not an Official Church Publication</div>
   </div>
 </div><!-- /page-home -->
 
 <!-- ══════════════════════ FAMILY TREE PAGE ══════════════════════════ -->
 
 <div class="page" id="page-tree">
-  <!-- Sticky header with era filters -->
+  <!-- Sticky header with back + era filters -->
   <div class="ptl-hero">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <button onclick="navGoBack()" style="background:rgba(196,154,60,.12);border:1px solid rgba(196,154,60,.3);border-radius:6px;padding:6px 12px;color:var(--gold-light);font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.06em;cursor:pointer;">← Back</button>
+    </div>
     <div class="ptl-hero-title">⏳ Parallel Scripture Timeline</div>
     <div class="ptl-hero-sub">Creation to the Modern Restoration — four lanes of sacred history unfolding together</div>
     <div class="ptl-era-bar" id="ptl-era-bar">
@@ -1560,15 +1870,44 @@ svg.leaflet-zoom-animated{will-change:transform}
 
 </div><!-- /page-tree -->
 
-<!-- ══════════════════════ ORIGINAL HOME FOOTER ══════════════════════════ -->
-  <div class="hfooter"><div class="hfooter-txt">Book of Mormon Parallel Reader · For Study &amp; Comparison · Not an Official Church Publication</div></div>
-</div>
+<!-- ══════════════════════ D&C SECTION GRID ══════════════════════════ -->
+<div class="page" id="page-dc-grid">
+  <!-- Sticky header -->
+  <div class="sg-header">
+    <button class="sg-back" onclick="navGoBack()" aria-label="Back">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="sg-title">⚡ Doctrine &amp; Covenants</div>
+    <button class="sg-home-btn" onclick="showPage('home')">⌂ Home</button>
+  </div>
+  <!-- Grid body built by JS -->
+  <div class="sg-body" id="dc-grid-body"></div>
+</div><!-- /page-dc-grid -->
+
+<!-- ══════════════════════ PGP BOOK/CHAPTER GRID ══════════════════════════ -->
+<div class="page" id="page-pgp-grid">
+  <!-- Sticky header -->
+  <div class="sg-header">
+    <button class="sg-back" onclick="navGoBack()" aria-label="Back">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="sg-title">✦ Pearl of Great Price</div>
+    <button class="sg-home-btn" onclick="showPage('home')">⌂ Home</button>
+  </div>
+  <!-- Book tabs -->
+  <div class="sg-book-tabs" id="pgp-book-tabs"></div>
+  <!-- Chapter grid built by JS -->
+  <div class="sg-body" id="pgp-grid-body"></div>
+</div><!-- /page-pgp-grid -->
 
 <!-- ══════════════════════ READER PAGE ══════════════════════════ -->
 
 <!-- ── BOOK PICKER PAGE ── -->
 <div class="page" id="page-book-picker">
-  <div style="padding:24px 18px 60px;max-width:540px;margin:0 auto;width:100%;">
+  <div style="padding:16px 18px 60px;max-width:540px;margin:0 auto;width:100%;">
+    <button onclick="navGoBack()" style="display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--accent);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em;cursor:pointer;padding:0;margin-bottom:18px;">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Home
+    </button>
     <div class="sec-eye" style="margin-bottom:6px;font-size:.75rem;letter-spacing:.14em;">Scripture Study</div>
     <div class="sec-title" style="margin-bottom:24px;font-size:1.6rem;">Choose a Book</div>
     <div id="book-picker-list" style="display:flex;flex-direction:column;gap:12px;"></div>
@@ -1589,6 +1928,13 @@ svg.leaflet-zoom-animated{will-change:transform}
   </div>
 </div>
 <div class="page" id="page-reader">
+
+  <!-- ── Reader back/home bar ── -->
+  <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--sky-dark);border-bottom:1px solid rgba(196,154,60,.2);flex-shrink:0;">
+    <button onclick="navGoBack()" style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;padding:5px 10px;background:rgba(196,154,60,.12);border:1px solid rgba(196,154,60,.3);border-radius:5px;color:var(--gold-light);cursor:pointer;-webkit-tap-highlight-color:transparent;">← Back</button>
+    <button onclick="showPage('home')" style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;padding:5px 10px;background:none;border:1px solid rgba(196,154,60,.2);border-radius:5px;color:var(--divider);cursor:pointer;-webkit-tap-highlight-color:transparent;">⌂ Home</button>
+    <div style="flex:1;font-family:'Cinzel',serif;font-size:.58rem;color:var(--gold);opacity:.6;letter-spacing:.1em;text-align:right;" id="reader-location-badge"></div>
+  </div>
 
   <!-- ── Scripture source tabs ── -->
   <div class="scripture-tabs">
@@ -1689,7 +2035,10 @@ svg.leaflet-zoom-animated{will-change:transform}
 <!-- ══════════════════════ ANNOTATIONS PAGE ══════════════════════════ -->
 <div class="page" id="page-annotations">
   <div style="max-width:860px;margin:0 auto;width:100%;">
-    <div class="ann-header">Study Notes &amp; Journal</div>
+    <div class="ann-header" style="display:flex;align-items:center;gap:12px;">
+      <button onclick="navGoBack()" style="background:none;border:none;color:var(--gold);font-size:1.1rem;cursor:pointer;flex-shrink:0;">←</button>
+      <span>Study Notes &amp; Journal</span>
+    </div>
     <div class="ann-tabs">
       <div class="ann-tab active" onclick="switchAnnTab('highlights')">🌟 Highlights &amp; Notes</div>
       <div class="ann-tab" onclick="switchAnnTab('journal')">📓 Daily Journal</div>
@@ -1728,8 +2077,11 @@ svg.leaflet-zoom-animated{will-change:transform}
 
   <div style="position:sticky; top:0; background:#0a1322; border-bottom:2px solid #c49a3c; padding:16px; margin:-20px -20px 0 -20px; z-index:10;">
 
-    <!-- Title -->
-    <div style="font-family:'Cinzel',serif; font-size:1.2rem; color:#e8c96a; text-align:center; margin-bottom:12px; letter-spacing:.08em;">✦ Study Hub</div>
+    <!-- Title row with back -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <button onclick="navGoBack()" style="background:rgba(196,154,60,.12);border:1px solid rgba(196,154,60,.3);border-radius:6px;padding:5px 10px;color:#e8c96a;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;cursor:pointer;">← Back</button>
+      <div style="font-family:'Cinzel',serif; font-size:1.1rem; color:#e8c96a; letter-spacing:.08em; flex:1; text-align:center;">✦ Study Hub</div>
+    </div>
 
     <!-- Search -->
     <input id="hub-search" type="text" placeholder="Search chapters, topics, cross-references…"
@@ -1769,6 +2121,12 @@ svg.leaflet-zoom-animated{will-change:transform}
 <!-- ══════════════════════ SETTINGS PAGE ══════════════════════════ -->
 <div class="page" id="page-settings">
   <div class="settings-max">
+    <!-- Back button -->
+    <div style="padding:12px 0 0;margin-bottom:8px;">
+      <button onclick="navGoBack()" style="display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--accent);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em;cursor:pointer;padding:0;">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Back
+      </button>
+    </div>
 
     <!-- ── App Purpose Banner ── -->
     <div style="background:var(--sky-dark);border-radius:8px;padding:22px 26px;margin-bottom:32px;border-left:4px solid var(--gold);">
@@ -1972,6 +2330,9 @@ svg.leaflet-zoom-animated{will-change:transform}
 <!-- ══════════════════════ DICTIONARY PAGE ══════════════════════ -->
 <div class="page" id="page-dict">
   <div class="dict-header">
+    <div style="display:flex;justify-content:flex-start;margin-bottom:12px;">
+      <button onclick="navGoBack()" style="background:rgba(196,154,60,.12);border:1px solid rgba(196,154,60,.3);border-radius:6px;padding:5px 12px;color:#e8c96a;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;cursor:pointer;">← Back</button>
+    </div>
     <div class="dict-header-eyebrow">Book of Mormon</div>
     <div class="dict-header-title">Scripture Dictionary</div>
     <div class="dict-header-sub">People, places, doctrines, and key terms of the Restoration</div>
@@ -5171,31 +5532,169 @@ function onReaderTabClick() {
 }
 
 function openDCReader() {
-  // Mark the DC nav tab active, deactivate reader tab
-  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('active'); });
-  var dcNavTab = document.getElementById('tab-dc-nav');
-  if (dcNavTab) dcNavTab.classList.add('active');
-  // Show the reader page then switch to D&C tab
-  var pg = document.getElementById('page-reader');
-  if (pg) {
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); p.style.display='none'; });
-    pg.classList.add('active');
-    pg.style.display = 'flex';
-  }
-  switchScriptureTab('dc');
+  // Show the section grid first
+  renderDCGrid();
+  showPage('dc-grid');
 }
 
 function openPGPReader() {
-  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('active'); });
-  var pgpNavTab = document.getElementById('tab-pgp-nav');
-  if (pgpNavTab) pgpNavTab.classList.add('active');
+  // Show the chapter grid first
+  renderPGPGrid();
+  showPage('pgp-grid');
+}
+
+/* ── Navigate directly to a D&C section from the grid ── */
+function openDCSection(sectionNum) {
+  // Switch reader to DC mode and load the section
   var pg = document.getElementById('page-reader');
-  if (pg) {
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); p.style.display='none'; });
-    pg.classList.add('active');
-    pg.style.display = 'flex';
-  }
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); p.style.display='none'; });
+  pg.classList.add('active');
+  pg.style.display = 'flex';
+  _navStack.push('reader');
+  _updateNavChrome('reader');
+  switchScriptureTab('dc');
+  // Set the section dropdown and trigger load
+  setTimeout(function() {
+    var sel = document.getElementById('dc-nav-section');
+    if (sel) {
+      sel.value = String(sectionNum);
+      onDCSectionChange();
+    }
+  }, 60);
+}
+
+/* ── Navigate directly to a PGP chapter from the grid ── */
+function openPGPChapter(book, chNum) {
+  var pg = document.getElementById('page-reader');
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); p.style.display='none'; });
+  pg.classList.add('active');
+  pg.style.display = 'flex';
+  _navStack.push('reader');
+  _updateNavChrome('reader');
   switchScriptureTab('pgp');
+  setTimeout(function() {
+    var bookSel = document.getElementById('pgp-nav-book');
+    if (bookSel) { bookSel.value = book; onPGPBookChange(); }
+    setTimeout(function() {
+      var chSel = document.getElementById('pgp-nav-chapter');
+      if (chSel) { chSel.value = String(chNum); onPGPChapterChange(); }
+    }, 80);
+  }, 60);
+}
+
+/* ══════════════════════ D&C SECTION GRID RENDERER ══════════════════════ */
+function renderDCGrid() {
+  var body = document.getElementById('dc-grid-body');
+  if (!body) return;
+
+  // Count how many sections exist
+  var maxSec = 138;
+  // Group sections into ranges for visual organization
+  var groups = [
+    { label: 'Sections 1–50',   from: 1,   to: 50  },
+    { label: 'Sections 51–100', from: 51,  to: 100 },
+    { label: 'Sections 101–138', from: 101, to: 138 },
+  ];
+
+  // Detect read sections from progress (BOM progress keys won't match, but we try)
+  var readSections = {};
+  // Also track current section if in DC mode
+  var curSec = null;
+  if (typeof S_TAB !== 'undefined' && S_TAB === 'dc') {
+    var dcSel = document.getElementById('dc-nav-section');
+    if (dcSel && dcSel.value) curSec = parseInt(dcSel.value);
+  }
+
+  var html = '';
+  groups.forEach(function(g) {
+    html += '<div class="sg-section-label">' + g.label + '</div>';
+    html += '<div class="sg-grid">';
+    for (var i = g.from; i <= g.to; i++) {
+      var key = 'DC||' + i;
+      var exists = !!DC_SECTIONS[key];
+      var isCur  = (curSec === i);
+      var cls = 'sg-card';
+      if (isCur) cls += ' current';
+      if (!exists) cls += ' unavail';
+      var onclick = exists ? 'openDCSection(' + i + ')' : '';
+      html += '<div class="' + cls + '" ' + (onclick ? 'onclick="' + onclick + '"' : '') + '>';
+      html += '<div class="sg-card-num">' + i + '</div>';
+      if (isCur) html += '<div class="sg-check">▶</div>';
+      html += '</div>';
+    }
+    // Declarations / Official
+    html += '</div>';
+  });
+
+  // Add Official Declarations
+  html += '<div class="sg-section-label">Official Declarations</div>';
+  html += '<div class="sg-grid">';
+  ['OD 1','OD 2'].forEach(function(od, idx) {
+    html += '<div class="sg-card" onclick="openDCSection(\'od' + (idx+1) + '\')" style="min-height:52px;">';
+    html += '<div class="sg-card-num" style="font-size:.6rem;text-align:center;padding:0 2px;">' + od + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  body.innerHTML = html;
+}
+
+/* ══════════════════════ PGP GRID RENDERER ══════════════════════ */
+var _pgpActiveBook = 'Moses';
+var PGP_BOOKS_CONFIG = [
+  { key: 'Moses',    label: 'Moses',         chapters: 8,  icon: '🌿' },
+  { key: 'Abraham',  label: 'Abraham',        chapters: 5,  icon: '⭐' },
+  { key: 'JS-M',     label: 'JS—Matthew',    chapters: 1,  icon: '✝' },
+  { key: 'JS-H',     label: 'JS—History',    chapters: 1,  icon: '📜' },
+  { key: 'AoF',      label: 'Articles of Faith', chapters: 1, icon: '✦' },
+];
+
+function renderPGPGrid() {
+  var tabsEl = document.getElementById('pgp-book-tabs');
+  var body   = document.getElementById('pgp-grid-body');
+  if (!tabsEl || !body) return;
+
+  // Render book tabs
+  var tabsHtml = '';
+  PGP_BOOKS_CONFIG.forEach(function(bk) {
+    var active = (bk.key === _pgpActiveBook) ? ' active' : '';
+    tabsHtml += '<button class="sg-book-tab' + active + '" onclick="switchPGPGridBook(\'' + bk.key + '\')">' + bk.icon + ' ' + bk.label + '</button>';
+  });
+  tabsEl.innerHTML = tabsHtml;
+
+  // Render chapter grid for active book
+  renderPGPGridChapters(_pgpActiveBook, body);
+}
+
+function switchPGPGridBook(bookKey) {
+  _pgpActiveBook = bookKey;
+  // Update tab active states
+  document.querySelectorAll('.sg-book-tab').forEach(function(t, i) {
+    t.classList.toggle('active', PGP_BOOKS_CONFIG[i] && PGP_BOOKS_CONFIG[i].key === bookKey);
+  });
+  var body = document.getElementById('pgp-grid-body');
+  if (body) renderPGPGridChapters(bookKey, body);
+}
+
+function renderPGPGridChapters(bookKey, body) {
+  var bkConf = PGP_BOOKS_CONFIG.find(function(b){ return b.key === bookKey; });
+  if (!bkConf) { body.innerHTML = '<p style="padding:20px;color:var(--ink-light);font-style:italic;">Coming soon.</p>'; return; }
+
+  var html = '<div class="sg-section-label">' + bkConf.label + ' — ' + bkConf.chapters + (bkConf.chapters === 1 ? ' Chapter' : ' Chapters') + '</div>';
+  html += '<div class="sg-grid-pgp">';
+  for (var i = 1; i <= bkConf.chapters; i++) {
+    var key = bookKey + '||' + i;
+    var exists = !!(typeof PGP_CHAPTERS !== 'undefined' && PGP_CHAPTERS[key]);
+    var cls = 'sg-card-pgp';
+    if (!exists) cls += ' unavail';
+    var onclick = exists ? 'openPGPChapter(\'' + bookKey + '\',' + i + ')' : '';
+    html += '<div class="' + cls + '" ' + (onclick ? 'onclick="' + onclick + '"' : '') + '>';
+    html += '<div class="sg-card-num">' + i + '</div>';
+    html += '<div class="sg-card-lbl">Ch ' + i + '</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+  body.innerHTML = html;
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -5332,6 +5831,48 @@ window.addEventListener('popstate', function(e) {
   _historyNavigating = false;
 });
 
+/* ── Nav back-stack for back button ── */
+var _navStack = [];
+var _navCrumbs = {
+  'home':        { label: '', back: null },
+  'book-picker': { label: 'Book of Mormon', back: 'home' },
+  'chapter-grid':{ label: null /* set dynamically */, back: 'book-picker' },
+  'reader':      { label: 'Reader', back: 'home' },
+  'dc-grid':     { label: 'Doctrine & Covenants', back: 'home' },
+  'pgp-grid':    { label: 'Pearl of Great Price', back: 'home' },
+  'annotations': { label: 'Notes & Highlights', back: 'home' },
+  'tree':        { label: 'Timeline', back: 'home' },
+  'studyhub':    { label: 'Study Hub', back: 'home' },
+  'dict':        { label: 'Dictionary', back: 'home' },
+  'settings':    { label: 'Settings', back: 'home' },
+  'deepdive':    { label: 'Deep Dive', back: 'studyhub' },
+};
+
+function _updateNavChrome(id) {
+  const backBtn = document.getElementById('nav-back-btn');
+  const crumbEl = document.getElementById('nav-crumb-label');
+  const sepEl   = document.getElementById('nav-crumb-sep');
+  const info    = _navCrumbs[id] || { label: id, back: 'home' };
+  const showBack = (id !== 'home');
+  if (backBtn) backBtn.classList.toggle('visible', showBack);
+  const crumbText = info.label || '';
+  if (crumbEl) crumbEl.textContent = crumbText;
+  if (sepEl)   sepEl.style.display = crumbText ? '' : 'none';
+}
+
+function navGoBack() {
+  // Pop the stack — if we know where to go, go there; else fall back to home
+  if (_navStack.length >= 2) {
+    _navStack.pop(); // remove current
+    const prev = _navStack[_navStack.length - 1];
+    _navStack.pop(); // showPage will push it again
+    showPage(prev);
+  } else {
+    _navStack = [];
+    showPage('home');
+  }
+}
+
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => {
     p.classList.remove('active');
@@ -5345,6 +5886,10 @@ function showPage(id) {
   pg.style.display = flexPages.includes(id) ? 'flex' : 'block';
   const tab = document.getElementById('tab-'+id);
   if (tab) tab.classList.add('active');
+  // Nav chrome
+  if (id === 'home') _navStack = ['home'];
+  else { _navStack.push(id); }
+  _updateNavChrome(id);
   // Push to browser history (skipped during popstate handling)
   _pushHistory(id, id === 'reader' ? S.current : null);
   if (id === 'annotations') renderAnnotations();
@@ -5387,6 +5932,8 @@ function showPage(id) {
   if (id === 'dict') { initDict(); }
   if (id === 'studyhub') { setTimeout(loadStudyHub, 30); }
   if (id === 'deepdive') { /* pre-filled by deepDive() */ }
+  if (id === 'dc-grid') { renderDCGrid(); }
+  if (id === 'pgp-grid') { renderPGPGrid(); }
 }
 
 // ══════════════════════════ BOOK DROPDOWNS ══════════════════════════
