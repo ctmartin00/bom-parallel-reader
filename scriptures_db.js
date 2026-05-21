@@ -2337,4 +2337,1036 @@ window.SCRIPTURE_DATA.DICT_ENTRIES = [
   {term:'Zeram',cat:'person',pronoun:'ZEE-rum',def:'One of the Nephite military commanders mentioned briefly in Alma\'s war narrative. He is among the officers who served under Captain Moroni in the great wars, representing the many named but briefly described figures who populate the Book of Mormon\'s historical record.',refs:['Alma 16']},
   {term:'Ziff',cat:'object',pronoun:'ZIF',def:'A metal mentioned in Mosiah 11:3 among the precious materials used by the wicked King Noah to adorn his buildings — along with gold, silver, copper, iron, brass, and wood. Ziff is not identified elsewhere in scripture and has not been definitively identified with any known material. Its inclusion in a realistic metals list is considered one of the incidental historical details that support the book\'s ancient setting.',refs:['Mosiah 11']}
 ];
+// ============================================================
+// PEARL OF GREAT PRICE — STUDY HELPS DATA
+// Moses Chapters 1–8
+// Cross-referenced with Preach My Gospel & Ethiopian Bible
+// ============================================================
+
+const pogpStudyHelps = {
+
+  // ── MOSES ──────────────────────────────────────────────────
+
+  "moses-1": {
+    title: "Moses, Chapter 1",
+    subtitle: "The Vision of Moses",
+    summary: "God reveals Himself to Moses face to face, declaring Moses to be His son and a chosen vessel. Satan attempts to deceive Moses after the vision, but Moses, strengthened by his knowledge of God, rebukes him. Moses then receives a grand vision of all of God's creations and learns that Jesus Christ is the central figure of God's work.",
+    themes: [
+      "The divine identity and worth of every child of God",
+      "God's infinite creations and eternal purposes",
+      "Satan's deception vs. the peace of the Holy Ghost",
+      "Jesus Christ as the Only Begotten, through whom God's work is done",
+      "The calling and mission of prophets",
+      "Spiritual discernment and the power of testimony"
+    ],
+    notableVerses: [
+      {
+        ref: "Moses 1:6",
+        text: "\"And I have a work for thee, Moses, my son; and thou art in the similitude of mine Only Begotten.\"",
+        note: "God reveals Moses's divine identity and mission. Every person is similarly known and called by God."
+      },
+      {
+        ref: "Moses 1:10",
+        text: "\"Now, for this cause I know that man is nothing, which thing I never had supposed.\"",
+        note: "Moses gains eternal perspective — not that man is worthless, but that God's greatness is incomprehensible."
+      },
+      {
+        ref: "Moses 1:39",
+        text: "\"For behold, this is my work and my glory — to bring to pass the immortality and eternal life of man.\"",
+        note: "God's entire purpose centers on the salvation of His children through Jesus Christ. This is the foundation of Preach My Gospel's message."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["1 Nephi 11:17", "2 Nephi 9:41"],
+        note: "Nephi's vision parallels Moses's — both are shown the purposes of God and the centrality of Christ."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Chapter 3 – Plan of Salvation"],
+        note: "Moses 1:39 is the doctrinal foundation for why God sent His Son — our immortality and eternal life are His glory."
+      },
+      {
+        label: "Ethiopian Bible — 1 Enoch 48",
+        refs: ["1 Enoch 48:2–5"],
+        note: "As in Moses's vision, the Son of Man (Christ) is described in 1 Enoch as chosen before creation, a 'staff to the righteous,' and 'the light of the Gentiles' — affirming Christ's premortal role across ancient traditions."
+      }
+    ],
+    questions: [
+      "**How does knowing you are a 'son' or 'daughter' of God change the way you see yourself and the choices you make today?**",
+      "**Moses was able to resist Satan because he knew who he was. What gospel truths anchor your identity when you face doubt or temptation?**",
+      "**God told Moses He had a 'work' for him. How are you discovering and fulfilling the work God has for you in this season of your life?**",
+      "**Moses 1:39 teaches that God's glory is our eternal life. How does that truth motivate you to keep covenants even when it is hard?**"
+    ]
+  },
+
+  "moses-2": {
+    title: "Moses, Chapter 2",
+    subtitle: "The Creation",
+    summary: "God, through Jesus Christ, creates the heavens and the earth, organizing light, land, sea, vegetation, and living creatures. This account emphasizes that all things were created spiritually before they were naturally and that Christ is the divine executor of the Father's creative work.",
+    themes: [
+      "Christ as the Creator, acting under the Father's direction",
+      "Order, beauty, and intentionality in God's creations",
+      "The doctrine of spiritual creation preceding physical creation",
+      "Mankind as the crown of God's creative work",
+      "God's declaration that His creations are 'good'",
+      "The eternal pattern of divine planning"
+    ],
+    notableVerses: [
+      {
+        ref: "Moses 2:1",
+        text: "\"And I, God, said: Let there be light; and there was light.\"",
+        note: "Christ (Jehovah) speaks at the Father's command. All creative power flows through the Son."
+      },
+      {
+        ref: "Moses 2:26–27",
+        text: "\"And I, God, said unto mine Only Begotten, which was with me from the beginning: Let us make man in our image...\"",
+        note: "Confirms the separate, corporeal nature of the Father and Son — both present at the Creation."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["2 Nephi 2:14", "Jacob 4:9"],
+        note: "Jacob teaches that God created the earth by the power of His word — consistent with the Moses account."
+      },
+      {
+        label: "Ethiopian Bible — Book of Jubilees 2",
+        refs: ["Jubilees 2:1–16"],
+        note: "The Book of Jubilees retells creation as a series of divinely ordered acts, emphasizing the Sabbath as a holy covenant between God and His people — directly paralleling the structure of Moses 2–3."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 2 – Plan of Salvation"],
+        note: "We are literal spirit children of Heavenly Father — this chapter grounds that truth in our divine origins at the Creation."
+      }
+    ],
+    questions: [
+      "**When you observe the natural world, what does the Creation teach you about the character and love of Jesus Christ?**",
+      "**You were created in the image of God. How does that truth affect how you treat yourself and others?**",
+      "**God called each part of His creation 'good.' What in your life has God placed there that you may be undervaluing?**"
+    ]
+  },
+
+  "moses-3": {
+    title: "Moses, Chapter 3",
+    subtitle: "The Spiritual Creation & The Garden",
+    summary: "God reveals to Moses that all things were first created spiritually before they were physically formed. Adam is placed in the Garden of Eden, and God declares it is not good for man to be alone, leading to the creation of Eve. This chapter establishes the eternal pattern of spirit preceding matter and the divine institution of marriage.",
+    themes: [
+      "Spiritual creation precedes physical existence",
+      "The doctrine of the spirit body",
+      "The divine origin and sanctity of marriage",
+      "Adam and Eve as literal progenitors of the human family",
+      "God's provision and care for His children",
+      "The eternal importance of companionship and covenant partnership"
+    ],
+    notableVerses: [
+      {
+        ref: "Moses 3:5",
+        text: "\"For I, the Lord God, created all things, of which I have spoken, spiritually, before they were naturally upon the face of the earth.\"",
+        note: "A uniquely restored truth — our spirits are eternal. This grounds the Plan of Salvation's premortal life doctrine."
+      },
+      {
+        ref: "Moses 3:24",
+        text: "\"Therefore shall a man leave his father and his mother, and shall cleave unto his wife; and they shall be one flesh.\"",
+        note: "God ordained marriage from the very beginning. This is not a human tradition but a divine institution."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["2 Nephi 2:22–25", "Alma 42:2–5"],
+        note: "Lehi and Alma both reflect on the Garden experience to explain moral agency and the Fall's role in God's plan."
+      },
+      {
+        label: "Ethiopian Bible — Book of Jubilees 3",
+        refs: ["Jubilees 3:1–14"],
+        note: "Jubilees expands on the Garden narrative, describing Adam's solitude and Eve's creation with similar reverence, and emphasizing the sacred bond between husband and wife."
+      }
+    ],
+    questions: [
+      "**Knowing your spirit was created before your body, how does that change your understanding of who you truly are?**",
+      "**God said it was not good for man to be alone. How are you investing in righteous relationships that strengthen your discipleship?**",
+      "**What does God's careful preparation of the Garden teach you about how He prepares the way for you in your own life?**"
+    ]
+  },
+
+  "moses-4": {
+    title: "Moses, Chapter 4",
+    subtitle: "The Fall of Adam and Eve",
+    summary: "Satan, cast out of heaven for rebellion, enters the Garden and tempts Eve. Both Adam and Eve partake of the forbidden fruit, and the Fall takes place — a necessary part of God's eternal plan. God pronounces consequences but also offers the first messianic prophecy, pointing forward to Christ's redemption.",
+    themes: [
+      "Satan's rebellion and deceptive tactics",
+      "The necessity and purpose of the Fall",
+      "Moral agency — the power to choose",
+      "The first messianic prophecy (the seed of the woman)",
+      "God's mercy in pronouncing judgment",
+      "How the Fall and Atonement are inseparably linked"
+    ],
+    notableVerses: [
+      {
+        ref: "Moses 4:1–2",
+        text: "\"That which is evil...\" — Satan's prideful proposal vs. Christ's submissive \"Thy will be done.\"",
+        note: "The contrast between Satan and Christ captures the entire moral universe: self-will vs. consecration."
+      },
+      {
+        ref: "Moses 4:21",
+        text: "\"And I will put enmity between thee and the woman, between thy seed and her seed.\"",
+        note: "The proto-evangelium — the first promise of Christ's victory over Satan, embedded in the very moment of the Fall."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["2 Nephi 2:11–16", "2 Nephi 2:25"],
+        note: "Lehi's masterful sermon on opposition and the Fall shows the Fall was a necessary step for joy and eternal life, not a tragic mistake."
+      },
+      {
+        label: "Ethiopian Bible — 2 Enoch 30–31",
+        refs: ["2 Enoch 30:14–31:6"],
+        note: "The Second Book of Enoch describes how God placed Adam in Paradise and gave him knowledge, warning against transgression — underscoring the gravity of moral choice and the foreknowledge of God."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 2 – The Plan of Salvation"],
+        note: "The Fall introduced physical and spiritual death. The Atonement of Jesus Christ overcomes both — this chapter is the doctrinal hinge between creation and redemption."
+      }
+    ],
+    questions: [
+      "**How has understanding the Fall as a necessary part of God's plan — not a mistake — changed how you see trials and opposition in your life?**",
+      "**Satan's tactic was to make Eve 'see' things differently. How do you guard against subtle deceptions that make wrong things look appealing?**",
+      "**The first messianic promise came in the very moment of the Fall. What does that teach you about how quickly God extends mercy?**",
+      "**How does Lehi's teaching that 'Adam fell that men might be; and men are, that they might have joy' (2 Nephi 2:25) help you embrace your mortal experience?**"
+    ]
+  },
+
+  "moses-5": {
+    title: "Moses, Chapter 5",
+    subtitle: "Adam and Eve Begin Their Family; Cain and Abel",
+    summary: "Adam and Eve leave the Garden, offer sacrifices, and are taught the gospel of Jesus Christ by angels and the Holy Ghost. They rejoice in the Atonement. Cain rejects God, makes a covenant with Satan, and murders Abel. Secret combinations spread wickedness among Adam's descendants, showing the stark contrast between those who follow Christ and those who follow Satan.",
+    themes: [
+      "The gospel taught from the very beginning: faith, repentance, baptism, Holy Ghost",
+      "Adam and Eve's joy in understanding the Atonement",
+      "Consecration and sacrifice as worship",
+      "Agency and its eternal consequences",
+      "Secret combinations as Satan's counterfeit to covenant society",
+      "The first family as a model of gospel teaching in the home"
+    ],
+    notableVerses: [
+      {
+        ref: "Moses 5:10–11",
+        text: "Adam: 'Blessed be the name of God...' Eve: 'Were it not for our transgression we never should have had seed...'",
+        note: "Adam and Eve's testimonies are among the most beautiful in scripture — full of gratitude for the Fall and joy in Christ's redemption."
+      },
+      {
+        ref: "Moses 5:58–59",
+        text: "The gospel preached from the beginning — 'that they should repent and call upon God in the name of the Son forevermore.'",
+        note: "The same gospel taught by missionaries today is the same gospel given to Adam and Eve. Truth is eternal."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["2 Nephi 2:26", "Alma 12:28–30"],
+        note: "Alma teaches that the plan of redemption was prepared from the foundation of the world — Moses 5 shows it being taught in the first generation of mankind."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 1 – The Restoration", "Lesson 3 – Gospel of Jesus Christ"],
+        note: "Faith, repentance, baptism, and the Holy Ghost — these are not new inventions. Adam and Eve were the first taught these eternal principles."
+      }
+    ],
+    questions: [
+      "**Adam and Eve taught the gospel to their children, but 'they believed it not.' How do you keep sharing truth even when people you love don't immediately receive it?**",
+      "**Eve said she rejoiced in the transgression because of what came after. How do you find redemptive meaning in your own hard experiences?**",
+      "**Cain's downfall began with rejecting God's counsel. What are you doing today to stay spiritually listening and obedient?**"
+    ]
+  },
+
+  "moses-6": {
+    title: "Moses, Chapter 6",
+    subtitle: "Enoch's Call and the Doctrine of Christ",
+    summary: "A genealogy from Adam to Enoch is given, and Enoch is called by God despite feeling weak and slow of speech. Enoch receives a stunning doctrinal sermon from God on the nature of man, the fall, baptism, the Holy Ghost, and the Atonement — one of the most comprehensive doctrinal passages in all scripture. Enoch is filled with the Spirit and begins his ministry.",
+    themes: [
+      "God calls the weak and simple to His work",
+      "The doctrine of Christ taught in its fulness",
+      "Baptism as the gate to salvation",
+      "The role of the Holy Ghost as the Comforter and sanctifier",
+      "The nature of man: fallen yet redeemable",
+      "The record-keeping tradition from Adam"
+    ],
+    notableVerses: [
+      {
+        ref: "Moses 6:26",
+        text: "\"Why is it that I have found favor in thy sight, and am but a lad, and all the people hate me; for I am slow of speech.\"",
+        note: "Enoch's insecurity mirrors Moses's own — and God's response is always the same: I will be with you."
+      },
+      {
+        ref: "Moses 6:57–59",
+        text: "\"Inasmuch as ye were born into the world by water, and blood, and the spirit... ye must be born again...\"",
+        note: "God teaches Enoch the doctrine of rebirth — one of the most complete statements of the born-again doctrine in scripture."
+      },
+      {
+        ref: "Moses 6:62",
+        text: "\"...This is the plan of salvation unto all men, through the blood of mine Only Begotten...\"",
+        note: "The Atonement is the center of the plan. Every ordinance, covenant, and commandment points here."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["Mosiah 27:25–26", "3 Nephi 11:31–38"],
+        note: "Alma's and Christ's teachings on being 'born again' echo the doctrine taught to Enoch — these are eternal, unchanging gospel truths."
+      },
+      {
+        label: "Ethiopian Bible — 1 Enoch 1, 37–71",
+        refs: ["1 Enoch 1:1–9", "1 Enoch 71:14–17"],
+        note: "The Ethiopian Book of Enoch portrays Enoch as a righteous seer who walked with God, received heavenly visions, and was translated — fully consistent with and enriching Moses 6–7's portrait of Enoch's call and ministry."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 3 – The Gospel of Jesus Christ"],
+        note: "Faith, repentance, baptism, and the Holy Ghost — Moses 6 is the doctrinal root of all four. The same message Enoch preached is the message missionaries take to the world today."
+      }
+    ],
+    questions: [
+      "**Enoch felt unqualified for his calling. When has God called you to something beyond your natural abilities, and what happened when you trusted Him?**",
+      "**Moses 6:57–59 describes being 'born again' — of water, blood, and Spirit. How have you experienced spiritual rebirth in your life?**",
+      "**God's plan was taught to Adam and has been taught in every dispensation. How does that continuity strengthen your testimony that the restored gospel is true?**",
+      "**What would change in your daily life if you meditated on Moses 6:62 — that the entire plan of salvation flows through the Atonement of Jesus Christ?**"
+    ]
+  },
+
+  "moses-7": {
+    title: "Moses, Chapter 7",
+    subtitle: "The City of Zion; Enoch's Vision of Christ",
+    summary: "Enoch's mighty ministry results in a community of pure-hearted believers who are taken up to God — the City of Zion. Enoch then sees a sweeping vision of history: the Flood, the Atonement, the Spirit World, the Resurrection, and the Second Coming. Most movingly, Enoch sees God weep over the wickedness of His children. This chapter contains some of scripture's most sublime theology.",
+    themes: [
+      "Zion as the ideal covenant community: one heart, one mind",
+      "God's love and sorrow for His wayward children",
+      "The Atonement seen from heaven's perspective",
+      "The Resurrection and redemption of the dead",
+      "The Second Coming as the fulfillment of Enoch's vision",
+      "The power of sustained righteousness over generations"
+    ],
+    notableVerses: [
+      {
+        ref: "Moses 7:18",
+        text: "\"And the Lord called his people Zion, because they were of one heart and one mind, and dwelt in righteousness; and there was no poor among them.\"",
+        note: "The definition of Zion — not a place but a people. Unity, righteousness, and economic equality are its marks."
+      },
+      {
+        ref: "Moses 7:28–29",
+        text: "\"And it came to pass that the God of heaven looked upon the residue of the people, and he wept.\"",
+        note: "God weeps. This is one of scripture's most profound revelations of divine love — God is not distant or indifferent to suffering."
+      },
+      {
+        ref: "Moses 7:47",
+        text: "Enoch sees the Crucifixion: 'the Lord should come in the meridian of time, in the days of wickedness and vengeance.'",
+        note: "Enoch weeps at the sight of the Savior's suffering. His grief and joy mirror the Father's own."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["4 Nephi 1:2–3", "3 Nephi 26:19–21"],
+        note: "The Nephite Zion after Christ's appearance matches Moses 7:18 exactly — one heart, one mind, no poor among them. Zion is achievable."
+      },
+      {
+        label: "Ethiopian Bible — 1 Enoch 9, 40, 47",
+        refs: ["1 Enoch 9:1–11", "1 Enoch 40:1–9", "1 Enoch 47:1–4"],
+        note: "First Enoch portrays the archangels carrying the prayers of the righteous before the Lord and describes the 'Head of Days' on His throne — images that parallel Enoch's vision of God's majesty and mercy in Moses 7."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 2 – Plan of Salvation"],
+        note: "Enoch's vision includes the Spirit World and the Resurrection — key elements of the Plan of Salvation that missionaries teach today."
+      }
+    ],
+    questions: [
+      "**Moses 7:28 shows God weeping. How does knowing that God feels sorrow over suffering change your relationship with Him in your own pain?**",
+      "**What would need to change in your home, ward, or community to become more like Zion — 'one heart and one mind'?**",
+      "**Enoch pleaded for the descendants of Noah. Who in your life are you 'pleading before God' for in your prayers?**",
+      "**Enoch saw the Atonement from heaven. If you could see what was purchased for you on the cross, what would change about how you live?**"
+    ]
+  },
+
+  "moses-8": {
+    title: "Moses, Chapter 8",
+    subtitle: "Noah and the Flood",
+    summary: "Methuselah, Lamech, and Noah are introduced. Noah, a righteous man, preaches repentance while the earth fills with wickedness. The sons of God take the daughters of men, and the world becomes irredeemably corrupt. God commands Noah to build an ark. The Flood comes as a consequence of unrepentant sin — and as a mercy to spare Noah's righteous family.",
+    themes: [
+      "Righteousness in a wicked generation",
+      "The prophetic call to repentance",
+      "Consequences of sustained wickedness",
+      "Noah's faith and obedience in an impossible situation",
+      "God's mercy in preserving the righteous",
+      "The Flood as a type of baptism and new beginning"
+    ],
+    notableVerses: [
+      {
+        ref: "Moses 8:17",
+        text: "\"And God saw that the wickedness of men had become great in the earth; and every man was lifted up in the imagination of the thoughts of his heart, being only evil continually.\"",
+        note: "Wickedness is portrayed as the progressive hardening of the heart — a warning against gradual spiritual drift."
+      },
+      {
+        ref: "Moses 8:27",
+        text: "\"And thus Noah found grace in the eyes of the Lord; for Noah was a just man, and perfect in his generation; and he walked with God.\"",
+        note: "Noah's righteousness was not an accident — it was the fruit of choosing to 'walk with God' daily."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["Ether 6:7", "Helaman 8:18"],
+        note: "The Jaredite barges echo Noah's ark. Helaman cites Noah as a prophet of Christ, showing Noah's ministry had Christocentric purpose."
+      },
+      {
+        label: "Ethiopian Bible — 1 Enoch 65–67; Book of Jubilees 5–6",
+        refs: ["1 Enoch 65:1–67:13", "Jubilees 5:1–6:4"],
+        note: "Both Ethiopian texts expand dramatically on Noah's warning ministry, the angels' role in corrupting mankind, and God's covenant after the Flood — providing a richer backdrop for the world Moses 8 describes."
+      }
+    ],
+    questions: [
+      "**Noah preached for decades with virtually no success, yet remained faithful. What sustains your faithfulness when you feel like no one is listening?**",
+      "**The world in Noah's day grew corrupt gradually, not all at once. What spiritual habits protect you from gradual drift?**",
+      "**Noah 'walked with God' — a daily, relational description of discipleship. What does 'walking with God' look like in a practical sense for you today?**"
+    ]
+  },
+
+// ── ABRAHAM ────────────────────────────────────────────────
+
+  "abraham-1": {
+    title: "Abraham, Chapter 1",
+    subtitle: "Abraham's Early Life and Deliverance",
+    summary: "Abraham seeks the blessings of the priesthood and the right to administer its ordinances. He is nearly sacrificed by an idolatrous priest in Ur of the Chaldees but is delivered by the Angel of the Lord. The chapter establishes Abraham's deep desire for righteousness and covenant relationship with God, against a backdrop of idolatry and human sacrifice.",
+    themes: [
+      "The hunger for priesthood blessings and covenant relationship",
+      "Courage to stand against family and cultural idolatry",
+      "God's miraculous deliverance of the righteous",
+      "The Abrahamic covenant as a pattern for all God's children",
+      "Satan's counterfeit worship: human sacrifice vs. the true Atonement",
+      "The eternal record-keeping of God's dealings with His children"
+    ],
+    notableVerses: [
+      {
+        ref: "Abraham 1:2",
+        text: "\"And, finding there was greater happiness and peace and rest for me, I sought for the blessings of the fathers, and the right whereunto I should be ordained to administer the same.\"",
+        note: "Abraham's search is every seeker's search — for greater light, priesthood covenants, and peace with God."
+      },
+      {
+        ref: "Abraham 1:18",
+        text: "\"Behold, I will lead thee by my hand, and I will take thee, to put upon thee my name, even the Priesthood of thy father, and my power shall be over thee.\"",
+        note: "God's personal promise to Abraham — and a pattern of how God calls and equips each covenant servant."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["2 Nephi 29:14", "Jacob 5:2"],
+        note: "The covenant made with Abraham echoes throughout the Book of Mormon — it is the covenant framework that binds all of scripture together."
+      },
+      {
+        label: "Ethiopian Bible — Book of Jubilees 11–12",
+        refs: ["Jubilees 11:16–12:24"],
+        note: "The Book of Jubilees provides the richest ancient parallel to Abraham Chapter 1 — describing young Abram's rejection of idolatry, his early prayers to the Creator, and his burning of his father's idol house, directly preceding God's call to leave Ur. This aligns closely with Abraham's account of standing apart from an idolatrous culture to seek the living God."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 1 – The Restoration"],
+        note: "Abraham's call mirrors Joseph Smith's — both sought greater truth in a world of religious confusion, and both were answered with a direct divine call and covenant."
+      }
+    ],
+    questions: [
+      "**Abraham sought 'greater happiness and peace' through priesthood covenants. What covenants have you made with God, and how have they brought you greater peace?**",
+      "**Abraham stood against his own family's idolatry at great personal cost. What would it look like to stand for gospel truth in your most important relationships?**",
+      "**God promised Abraham 'I will lead thee by my hand.' When have you felt God's personal guidance in your life, and how did you recognize it?**",
+      "**How does Abraham's deliverance from the altar foreshadow Christ's Atonement — the true and final sacrifice that ends all others?**"
+    ]
+  },
+
+  "abraham-2": {
+    title: "Abraham, Chapter 2",
+    subtitle: "The Abrahamic Covenant",
+    summary: "Abraham journeys from Ur through Haran toward Canaan, receiving along the way one of scripture's most comprehensive declarations of the Abrahamic covenant. God promises Abraham land, posterity, priesthood authority, and that through his seed all the families of the earth will be blessed — a covenant that reaches to the Latter-day Saints and to every person who accepts the gospel.",
+    themes: [
+      "The Abrahamic Covenant: land, seed, priesthood, and universal blessing",
+      "Obedience as the condition for covenant blessings",
+      "The covenant as the vehicle for Christ's gospel to reach all mankind",
+      "Missionary work as the fulfillment of the Abrahamic covenant",
+      "Faith demonstrated through literal physical movement and sacrifice",
+      "God's faithfulness across generations and dispensations"
+    ],
+    notableVerses: [
+      {
+        ref: "Abraham 2:9–11",
+        text: "\"In thee...and in thy seed...shall all the families of the earth be blessed, even with the blessings of the Gospel...\"",
+        note: "The entire missionary work of the Church is the fulfillment of this covenant. Every convert is a beneficiary of Abraham's obedience."
+      },
+      {
+        ref: "Abraham 2:8",
+        text: "\"My name is Jehovah, and I know the end from the beginning; therefore my hand shall be over thee.\"",
+        note: "God's omniscience is the foundation of covenant trust. He is not guessing at outcomes — He knows, and He promises."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["1 Nephi 15:18", "3 Nephi 20:25–27"],
+        note: "Both Nephi and the resurrected Christ explicitly connect the gathering of Israel and the missionary work to the covenant God made with Abraham. The covenant is alive and active."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Chapter 1 – My Purpose", "Lesson 1 – The Restoration"],
+        note: "Preach My Gospel opens by calling missionaries 'servants of the Lord' who have the privilege of fulfilling the Abrahamic covenant — bringing gospel blessings to all nations, kindreds, tongues, and peoples."
+      },
+      {
+        label: "Ethiopian Bible — Book of Jubilees 13–14",
+        refs: ["Jubilees 13:1–14:20"],
+        note: "Jubilees records God's renewal of covenant promises to Abram as he journeys through Canaan, closely paralleling Abraham 2's account of covenant renewal during his travels — affirming the ancient, multi-witness record of God's covenant with Abraham."
+      }
+    ],
+    questions: [
+      "**Abraham 2:11 says you are blessed with the gospel to be a blessing to others. Who in your life is waiting for the blessing you carry?**",
+      "**God told Abraham 'I know the end from the beginning.' How does trusting God's foreknowledge help you have faith in His promises even when you can't see the outcome?**",
+      "**Abraham's covenant required him to leave everything familiar. What has God asked you to leave behind in order to more fully follow Him?**",
+      "**How are you personally participating in the fulfillment of the Abrahamic covenant — bringing gospel blessings to the families of the earth?**"
+    ]
+  },
+
+  "abraham-3": {
+    title: "Abraham, Chapter 3",
+    subtitle: "The Stars, the Spirits, and the Council in Heaven",
+    summary: "God shows Abraham the structure of the heavens and the nature of eternity through the metaphor of stars and intelligences. Abraham is then shown the premortal Council in Heaven where God presented His plan, Christ volunteered as Redeemer, and the noble and great ones — including Abraham himself — were called and foreordained to their earthly missions. This is one of scripture's most majestic revelations about our premortal identity.",
+    themes: [
+      "God's eternal nature: He dwells in the presence of the greatest light",
+      "The doctrine of intelligences and the eternal nature of the spirit",
+      "The premortal Council in Heaven",
+      "Christ's voluntary atonement: 'Here am I, send me'",
+      "The foreordination and mission of noble and great souls",
+      "Each person's divine identity and premortal preparation"
+    ],
+    notableVerses: [
+      {
+        ref: "Abraham 3:22–23",
+        text: "\"Now the Lord had shown unto me, Abraham, the intelligences that were organized before the world was; and among all these there were many of the noble and great ones...\"",
+        note: "You were there. Your faithfulness in the premortal life prepared the way for your life on earth. This is not metaphor — it is your personal history."
+      },
+      {
+        ref: "Abraham 3:27",
+        text: "\"And the Lord said: Whom shall I send? And one answered like unto the Son of Man: Here am I, send me.\"",
+        note: "Christ's voluntary submission in the premortal world is the origin of the Atonement. It did not begin in Gethsemane — it began in eternity."
+      },
+      {
+        ref: "Abraham 3:25",
+        text: "\"And we will prove them herewith, to see if they will do all things whatsoever the Lord their God shall command them.\"",
+        note: "The purpose of mortality, stated plainly: to be proven, to choose, to become. Earth life is a divine test of agency and faith."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["Alma 13:3–5", "Ether 3:15"],
+        note: "Alma's account of priests ordained from the foundation of the world and the Brother of Jared seeing Christ's premortal spirit body both anchor the reality of Abraham 3's council scene."
+      },
+      {
+        label: "Ethiopian Bible — 1 Enoch 46–49",
+        refs: ["1 Enoch 46:1–3", "1 Enoch 48:2–6", "1 Enoch 49:1–4"],
+        note: "The Ethiopian Book of Enoch presents a stunning parallel: the Son of Man 'named before the Lord of Spirits before the sun and stars were created,' chosen and hidden before the world's foundation — directly echoing Abraham 3's revelation of the premortal Christ and the council's eternal design."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 2 – Plan of Salvation"],
+        note: "The premortal life is the first estate in the Plan of Salvation. Missionaries teach that we lived with Heavenly Father before this life — Abraham 3 is the scriptural foundation of that doctrine."
+      }
+    ],
+    questions: [
+      "**Abraham 3:22 says you were among the intelligences God organized before the world. How does your premortal identity give you confidence and purpose in your current struggles?**",
+      "**Christ said 'Here am I, send me' before mortality began. When God asks for your voluntary commitment to His work today, what is your answer?**",
+      "**God told Abraham he was 'chosen before he was born.' How are you actively living up to the foreordination God placed on your life?**",
+      "**The purpose of earth life in Abraham 3:25 is to be 'proved.' How does seeing your trials as a divine proving ground change how you respond to them?**"
+    ]
+  },
+
+  "abraham-4": {
+    title: "Abraham, Chapter 4",
+    subtitle: "The Gods Organize the Earth",
+    summary: "Abraham receives a vision of the Creation as the Gods — the Father, Son, and Holy Ghost — counsel together and organize the earth. This account uses the plural 'Gods' to affirm the distinct personhood of the Godhead working in divine unity. The account closely parallels Moses 2 but reveals additional detail about the collaborative, deliberate nature of the creative process.",
+    themes: [
+      "The Godhead as distinct, unified persons working together",
+      "Creation as deliberate, ordered, and purposeful",
+      "The divine pattern of counsel, planning, and execution",
+      "Christ as the active Creator under the Father's direction",
+      "The goodness and beauty of the physical world",
+      "The Sabbath rest as a divine institution"
+    ],
+    notableVerses: [
+      {
+        ref: "Abraham 4:1",
+        text: "\"And then the Lord said: Let us go down. And they went down at the beginning, and they, that is the Gods, organized and formed the heavens and the earth.\"",
+        note: "The plurality of 'Gods' confirms the Godhead's distinct personhood — not modalism, but a divine community of separate, glorified, unified beings."
+      },
+      {
+        ref: "Abraham 4:18",
+        text: "\"And the Gods watched those things which they had ordered until they obeyed.\"",
+        note: "A unique detail — the Gods watched over the organizing of creation until it obeyed. God is active, attentive, and personally invested in the unfolding of His work."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["Jacob 4:9", "Mormon 9:17"],
+        note: "Jacob and Mormon both affirm Christ's creative role and God's power to speak worlds into existence — consistent with Abraham 4's depiction of the collaborative Creation."
+      },
+      {
+        label: "Ethiopian Bible — Book of Jubilees 2",
+        refs: ["Jubilees 2:1–16"],
+        note: "Jubilees presents the Creation as a series of divinely supervised acts with angels as witnesses, each stage declared good — paralleling Abraham 4's depiction of the Gods observing and approving each creative period."
+      }
+    ],
+    questions: [
+      "**Abraham 4 shows the Gods counseling together before acting. How does prayer and seeking counsel inform your own most important decisions?**",
+      "**The Gods 'watched until they obeyed.' What does God's patient, attentive oversight of creation teach you about His involvement in your personal growth?**",
+      "**How does the plural 'Gods' in this chapter deepen your understanding of the distinct, personal nature of Heavenly Father and Jesus Christ?**"
+    ]
+  },
+
+  "abraham-5": {
+    title: "Abraham, Chapter 5",
+    subtitle: "The Creation of Man and the Garden",
+    summary: "The Gods complete the creation of the physical earth, form Adam, breathe life into him, plant the Garden of Eden, and establish the foundational commandments. Eve is formed from Adam's rib, and the divine institution of marriage is proclaimed. This chapter, parallel to Moses 3, adds unique detail about the collaborative nature of creation and the intimacy of God's personal involvement in forming mankind.",
+    themes: [
+      "The personal, hands-on involvement of God in creating mankind",
+      "Man as the pinnacle of a purposeful creation",
+      "The divine origin and sanctity of the physical body",
+      "Marriage ordained of God from the very beginning",
+      "The Garden as a place of preparation, not just pleasure",
+      "Agency embedded in creation from the start (the tree of knowledge)"
+    ],
+    notableVerses: [
+      {
+        ref: "Abraham 5:7",
+        text: "\"And the Gods formed man from the dust of the ground, and took his spirit...and put it into him; and breathed into his nostrils the breath of life.\"",
+        note: "The union of spirit and body is a divine act. Your physical body is not incidental — it is a sacred creation of God."
+      },
+      {
+        ref: "Abraham 5:14",
+        text: "\"Therefore shall a man leave his father and his mother, and shall cleave unto his wife, and they shall be one flesh.\"",
+        note: "The eternal law of marriage proclaimed at the creation of the first family — this is God's order, not a cultural tradition."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["2 Nephi 9:4", "Alma 40:23"],
+        note: "Alma's and Jacob's teachings on the resurrection affirm the eternal value of the physical body first established in Abraham 5 — body and spirit together constitute the soul of man."
+      },
+      {
+        label: "Ethiopian Bible — Book of Jubilees 3:1–7",
+        refs: ["Jubilees 3:1–7"],
+        note: "Jubilees parallels Abraham 5's creation of Eve and the establishment of marriage, describing Adam's solitude and the divine gift of Eve with reverence — reinforcing the cross-cultural, cross-textual witness of God's design for the family."
+      }
+    ],
+    questions: [
+      "**God breathed life personally into Adam. How does knowing your body is a sacred divine creation affect how you care for and respect it?**",
+      "**God placed the tree of knowledge in the Garden before any commandment was given. What does that tell you about how important agency is to Heavenly Father?**",
+      "**Marriage is described in both Moses and Abraham as a divine institution from the very beginning. How are you honoring that sacred covenant in your life?**"
+    ]
+  },
+
+  // ── JOSEPH SMITH — MATTHEW ──────────────────────────────────
+
+  "js-matthew-1": {
+    title: "Joseph Smith — Matthew",
+    subtitle: "The Olivet Discourse Restored",
+    summary: "Joseph Smith's inspired translation of Matthew 24 restores Christ's full prophecy on the Mount of Olives. Jesus foretells the destruction of Jerusalem, the Great Apostasy, the calamities of the last days, the Second Coming, and the gathering of the elect. Temporal and spiritual signs are clarified, false Christs are warned against, and the disciples are called to constant watchfulness and faithfulness.",
+    themes: [
+      "The destruction of Jerusalem as a type of the last days",
+      "Signs of the times and the Second Coming of Christ",
+      "The Great Apostasy as a fulfillment of prophecy",
+      "The gathering of Israel as a sign of Christ's imminent return",
+      "The parable of the fig tree: reading spiritual seasons",
+      "Vigilance, readiness, and faithfulness until the end"
+    ],
+    notableVerses: [
+      {
+        ref: "JS–Matthew 1:22",
+        text: "\"For in those days there shall also arise false Christs, and false prophets, and shall show great signs and wonders...\"",
+        note: "Christ warns that spiritual deception will be the signature danger of the last days — not violence or famine alone, but counterfeit truth."
+      },
+      {
+        ref: "JS–Matthew 1:37",
+        text: "\"And whoso treasureth up my word, shall not be deceived, for the Son of Man shall come, and he shall send his angels before him...\"",
+        note: "The antidote to last-days deception is treasuring up the word of God — daily scripture study is not optional, it is protective armor."
+      },
+      {
+        ref: "JS–Matthew 1:1",
+        text: "\"For I say unto you, that ye shall not leave one stone upon another; and the fulfillment thereof — see ye not all these things?\"",
+        note: "Christ sees beyond the physical temple to the eternal one — the gathering and preparation of His people."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["3 Nephi 29:2–4", "Mormon 8:26–33"],
+        note: "Mormon and Moroni write directly to the last days, describing the very signs Christ prophesies in JS–Matthew — their words are a second witness that we live in the times Christ foresaw."
+      },
+      {
+        label: "Ethiopian Bible — 2 Esdras (4 Ezra) 13",
+        refs: ["2 Esdras 13:1–13"],
+        note: "The Apocalypse of Esdras in the Ethiopian canon describes a Son of Man rising from the sea to gather and defend the righteous in the last days — an apocalyptic vision that parallels Christ's Second Coming prophecy in JS–Matthew."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Chapter 1 – My Purpose", "Lesson 1 – The Restoration"],
+        note: "The Restoration is itself the fulfillment of the Apostasy Christ prophesied — the 'abomination of desolation' in spiritual terms was answered by the First Vision. Missionaries proclaim the Restoration as the sign that the gathering has begun."
+      }
+    ],
+    questions: [
+      "**Christ said those who 'treasure up' His word will not be deceived. How consistently and deeply are you storing the word of God in your heart?**",
+      "**JS–Matthew warns of false Christs offering counterfeit comfort. What tests do you apply when evaluating new teachings or spiritual experiences?**",
+      "**Christ compared the last days to the days of Noah — people unaware until the flood came. What spiritual preparations are you making before the storm?**",
+      "**The gathering of Israel is a sign of the Second Coming. How are you participating in the gathering — through missionary work, temple service, or strengthening your home?**"
+    ]
+  },
+
+  // ── JOSEPH SMITH — HISTORY ─────────────────────────────────
+
+  "js-history-1": {
+    title: "Joseph Smith — History",
+    subtitle: "The First Vision, the Plates, and the Restoration",
+    summary: "Joseph Smith's personal account of the Restoration covers his early life, the religious confusion of the day, his reading of James 1:5, the First Vision in the Sacred Grove, the visitations of the Angel Moroni, the coming forth of the Book of Mormon, and the restoration of the Aaronic Priesthood. This is one of the most important documents in all of Latter-day Saint scripture — a firsthand witness of God's opening of the final dispensation.",
+    themes: [
+      "The First Vision: God and Christ are real, separate, glorified Beings",
+      "Seeking truth through scripture, prayer, and personal revelation",
+      "The Great Apostasy confirmed and the Restoration declared",
+      "The coming forth of the Book of Mormon as another testament of Christ",
+      "Priesthood authority restored through heavenly messengers",
+      "Persecution as the consistent companion of prophetic calling"
+    ],
+    notableVerses: [
+      {
+        ref: "JS–History 1:11–12",
+        text: "\"...I came to the conclusion that I must either remain in darkness and confusion, or else I must do as James directs...\" Joseph goes to pray.",
+        note: "Joseph's decision to act on James 1:5 is the model for every investigator, every doubter, every seeker. The answer to spiritual confusion is always to ask God."
+      },
+      {
+        ref: "JS–History 1:16–17",
+        text: "\"...I saw two Personages, whose brightness and glory defy all description, standing above me in the air. One of them spake unto me...This is My Beloved Son. Hear Him!\"",
+        note: "The First Vision answered centuries of theological confusion about the nature of God in a single, luminous moment. God is real. Christ is real. They know you by name."
+      },
+      {
+        ref: "JS–History 1:25",
+        text: "\"...for I had seen a vision; I knew it, and I knew that God knew it, and I could not deny it.\"",
+        note: "Personal testimony cannot be argued away. Joseph's certainty mirrors the pattern of every true witness throughout scripture."
+      },
+      {
+        ref: "JS–History 1:68–69",
+        text: "John the Baptist confers the Aaronic Priesthood, saying: 'Upon you my fellow servants, in the name of Messiah, I confer the Priesthood of Aaron...'",
+        note: "The return of priesthood authority through a resurrected being is one of the most extraordinary events in recorded religious history."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["2 Nephi 3:6–15", "Mormon 8:16"],
+        note: "Lehi's prophecy of a 'choice seer' named Joseph and Moroni's direct address to the one who would bring forth the record are both fulfilled in this account. The Book of Mormon anticipated Joseph Smith."
+      },
+      {
+        label: "Ethiopian Bible — Martyrdom and Ascension of Isaiah 1–5",
+        refs: ["Martyrdom of Isaiah 1:1–5:16"],
+        note: "The Ethiopian canon preserves the account of Isaiah's persecution, imprisonment, and martyrdom for speaking unpopular divine truth — a striking ancient parallel to Joseph Smith's experience of being mocked, threatened, and ultimately killed for his testimony. Both prophets suffered because they would not deny what they had seen."
+      },
+      {
+        label: "Ethiopian Bible — 2 Enoch 1–3",
+        refs: ["2 Enoch 1:3–8"],
+        note: "The Second Book of Enoch opens with a heavenly visitation to a prophet alone in his home — two radiant beings appearing and calling him by name to a divine work. The structural parallel to Joseph's visitation by Moroni (a resurrected, glorified messenger) is remarkable and underscores the consistent pattern of God calling prophets through angelic messengers."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 1 – The Restoration"],
+        note: "Joseph Smith–History is the foundational document for Lesson 1. Preach My Gospel instructs missionaries to memorize JS–History 1:16–17 and bear sincere personal testimony of the First Vision in every teaching opportunity."
+      }
+    ],
+    questions: [
+      "**Joseph said he 'could not deny' what he had seen, even under intense persecution. What experiences have given you a testimony you could not deny, even at cost?**",
+      "**Joseph read James 1:5 and acted immediately. Is there a scripture or prompting you have been sitting with but not yet acted on? What step could you take today?**",
+      "**The First Vision answered the question 'Which church is right?' by going directly to God. When you face spiritual confusion, what is your first instinct — and what should it be?**",
+      "**Joseph was 14 years old, largely uneducated, and from a rural family. Why do you think God chose him? What does that choice say about how God qualifies His servants?**",
+      "**How does the restoration of the Aaronic Priesthood through John the Baptist confirm that priesthood authority cannot be inherited or assumed — only conferred?**"
+    ]
+  },
+
+  // ── ARTICLES OF FAITH ──────────────────────────────────────
+
+  "articles-of-faith-1": {
+    title: "Articles of Faith 1–4",
+    subtitle: "God, Agency, and the First Principles",
+    summary: "The first four Articles of Faith establish the foundational doctrines of the Restoration: the nature of the Godhead, the nature of man, individual accountability, and the first principles and ordinances of the gospel. These articles are not a comprehensive creed but a concise declaration of the most essential truths — written by Joseph Smith in 1842 and canonized as scripture.",
+    themes: [
+      "The distinct, corporeal nature of the Father, Son, and Holy Ghost",
+      "Individual accountability — we are not punished for Adam's transgression",
+      "Agency and moral responsibility as God-given gifts",
+      "Faith in Jesus Christ as the foundation of the gospel",
+      "Repentance as the ongoing posture of the disciple",
+      "Baptism by immersion and the Gift of the Holy Ghost as essential ordinances"
+    ],
+    notableVerses: [
+      {
+        ref: "Articles of Faith 1:1",
+        text: "\"We believe in God, the Eternal Father, and in His Son, Jesus Christ, and in the Holy Ghost.\"",
+        note: "This single sentence corrects centuries of Trinitarian confusion. Three separate Beings. One in purpose, glory, and love — not in substance."
+      },
+      {
+        ref: "Articles of Faith 1:2",
+        text: "\"We believe that men will be punished for their own sins, and not for Adam's transgression.\"",
+        note: "Individual accountability is a cornerstone of the restored gospel. Children are born innocent. Salvation is personal."
+      },
+      {
+        ref: "Articles of Faith 1:4",
+        text: "\"We believe that the first principles and ordinances of the Gospel are: first, Faith in the Lord Jesus Christ; second, Repentance; third, Baptism by immersion for the remission of sins; fourth, Laying on of hands for the gift of the Holy Ghost.\"",
+        note: "The four-step gateway into the covenant. These are not suggestions — they are the divine pathway Jesus Himself walked and commanded."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["3 Nephi 11:31–38", "Moroni 6:1–4", "2 Nephi 31:13–20"],
+        note: "Christ's own declaration to the Nephites matches Articles of Faith 1:4 exactly — faith, repentance, baptism, Holy Ghost. Nephi calls this the 'doctrine of Christ' and the 'gate' to the straight and narrow path."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 3 – The Gospel of Jesus Christ"],
+        note: "Articles of Faith 1:4 is the skeleton of Lesson 3. Every principle and ordinance missionaries teach is rooted in this single verse. PMG calls these the 'laws and ordinances' through which Christ's Atonement is applied in each person's life."
+      },
+      {
+        label: "Ethiopian Bible — Book of Jubilees 1:22–25",
+        refs: ["Jubilees 1:22–25"],
+        note: "The Book of Jubilees records God's promise that He will create a pure heart in His children, that they will know Him as Father and He will know them as sons — a covenant of personal relationship and individual accountability that directly parallels the restored gospel's emphasis on individual agency and direct relationship with God."
+      }
+    ],
+    questions: [
+      "**Article of Faith 1:1 declares three separate Beings. How does knowing God is a real, glorified, personal Father — not an abstract force — change how you pray?**",
+      "**We are accountable for our own sins, not Adam's. How does the doctrine of individual agency increase both your freedom and your personal responsibility before God?**",
+      "**The fourth Article of Faith lists the gate into the covenant path. Which of these four principles — faith, repentance, baptism, or the Holy Ghost — most needs your renewed attention right now?**"
+    ]
+  },
+
+  "articles-of-faith-2": {
+    title: "Articles of Faith 5–10",
+    subtitle: "Authority, Scripture, Restoration, and Gathering",
+    summary: "Articles 5–10 declare the necessity of divine priesthood authority, the open canon of scripture, the literal gathering of Israel, the Restoration of all things, and the establishment of Zion on the American continent. These articles distinguish the restored gospel from all other religious traditions by affirming ongoing revelation, restored authority, and a concrete, physical fulfillment of ancient prophecy.",
+    themes: [
+      "Priesthood authority: called of God, not self-appointed",
+      "The open canon — God continues to speak through living prophets",
+      "The literal gathering of Israel as a latter-day sign",
+      "The millennial reign of Christ on the earth",
+      "Zion established in the Americas as a fulfillment of ancient promise",
+      "The restoration of all gospel ordinances and covenants"
+    ],
+    notableVerses: [
+      {
+        ref: "Articles of Faith 1:5",
+        text: "\"We believe that a man must be called of God, by prophecy, and by the laying on of hands...to preach the Gospel and administer in the ordinances thereof.\"",
+        note: "Self-appointment is not authority. Priesthood is conferred, not assumed. This article is the doctrinal foundation for why the Restoration was necessary."
+      },
+      {
+        ref: "Articles of Faith 1:8",
+        text: "\"We believe the Bible to be the word of God as far as it is translated correctly; we also believe the Book of Mormon to be the word of God.\"",
+        note: "The restored gospel neither dismisses the Bible nor is bound by it alone. God's word is as expansive as His work."
+      },
+      {
+        ref: "Articles of Faith 1:9",
+        text: "\"We believe all that God has revealed, all that He does now reveal, and we believe that He will yet reveal many great and important things pertaining to the Kingdom of God.\"",
+        note: "Living prophets. Continuing revelation. An open heaven. This single article distinguishes the restored Church from every closed-canon tradition."
+      },
+      {
+        ref: "Articles of Faith 1:10",
+        text: "\"We believe in the literal gathering of Israel and in the restoration of the Ten Tribes; that Zion...will be built upon the American continent...\"",
+        note: "The gathering is not metaphorical — it is physical, literal, and presently underway. Every convert, every temple, every ward is part of the gathering."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["2 Nephi 29:6–9", "3 Nephi 21:1–7", "1 Nephi 22:3–12"],
+        note: "Nephi's vision of the gathering and Christ's direct discourse on the fulfillment of the Abrahamic covenant give prophetic flesh to Articles 9 and 10 — the Book of Mormon itself is evidence that God still speaks."
+      },
+      {
+        label: "Ethiopian Bible — Book of Jubilees 1:15–18",
+        refs: ["Jubilees 1:15–18"],
+        note: "God's promise in Jubilees that He will gather Israel from among the Gentiles and restore them to their land directly echoes Article of Faith 1:10's declaration of the literal gathering — demonstrating that this is an ancient, consistent covenant promise, not a modern invention."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Lesson 1 – The Restoration", "Chapter 1 – My Purpose"],
+        note: "Articles 5, 8, and 9 together form the doctrinal backbone of the Restoration lesson. Priesthood authority, scriptural canon, and continuing revelation are what make the restored Church distinct — and what missionaries are called to declare."
+      }
+    ],
+    questions: [
+      "**Article 5 says priesthood must be conferred, not assumed. How does this principle affect your reverence for the ordinances you've received?**",
+      "**Article 9 declares that God 'will yet reveal many great and important things.' What questions are you bringing to God in prayer, trusting He is still speaking?**",
+      "**The gathering of Israel in Article 10 is happening right now, through missionary work and temple building. How are you personally participating in the gathering?**",
+      "**Article 8 says the Bible is the word of God 'as far as it is translated correctly.' How does having additional scripture — the Book of Mormon — strengthen rather than replace your love of the Bible?**"
+    ]
+  },
+
+  "articles-of-faith-3": {
+    title: "Articles of Faith 11–13",
+    subtitle: "Worship, Truth, and the Virtuous Life",
+    summary: "The final three Articles of Faith declare the Church's commitment to religious liberty, the pursuit of all truth wherever it is found, and the cultivation of a virtuous and honorable life. Article 13, often called the crown of the Articles of Faith, describes the Latter-day Saint ideal of character — benevolent, virtuous, praiseworthy, and seeking after anything that is good.",
+    themes: [
+      "Religious freedom as a divine right for all people",
+      "Truth is wherever God has placed it — in all nations and traditions",
+      "Honesty, integrity, and obedience to law as gospel virtues",
+      "The virtuous life as the fruit of true discipleship",
+      "Benevolence and doing good to all people",
+      "The Christlike pursuit of everything that is 'virtuous, lovely, or of good report'"
+    ],
+    notableVerses: [
+      {
+        ref: "Articles of Faith 1:11",
+        text: "\"We claim the privilege of worshiping Almighty God according to the dictates of our own conscience, and allow all men the same privilege...\"",
+        note: "Religious freedom is not merely a political value — it is a gospel principle rooted in the eternal doctrine of moral agency."
+      },
+      {
+        ref: "Articles of Faith 1:12",
+        text: "\"We believe in being subject to kings, presidents, rulers, and magistrates, in obeying, honoring, and sustaining the law.\"",
+        note: "The restored gospel produces model citizens. Discipleship and civic responsibility are inseparable."
+      },
+      {
+        ref: "Articles of Faith 1:13",
+        text: "\"We believe in being honest, true, chaste, benevolent, virtuous, and in doing good to all men...if there is anything virtuous, lovely, or of good report or praiseworthy, we seek after these things.\"",
+        note: "This is the portrait of a Latter-day Saint character — expansive, generous, truth-seeking, and beautiful. It is the goal of a lifetime of discipleship."
+      }
+    ],
+    connections: [
+      {
+        label: "Book of Mormon",
+        refs: ["Moroni 7:12–17", "Moroni 10:30–33"],
+        note: "Moroni's counsel to 'lay hold upon every good thing' and his closing invitation to 'come unto Christ and be perfected in him' are the living expression of Article 13 — the entire Book of Mormon points toward the virtuous life."
+      },
+      {
+        label: "Ethiopian Bible — 1 Enoch 5:7–9",
+        refs: ["1 Enoch 5:7–9"],
+        note: "The First Book of Enoch describes the elect who 'shall inherit the earth' as those who live in righteousness, never sin again through pride, and whose 'lives shall be increased in peace' — a beautiful ancient echo of Article 13's description of a virtuous, peaceful, truth-seeking life."
+      },
+      {
+        label: "Preach My Gospel",
+        refs: ["Chapter 6 – Christlike Attributes"],
+        note: "PMG Chapter 6 on Christlike attributes — faith, hope, charity, virtue, knowledge, patience, humility, diligence — is the practical unpacking of Article 13. The character described in Article 13 is the character of a true missionary and disciple."
+      }
+    ],
+    questions: [
+      "**Article 13 calls us to seek after 'anything virtuous, lovely, or of good report.' What beautiful, true, or praiseworthy thing have you discovered recently that has strengthened your faith?**",
+      "**Article 11 says we allow all people the privilege of worshiping how they choose. How does this principle shape the way you engage with people of other faiths?**",
+      "**Article 13 begins with being honest and true. Is there an area of your life where you are being asked to be more completely honest — with God, with others, or with yourself?**",
+      "**Joseph Smith said 'we seek after these things' — not that we already have them. What does it mean that discipleship is an active, ongoing pursuit rather than a completed achievement?**"
+    ]
+  }
+
+}; // end pogpStudyHelps
+
+// ============================================================
+// STUDY HELPS PANEL RENDERER — POGP + All Books
+// Reads from pogpStudyHelps data object defined above
+// ============================================================
+function renderStudyHelpsPanel(chapterKey) {
+  const data = pogpStudyHelps[chapterKey];
+  if (!data) return '';
+
+  return `
+    <div class="study-helps-container" id="study-helps-${chapterKey}">
+      <button class="study-helps-toggle" onclick="toggleStudyHelps('${chapterKey}')" aria-expanded="false" aria-controls="study-helps-body-${chapterKey}">
+        <span class="study-helps-toggle-icon">✦</span>
+        <span class="study-helps-toggle-label">Study Helps</span>
+        <span class="study-helps-toggle-subtitle">${data.subtitle}</span>
+        <span class="study-helps-chevron">▾</span>
+      </button>
+      
+      <div class="study-helps-body" id="study-helps-body-${chapterKey}" hidden>
+        <div class="sh-section sh-summary">
+          <h4 class="sh-section-title">Summary</h4>
+          <p class="sh-summary-text">${data.summary}</p>
+        </div>
+
+        <div class="sh-section sh-themes">
+          <h4 class="sh-section-title">Key Themes</h4>
+          <ul class="sh-themes-list">
+            ${data.themes.map(t => `<li>${t}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="sh-section sh-verses">
+          <h4 class="sh-section-title">Notable Verses</h4>
+          ${data.notableVerses.map(v => `
+            <div class="sh-verse-block">
+              <div class="sh-verse-ref">${v.ref}</div>
+              <blockquote class="sh-verse-text">${v.text}</blockquote>
+              <p class="sh-verse-note">${v.note}</p>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="sh-section sh-connections">
+          <h4 class="sh-section-title">Connections</h4>
+          ${data.connections.map(c => `
+            <div class="sh-connection-block">
+              <div class="sh-connection-label">${c.label}</div>
+              <div class="sh-connection-refs">${c.refs.join(' · ')}</div>
+              <p class="sh-connection-note">${c.note}</p>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="sh-section sh-questions">
+          <h4 class="sh-section-title">Questions to Ponder</h4>
+          <ol class="sh-questions-list">
+            ${data.questions.map(q => `<li><strong>${q.replace(/^\*\*|\*\*$/g, '')}</strong></li>`).join('')}
+          </ol>
+        </div>
+      </div></div>`;
+}
+
+// ── Toggle logic (collapsed by default, smooth animation) ──
+function toggleStudyHelps(chapterKey) {
+  const body = document.getElementById(`study-helps-body-${chapterKey}`);
+  const btn = document.querySelector(`#study-helps-${chapterKey} .study-helps-toggle`);
+  const chev = btn.querySelector('.study-helps-chevron');
+  const isOpen = !body.hidden;
+
+  if (isOpen) {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    requestAnimationFrame(() => {
+      body.style.maxHeight = '0';
+      body.style.opacity = '0';
+    });
+    setTimeout(() => { body.hidden = true; }, 350);
+    btn.setAttribute('aria-expanded', 'false');
+    chev.style.transform = 'rotate(0deg)';
+  } else {
+    body.hidden = false;
+    body.style.maxHeight = '0';
+    body.style.opacity = '0';
+    requestAnimationFrame(() => {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.style.opacity = '1';
+    });
+    setTimeout(() => { body.style.maxHeight = 'none'; }, 350);
+    btn.setAttribute('aria-expanded', 'true');
+    chev.style.transform = 'rotate(180deg)';
+  }
+}
+
+// ── Chapter → Key Mapping ──
+const pogpChapterMap = {
+  'Moses 1': 'moses-1', 'Moses 2': 'moses-2', 'Moses 3': 'moses-3', 'Moses 4': 'moses-4',
+  'Moses 5': 'moses-5', 'Moses 6': 'moses-6', 'Moses 7': 'moses-7', 'Moses 8': 'moses-8',
+  'Abraham 1': 'abraham-1', 'Abraham 2': 'abraham-2', 'Abraham 3': 'abraham-3', 
+  'Abraham 4': 'abraham-4', 'Abraham 5': 'abraham-5', 'JS-Matthew': 'js-matthew-1',
+  'JS-History': 'js-history-1', 'Articles of Faith 1–4': 'articles-of-faith-1',
+  'Articles of Faith 5–10': 'articles-of-faith-2', 'Articles of Faith 11–13': 'articles-of-faith-3'
+};
+
 
