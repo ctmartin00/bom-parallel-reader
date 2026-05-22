@@ -810,6 +810,9 @@ textarea.journal-body:focus{border-color:var(--gold);}
 .logged-in-card{background:var(--parchment-mid);border:1px solid var(--panel-border);border-radius:4px;padding:18px;display:flex;align-items:center;justify-content:space-between;max-width:400px;margin-bottom:24px;}
 .logged-in-name{font-family:'Cinzel',serif;font-size:.85rem;color:var(--accent);}
 .logged-in-email{font-size:.8rem;color:var(--ink-light);font-style:italic;}
+.acc-stat{background:var(--parchment);border:1px solid var(--panel-border);border-radius:6px;padding:10px 8px;text-align:center;}
+.acc-stat-n{font-family:'Cinzel',serif;font-size:1.3rem;font-weight:700;color:var(--accent);}
+.acc-stat-l{font-size:.62rem;letter-spacing:.08em;color:var(--ink-light);text-transform:uppercase;margin-top:2px;}
 
 /* Color pickers */
 .color-swatch-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;}
@@ -1929,7 +1932,7 @@ svg.leaflet-zoom-animated{will-change:transform}
 <!-- ── BOOK PICKER PAGE ── -->
 <div class="page" id="page-book-picker">
   <div style="padding:16px 18px 60px;max-width:540px;margin:0 auto;width:100%;">
-    <button onclick="navGoBack()" style="display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--accent);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em;cursor:pointer;padding:0;margin-bottom:18px;">
+    <button onclick="showPage('home')" style="display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--accent);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.06em;cursor:pointer;padding:0;margin-bottom:18px;">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg> Home
     </button>
     <div class="sec-eye" style="margin-bottom:6px;font-size:.75rem;letter-spacing:.14em;">Scripture Study</div>
@@ -5907,11 +5910,11 @@ function _updateNavChrome(id) {
 }
 
 function navGoBack() {
-  // Pop the stack — if we know where to go, go there; else fall back to home
+  // Stack-based: go one step back. showPage() re-pushes the destination.
   if (_navStack.length >= 2) {
-    _navStack.pop(); // remove current
-    const prev = _navStack[_navStack.length - 1];
-    _navStack.pop(); // showPage will push it again
+    _navStack.pop();
+    var prev = _navStack[_navStack.length - 1];
+    _navStack.pop();
     showPage(prev);
   } else {
     _navStack = [];
@@ -5932,9 +5935,17 @@ function showPage(id) {
   pg.style.display = flexPages.includes(id) ? 'flex' : 'block';
   const tab = document.getElementById('tab-'+id);
   if (tab) tab.classList.add('active');
-  // Nav chrome
-  if (id === 'home') _navStack = ['home'];
-  else { _navStack.push(id); }
+  // Nav stack: reset on home; truncate if page already exists (prevents oscillation)
+  if (id === 'home') {
+    _navStack = ['home'];
+  } else {
+    var existingIdx = _navStack.lastIndexOf(id);
+    if (existingIdx >= 0) {
+      _navStack = _navStack.slice(0, existingIdx + 1);
+    } else {
+      _navStack.push(id);
+    }
+  }
   _updateNavChrome(id);
   // Push to browser history (skipped during popstate handling)
   _pushHistory(id, id === 'reader' ? S.current : null);
@@ -7737,61 +7748,190 @@ function updateHeroForUser() {
   }
 }
 
+// ─── Storage key helpers ────────────────────────────────────────────────────
+// Each profile gets its own key so multiple users on the same device stay separate.
+function _profileKey(email) {
+  if (!email) return 'bom_data';
+  return 'bom_profile_' + email.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,40);
+}
+
+// ─── Load data for a specific profile (called on sign-in to pull saved data) ─
+async function _loadProfile(email) {
+  const key = _profileKey(email);
+  // 1. Try persistent artifact storage first (survives across sessions)
+  if (window.storage && typeof window.storage.get === 'function') {
+    try {
+      const result = await window.storage.get(key);
+      if (result && result.value) {
+        const d = JSON.parse(result.value);
+        if (d.annotations) S.annotations = d.annotations;
+        if (d.journal)     S.journal     = d.journal;
+        if (d.progress)    PROGRESS       = d.progress;
+        if (d.vis)         _applyVisState(d.vis);
+        // Back-fill localStorage so same device works offline
+        localStorage.setItem(key + '_ann', JSON.stringify(S.annotations));
+        localStorage.setItem(key + '_jnl', JSON.stringify(S.journal));
+        localStorage.setItem(key + '_prg', JSON.stringify(PROGRESS));
+        return true;
+      }
+    } catch(e) {}
+  }
+  // 2. Fallback: localStorage with profile key
+  try {
+    const a = localStorage.getItem(key + '_ann'); if (a) S.annotations = JSON.parse(a);
+    const j = localStorage.getItem(key + '_jnl'); if (j) S.journal     = JSON.parse(j);
+    const p = localStorage.getItem(key + '_prg'); if (p) PROGRESS       = JSON.parse(p);
+    if (S.annotations || S.journal) return true;
+  } catch(e) {}
+  return false;
+}
+
+// ─── Account rendering ───────────────────────────────────────────────────────
 function renderAccount() {
   const area = document.getElementById('account-area');
+  if (!area) return;
   if (S.user) {
-    area.innerHTML = `<div class="logged-in-card">
-      <div><div class="logged-in-name">👤 ${esc(S.user.name)}</div><div class="logged-in-email">${esc(S.user.email)}</div></div>
-      <button class="lbtn lbtn-g" onclick="logout()">Sign Out</button>
-    </div>`;
+    // Data stats
+    const annCount  = Object.values(S.annotations||{}).filter(v=>v&&(v.hl||v.note||v.tags?.length)).length;
+    const jnlCount  = (S.journal||[]).length;
+    const readCount = Object.values(PROGRESS||{}).filter(v=>v==='read').length;
+    area.innerHTML = `
+<div class="logged-in-card" style="flex-direction:column;gap:12px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+    <div>
+      <div class="logged-in-name">👤 ${esc(S.user.name)}</div>
+      <div class="logged-in-email">${esc(S.user.email)}</div>
+    </div>
+    <button class="lbtn lbtn-g" onclick="logout()">Sign Out</button>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;">
+    <div class="acc-stat"><div class="acc-stat-n">${readCount}</div><div class="acc-stat-l">Chapters Read</div></div>
+    <div class="acc-stat"><div class="acc-stat-n">${annCount}</div><div class="acc-stat-l">Annotations</div></div>
+    <div class="acc-stat"><div class="acc-stat-n">${jnlCount}</div><div class="acc-stat-l">Journal Entries</div></div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <button class="lbtn lbtn-g" onclick="exportSyncCode()" style="font-size:.65rem;">📤 Export Sync Code</button>
+    <button class="lbtn lbtn-g" onclick="document.getElementById('import-area').style.display='block'" style="font-size:.65rem;">📥 Import Sync Code</button>
+  </div>
+  <div id="import-area" style="display:none;width:100%;">
+    <textarea id="sync-code-input" class="linput" rows="3" placeholder="Paste your sync code here…" style="font-size:.72rem;font-family:monospace;resize:vertical;"></textarea>
+    <button class="lbtn lbtn-p" onclick="importSyncCode()" style="margin-top:4px;font-size:.7rem;">Apply Sync Code</button>
+  </div>
+  <div style="font-size:.74rem;color:var(--ink-light);font-style:italic;line-height:1.5;">
+    ✦ Your study data is saved to this device. Use <strong>Export Sync Code</strong> to copy your data to another device.
+  </div>
+</div>`;
   } else {
-    area.innerHTML = `<div class="login-card">
-      <div class="login-title">Create Account or Sign In</div>
-      <div style="display:flex;gap:8px;margin-bottom:12px;">
-        <button class="lbtn lbtn-p" id="show-login" onclick="toggleAuthForm('login')">Sign In</button>
-        <button class="lbtn lbtn-g" id="show-reg" onclick="toggleAuthForm('register')">Register</button>
-      </div>
-      <div id="auth-form">
-        <input class="linput" id="auth-name" type="text" placeholder="Your name" style="display:none;">
-        <input class="linput" id="auth-email" type="email" placeholder="Email address">
-        <input class="linput" id="auth-pass" type="password" placeholder="Password">
-        <div style="display:flex;gap:8px;margin-top:4px;">
-          <button class="lbtn lbtn-p" onclick="doAuth()">Continue</button>
-        </div>
-        <div style="font-size:.78rem;color:var(--ink-light);font-style:italic;margin-top:8px;">Note: Account data is stored locally in your browser.</div>
-      </div>
-    </div>`;
-    toggleAuthForm('login');
+    area.innerHTML = `
+<div class="login-card">
+  <div class="login-title">Save Your Study Progress</div>
+  <p style="font-size:.84rem;color:var(--ink-light);margin-bottom:14px;line-height:1.55;">
+    Create a profile to save your reading progress, highlights, and journal entries to this device. Use the <strong>Sync Code</strong> feature to move your data between devices.
+  </p>
+  <input class="linput" id="auth-name" type="text" placeholder="Your name (e.g. Sarah)">
+  <input class="linput" id="auth-email" type="email" placeholder="Email address (used as your profile ID)">
+  <div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;">
+    <button class="lbtn lbtn-p" onclick="doAuth()">Save Profile &amp; Continue</button>
+  </div>
+  <div style="margin-top:16px;border-top:1px solid var(--divider);padding-top:14px;">
+    <div style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;color:var(--gold);margin-bottom:8px;">ALREADY HAVE A SYNC CODE?</div>
+    <textarea id="sync-code-input-new" class="linput" rows="3" placeholder="Paste your sync code here to restore data…" style="font-size:.72rem;font-family:monospace;resize:vertical;"></textarea>
+    <button class="lbtn lbtn-g" onclick="importSyncCode('new')" style="margin-top:4px;font-size:.7rem;">Restore from Sync Code</button>
+  </div>
+</div>`;
   }
 }
 
-let authMode = 'login';
-function toggleAuthForm(mode) {
-  authMode = mode;
-  const nameField = document.getElementById('auth-name');
-  if (nameField) nameField.style.display = mode === 'register' ? 'block' : 'none';
-}
-
-function doAuth() {
-  const email = document.getElementById('auth-email')?.value.trim();
-  const pass = document.getElementById('auth-pass')?.value;
-  const name = document.getElementById('auth-name')?.value.trim() || email.split('@')[0];
-  if (!email || !pass) { alert('Please enter email and password.'); return; }
+async function doAuth() {
+  const nameEl  = document.getElementById('auth-name');
+  const emailEl = document.getElementById('auth-email');
+  const email = (emailEl?.value||'').trim().toLowerCase();
+  const name  = (nameEl?.value||'').trim() || email.split('@')[0] || 'Reader';
+  if (!email) { alert('Please enter your email address.'); return; }
+  // Load any existing data for this profile BEFORE overwriting anything
+  const hadData = await _loadProfile(email);
   S.user = {name, email};
-  saveData();
+  localStorage.setItem('bom_user', JSON.stringify(S.user));
+  await saveData();
   renderAccount();
-  document.getElementById('nav-user-btn').textContent = name;
-  updateJumpBackIn();
-  updateHeroForUser();
+  const btn = document.getElementById('nav-user-btn');
+  if (btn) btn.textContent = name;
+  if (typeof updateJumpBackIn === 'function') updateJumpBackIn();
+  if (typeof updateHeroForUser === 'function') updateHeroForUser();
+  // Re-render current page if in reader to reflect loaded data
+  if (document.getElementById('page-reader')?.classList.contains('active')) renderAll();
+  showToast(hadData ? '✦ Profile loaded — your data has been restored' : '✦ Profile created — your progress will now be saved');
 }
 
 function logout() {
   S.user = null;
   saveData();
   renderAccount();
-  updateJumpBackIn();
-  document.getElementById('nav-user-btn').textContent = 'Sign In';
-  updateHeroForUser();
+  if (typeof updateJumpBackIn === 'function') updateJumpBackIn();
+  const btn = document.getElementById('nav-user-btn');
+  if (btn) btn.textContent = 'Sign In';
+  if (typeof updateHeroForUser === 'function') updateHeroForUser();
+  showToast('Signed out');
+}
+
+// ─── Sync Code: export/import all data as a portable base64 blob ─────────────
+function exportSyncCode() {
+  try {
+    const payload = {
+      v: 1,
+      user:        S.user,
+      annotations: S.annotations,
+      journal:     S.journal,
+      progress:    PROGRESS,
+      vis:         {
+        fontSize:  S.fontSize,
+        hlColors:  S.hlColors,
+        themeName: S._themeName || 'parchment',
+      },
+      ts: Date.now(),
+    };
+    const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+    // Show in a modal-style overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+    overlay.innerHTML = `
+<div style="background:var(--parchment);border-radius:8px;padding:24px;max-width:500px;width:100%;max-height:80vh;overflow-y:auto;">
+  <div style="font-family:'Cinzel',serif;font-size:.85rem;color:var(--accent);margin-bottom:12px;letter-spacing:.06em;">✦ Your Sync Code</div>
+  <p style="font-size:.83rem;color:var(--ink-light);margin-bottom:12px;line-height:1.5;">Copy this entire code and paste it on your other device under <strong>Import Sync Code</strong>.</p>
+  <textarea readonly style="width:100%;height:120px;font-size:.65rem;font-family:monospace;background:var(--parchment-mid);border:1px solid var(--panel-border);border-radius:4px;padding:8px;resize:vertical;color:var(--ink);">${code}</textarea>
+  <div style="display:flex;gap:8px;margin-top:12px;">
+    <button class="lbtn lbtn-p" onclick="navigator.clipboard?.writeText('${code}').then(()=>showToast('Copied!')).catch(()=>showToast('Select and copy manually'))">Copy to Clipboard</button>
+    <button class="lbtn lbtn-g" onclick="this.closest('[style*=fixed]').remove()">Close</button>
+  </div>
+</div>`;
+    document.body.appendChild(overlay);
+  } catch(e) { showToast('Export failed — ' + e.message); }
+}
+
+async function importSyncCode(mode) {
+  const inputId = mode === 'new' ? 'sync-code-input-new' : 'sync-code-input';
+  const raw = (document.getElementById(inputId)?.value||'').trim();
+  if (!raw) { showToast('Please paste a sync code first'); return; }
+  try {
+    const d = JSON.parse(decodeURIComponent(escape(atob(raw))));
+    if (!d || d.v !== 1) throw new Error('Invalid sync code');
+    if (d.annotations) S.annotations = d.annotations;
+    if (d.journal)     S.journal     = d.journal;
+    if (d.progress)    PROGRESS       = d.progress;
+    if (d.vis)         _applyVisState(d.vis);
+    if (d.user)        S.user         = d.user;
+    await saveData();
+    if (S.user) {
+      localStorage.setItem('bom_user', JSON.stringify(S.user));
+      const btn = document.getElementById('nav-user-btn');
+      if (btn) btn.textContent = S.user.name;
+    }
+    renderAccount();
+    if (typeof updateJumpBackIn === 'function') updateJumpBackIn();
+    if (typeof updateHeroForUser === 'function') updateHeroForUser();
+    if (document.getElementById('page-reader')?.classList.contains('active')) renderAll();
+    showToast('✦ Data restored successfully — ' + Object.keys(d.annotations||{}).length + ' annotations, ' + (d.journal||[]).length + ' journal entries');
+  } catch(e) { showToast('Import failed — check that the sync code is complete and unmodified'); }
 }
 
 // ══════════════════════════ THEMES ══════════════════════════
@@ -7891,66 +8031,96 @@ async function saveData() {
       customBg:  getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),
       customText:getComputedStyle(document.documentElement).getPropertyValue('--ink').trim(),
     };
-    // Always write localStorage instantly (same-device, same-browser fallback)
-    localStorage.setItem('bom_annotations', JSON.stringify(S.annotations));
-    localStorage.setItem('bom_journal',     JSON.stringify(S.journal));
-    localStorage.setItem('bom_progress',    JSON.stringify(PROGRESS));
+    const payload = JSON.stringify({
+      annotations: S.annotations,
+      journal:     S.journal,
+      user:        S.user || null,
+      vis:         vis,
+      progress:    PROGRESS,
+    });
+    // Determine storage key: profile-specific when logged in, generic when anonymous
+    const key = S.user ? _profileKey(S.user.email) : 'bom_data';
+    // Always write localStorage (fast, same-device fallback)
+    localStorage.setItem(key + '_ann', JSON.stringify(S.annotations));
+    localStorage.setItem(key + '_jnl', JSON.stringify(S.journal));
+    localStorage.setItem(key + '_prg', JSON.stringify(PROGRESS));
+    localStorage.setItem(key + '_vis', JSON.stringify(vis));
     if (S.user) localStorage.setItem('bom_user', JSON.stringify(S.user));
     else        localStorage.removeItem('bom_user');
-    localStorage.setItem('bom_vis', JSON.stringify(vis));
-    // Cross-device: write to persistent storage when available (Claude Artifact API)
+    // Persistent artifact storage (survives across sessions, same user)
     if (window.storage && typeof window.storage.set === 'function') {
-      await window.storage.set('bom_data', JSON.stringify({
-        annotations: S.annotations,
-        journal:     S.journal,
-        user:        S.user || null,
-        vis:         vis,
-        progress:    PROGRESS,
-      }));
+      await window.storage.set(key, payload);
+      // Also keep a legacy key for backward compat
+      if (S.user) await window.storage.set('bom_data', payload).catch(()=>{});
     }
   } catch(e) {}
 }
 async function loadData() {
-  let cloudLoaded = false;
+  // 1. Check if we know the user already (from a previous session)
+  let knownUser = null;
   try {
-    // Try cross-device storage first (wins over localStorage when available)
-    if (window.storage && typeof window.storage.get === 'function') {
+    const u = localStorage.getItem('bom_user');
+    if (u) knownUser = JSON.parse(u);
+  } catch(e) {}
+
+  const key = knownUser ? _profileKey(knownUser.email) : 'bom_data';
+  let loaded = false;
+
+  // 2. Try persistent artifact storage with the correct key
+  if (window.storage && typeof window.storage.get === 'function') {
+    try {
+      const result = await window.storage.get(key);
+      if (result && result.value) {
+        const d = JSON.parse(result.value);
+        if (d.annotations) S.annotations = d.annotations;
+        if (d.journal)     S.journal     = d.journal;
+        if (d.progress)    PROGRESS       = d.progress;
+        if (d.user) {
+          S.user = d.user;
+          const btn = document.getElementById('nav-user-btn');
+          if (btn) btn.textContent = S.user.name;
+          if (typeof updateHeroForUser === 'function') updateHeroForUser();
+        }
+        if (d.vis) _applyVisState(d.vis);
+        loaded = true;
+      }
+    } catch(e) {}
+    // 3. If profile key found nothing, try legacy generic key as fallback
+    if (!loaded && knownUser) {
       try {
-        const result = await window.storage.get('bom_data');
-        if (result && result.value) {
-          const d = JSON.parse(result.value);
+        const result2 = await window.storage.get('bom_data');
+        if (result2 && result2.value) {
+          const d = JSON.parse(result2.value);
           if (d.annotations) S.annotations = d.annotations;
           if (d.journal)     S.journal     = d.journal;
-          if (d.progress)    { PROGRESS = d.progress; try { localStorage.setItem('bom_progress', JSON.stringify(PROGRESS)); } catch(e) {} }
-          if (d.user) {
-            S.user = d.user;
-            const btn = document.getElementById('nav-user-btn');
-            if (btn) btn.textContent = S.user.name;
-            if (typeof updateHeroForUser === 'function') updateHeroForUser();
-          }
+          if (d.progress)    PROGRESS       = d.progress;
           if (d.vis) _applyVisState(d.vis);
-          cloudLoaded = true;
-          // Back-fill localStorage so offline/same-device works too
-          localStorage.setItem('bom_annotations', JSON.stringify(S.annotations));
-          localStorage.setItem('bom_journal',     JSON.stringify(S.journal));
-          localStorage.setItem('bom_vis',         JSON.stringify(d.vis || {}));
+          loaded = true;
         }
-      } catch(e2) {}
+      } catch(e) {}
     }
-    if (!cloudLoaded) {
-      // Fallback: read from localStorage
-      const a = localStorage.getItem('bom_annotations'); if (a) S.annotations = JSON.parse(a);
-      const j = localStorage.getItem('bom_journal'); if (j) S.journal = JSON.parse(j);
-      const p = localStorage.getItem('bom_progress'); if (p) PROGRESS = JSON.parse(p);
-      const u = localStorage.getItem('bom_user'); if (u) { S.user = JSON.parse(u); const btn = document.getElementById('nav-user-btn'); if (btn) btn.textContent = S.user.name; if (typeof updateHeroForUser === 'function') updateHeroForUser(); }
-    }
-  } catch(e) {}
-  // Restore visual state from localStorage ONLY if cloud didn't already set it
-  if (!cloudLoaded) {
+  }
+
+  // 4. Fallback: localStorage
+  if (!loaded) {
     try {
-      const vs = localStorage.getItem('bom_vis');
+      const a = localStorage.getItem(key + '_ann') || localStorage.getItem('bom_annotations');
+      const j = localStorage.getItem(key + '_jnl') || localStorage.getItem('bom_journal');
+      const p = localStorage.getItem(key + '_prg') || localStorage.getItem('bom_progress');
+      const vs = localStorage.getItem(key + '_vis') || localStorage.getItem('bom_vis');
+      if (a) S.annotations = JSON.parse(a);
+      if (j) S.journal     = JSON.parse(j);
+      if (p) PROGRESS       = JSON.parse(p);
       if (vs) _applyVisState(JSON.parse(vs));
     } catch(e) {}
+  }
+
+  // 5. Restore user identity if not yet set
+  if (!S.user && knownUser) {
+    S.user = knownUser;
+    const btn = document.getElementById('nav-user-btn');
+    if (btn) btn.textContent = S.user.name;
+    if (typeof updateHeroForUser === 'function') updateHeroForUser();
   }
 }
 
