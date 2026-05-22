@@ -10013,6 +10013,9 @@ function renderDCSection(key) {
   var sec = DC_SECTIONS[key];
   if (!sec) return;
 
+  // Set S.current so annotation system knows which chapter we're on
+  S.current = key;
+
   // Sync dropdown
   var sel = document.getElementById('dc-nav-section');
   if (sel) sel.value = key;
@@ -10069,12 +10072,16 @@ function renderDCSection(key) {
         '</div>';
     }
     var html = sec.verses.map(function(v) {
-      return '<div class="verse" data-verse="'+v.num+'">' +
-        '<span class="vnum">'+v.num+'</span>' +
-        '<span class="vtext">'+esc(v.text)+'</span>' +
+      var aKey = S.current + '||' + v.num;
+      var ann  = S.annotations[aKey];
+      var dot  = (ann && ann.note) ? '<div class="verse-note-dot"></div>' : '';
+      return '<div class="verse" data-verse="' + v.num + '" data-side="original">' +
+        '<span class="vnum" data-verse="' + v.num + '">' + v.num + '</span>' +
+        '<span class="vtext" data-verse="' + v.num + '" data-side="original">' + buildHighlightedText(v.text, ann, 'original') + '</span>' +
+        dot +
         '</div>';
     }).join('');
-    origPanel.innerHTML = introHtmlOrig + html;
+    origPanel.innerHTML = introHtmlOrig + '<div class="prose-block" style="user-select:text;-webkit-user-select:text;">' + html + '</div>';
     origPanel.scrollTop = 0;
   }
 
@@ -10108,12 +10115,16 @@ function displayDCModern(panel, verses, key) {
       '</div>';
   }
   var html = verses.map(function(v) {
-    return '<div class="verse" data-verse="' + v.num + '">' +
-      '<span class="vnum">' + v.num + '</span>' +
-      '<span class="vtext">' + esc(v.text) + '</span>' +
+    var aKey = S.current + '||' + v.num;
+    var ann  = S.annotations[aKey];
+    var dot  = (ann && ann.note) ? '<div class="verse-note-dot"></div>' : '';
+    return '<div class="verse" data-verse="' + v.num + '" data-side="modern">' +
+      '<span class="vnum" data-verse="' + v.num + '">' + v.num + '</span>' +
+      '<span class="vtext" data-verse="' + v.num + '" data-side="modern">' + buildHighlightedText(v.text, ann, 'modern') + '</span>' +
+      dot +
       '</div>';
   }).join('');
-  panel.innerHTML = introHtmlMod + html;
+  panel.innerHTML = introHtmlMod + '<div class="prose-block" style="user-select:text;-webkit-user-select:text;">' + html + '</div>';
   panel.scrollTop = 0;
   initScrollSync();
 }
@@ -10243,6 +10254,9 @@ function renderPGPChapter(book, chapter) {
   S_PGP.chapter = chapter;
 
   var key = book + '||' + chapter;
+
+  // Set S.current so annotation system knows which chapter we're on
+  S.current = key;
   var ch = PGP_CHAPTERS[key];
 
   // Update chapter dropdown
@@ -10301,12 +10315,16 @@ function renderPGPChapter(book, chapter) {
           '</div>';
       }
       var verseHtml = ch.verses.map(function(v) {
-        return '<div class="verse" data-verse="' + v.num + '">' +
-          '<span class="vnum">' + v.num + '</span>' +
-          '<span class="vtext">' + esc(v.text) + '</span>' +
+        var aKey = S.current + '||' + v.num;
+        var ann  = S.annotations[aKey];
+        var dot  = (ann && ann.note) ? '<div class="verse-note-dot"></div>' : '';
+        return '<div class="verse" data-verse="' + v.num + '" data-side="original">' +
+          '<span class="vnum" data-verse="' + v.num + '">' + v.num + '</span>' +
+          '<span class="vtext" data-verse="' + v.num + '" data-side="original">' + buildHighlightedText(v.text, ann, 'original') + '</span>' +
+          dot +
           '</div>';
       }).join('');
-      origPanel.innerHTML = introHtml + verseHtml;
+      origPanel.innerHTML = introHtml + '<div class="prose-block" style="user-select:text;-webkit-user-select:text;">' + verseHtml + '</div>';
     }
     origPanel.scrollTop = 0;
   }
@@ -10327,22 +10345,30 @@ function renderPGPChapter(book, chapter) {
           '</div>';
       }
       var modVerseHtml = ch.modern.map(function(v) {
-        return '<div class="verse" data-verse="' + v.num + '">' +
-          '<span class="vnum">' + v.num + '</span>' +
-          '<span class="vtext">' + esc(v.text) + '</span>' +
+        var aKey = S.current + '||' + v.num;
+        var ann  = S.annotations[aKey];
+        var dot  = (ann && ann.note) ? '<div class="verse-note-dot"></div>' : '';
+        return '<div class="verse" data-verse="' + v.num + '" data-side="modern">' +
+          '<span class="vnum" data-verse="' + v.num + '">' + v.num + '</span>' +
+          '<span class="vtext" data-verse="' + v.num + '" data-side="modern">' + buildHighlightedText(v.text, ann, 'modern') + '</span>' +
+          dot +
           '</div>';
       }).join('');
-      modPanel.innerHTML = modIntroHtml + modVerseHtml;
+      modPanel.innerHTML = modIntroHtml + '<div class="prose-block" style="user-select:text;-webkit-user-select:text;">' + modVerseHtml + '</div>';
     } else {
       // No modern translation yet — mirror the canonical text with a note
       var noteHtml = '<div style="background:rgba(196,154,60,.08);border:1px solid rgba(196,154,60,.25);border-radius:6px;padding:12px 16px;margin-bottom:20px;font-family:\'EB Garamond\',serif;font-size:.83rem;color:var(--ink-light);font-style:italic;">Modern English rendering for this section is coming in a future update. The canonical text is shown below for study.</div>';
       var mirrorHtml = ch.verses.map(function(v) {
-        return '<div class="verse" data-verse="' + v.num + '">' +
-          '<span class="vnum">' + v.num + '</span>' +
-          '<span class="vtext">' + esc(v.text) + '</span>' +
+        var aKey = S.current + '||' + v.num;
+        var ann  = S.annotations[aKey];
+        var dot  = (ann && ann.note) ? '<div class="verse-note-dot"></div>' : '';
+        return '<div class="verse" data-verse="' + v.num + '" data-side="modern">' +
+          '<span class="vnum" data-verse="' + v.num + '">' + v.num + '</span>' +
+          '<span class="vtext" data-verse="' + v.num + '" data-side="modern">' + buildHighlightedText(v.text, ann, 'modern') + '</span>' +
+          dot +
           '</div>';
       }).join('');
-      modPanel.innerHTML = noteHtml + mirrorHtml;
+      modPanel.innerHTML = noteHtml + '<div class="prose-block" style="user-select:text;-webkit-user-select:text;">' + mirrorHtml + '</div>';
     }
     modPanel.scrollTop = 0;
   }
