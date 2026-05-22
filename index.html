@@ -1479,6 +1479,25 @@ svg.leaflet-zoom-animated{will-change:transform}
 .hub-pill:hover  { background: rgba(196,154,60,.2); color: #e8c96a; }
 .hub-pill.active { background: rgba(196,154,60,.28); border-color: #c49a3c; color: #e8c96a; }
 
+/* ── PGP sub-filter pills ── */
+.pgp-sub {
+  font-family: 'Cinzel', serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(216,184,72,.3);
+  background: rgba(216,184,72,.06);
+  color: rgba(216,184,72,.6);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.pgp-sub:hover  { background: rgba(216,184,72,.18); color: #f0d060; }
+.pgp-sub.active { background: rgba(216,184,72,.25); border-color: #d8b848; color: #f0d060; }
+
 /* ═══════════════ DEEP DIVE ═══════════════ */
 #page-deepdive { overflow-y:auto; -webkit-overflow-scrolling:touch; background:#0a1525; }
 #dd-header { position:sticky; top:0; background:#08111e; border-bottom:2px solid #c49a3c; padding:14px 18px; z-index:20; display:flex; align-items:center; gap:12px; }
@@ -2102,6 +2121,16 @@ svg.leaflet-zoom-animated{will-change:transform}
       <button class="hub-pill" data-src="ETH" onclick="hubSetSrc(this,'ETH')">Ethiopian Bible</button>
       <button class="hub-pill" data-src="PGP" onclick="hubSetSrc(this,'PGP')">Pearl of Gt. Price</button>
       <button class="hub-pill" data-src="PMG" onclick="hubSetSrc(this,'PMG')">✦ Preach My Gospel</button>
+    </div>
+
+    <!-- PGP sub-filter row (shown only when PGP tab active) -->
+    <div id="pgp-subfilter" style="display:none; gap:5px; overflow-x:auto; scrollbar-width:none; padding:6px 0 2px; margin-top:2px;">
+      <button class="pgp-sub active" data-pgp="" onclick="pgpSubSet(this,'')">All Books</button>
+      <button class="pgp-sub" data-pgp="Moses"   onclick="pgpSubSet(this,'Moses')">Moses</button>
+      <button class="pgp-sub" data-pgp="Abraham" onclick="pgpSubSet(this,'Abraham')">Abraham</button>
+      <button class="pgp-sub" data-pgp="JS-M"    onclick="pgpSubSet(this,'JS-M')">JS—Matthew</button>
+      <button class="pgp-sub" data-pgp="JS-H"    onclick="pgpSubSet(this,'JS-H')">JS—History</button>
+      <button class="pgp-sub" data-pgp="AoF"     onclick="pgpSubSet(this,'AoF')">Articles of Faith</button>
     </div>
   </div>
 
@@ -8875,6 +8904,15 @@ window.addEventListener('popstate', function(e) {
 
 // ══ STUDY HUB ══
 var HUB_SRC_FILTER = '';
+var HUB_PGP_FILTER = '';  // sub-filter: 'Moses'|'Abraham'|'JS-M'|'JS-H'|'AoF'|''
+
+/* ── PGP sub-filter handler ── */
+function pgpSubSet(btn, book) {
+  HUB_PGP_FILTER = book;
+  document.querySelectorAll('.pgp-sub').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  loadStudyHub();
+}
 
 /* ── Helper: open a specific D&C section in the D&C reader ── */
 /* ── openDCSection is defined earlier in the routing section ── */
@@ -9135,47 +9173,137 @@ function buildPMGHub(q) {
 }
 
 function buildPGPHub(q) {
-  const PGP_SECTIONS = window.SCRIPTURE_DATA.PGP_SECTIONS;
+  // Canonical PGP chapter order
+  var PGP_ORDER = [
+    'Moses||1','Moses||2','Moses||3','Moses||4','Moses||5','Moses||6','Moses||7','Moses||8',
+    'Abraham||1','Abraham||2','Abraham||3','Abraham||4','Abraham||5',
+    'JS-M||1','JS-H||1','AoF||1'
+  ];
 
-  // Filter by search query if present
-  var filteredSections = PGP_SECTIONS.filter(function(section) {
+  // Book display labels
+  var PGP_BOOK_LABEL = {
+    'Moses': 'Moses', 'Abraham': 'Abraham',
+    'JS-M': 'Joseph Smith—Matthew', 'JS-H': 'Joseph Smith—History', 'AoF': 'Articles of Faith'
+  };
+
+  // Filter chapters by book sub-filter + search
+  var filtered = PGP_ORDER.filter(function(key) {
+    var meta = CHAPTER_META[key];
+    if (!meta) return false;
+    // Book sub-filter
+    if (HUB_PGP_FILTER && key.split('||')[0] !== HUB_PGP_FILTER) return false;
     if (!q) return true;
-    return section.title.toLowerCase().includes(q) || section.summary.toLowerCase().includes(q);
+    var blob = (
+      key + ' ' +
+      (meta.summary || '') + ' ' +
+      (meta.themes || []).join(' ') + ' ' +
+      (meta.ponder || []).join(' ') + ' ' +
+      (meta.notable || []).map(function(n){ return n.note + ' ' + n.v; }).join(' ') + ' ' +
+      (meta.connections || []).map(function(c){ return c.ref + ' ' + c.note; }).join(' ')
+    ).toLowerCase();
+    return blob.includes(q);
   });
 
-  if (!filteredSections.length) {
+  if (!filtered.length) {
     return '<div style="text-align:center;padding:60px 20px;font-family:Cinzel,serif;color:rgba(216,184,72,.5);">No results — try different keywords.</div>';
   }
 
-  var totalQs = filteredSections.reduce(function(n, s) { return n + s.questions.length; }, 0);
+  var html = '<div style="font-family:Cinzel,serif;font-size:.7rem;color:rgba(216,184,72,.6);text-align:center;margin-bottom:20px;letter-spacing:.08em;">' + filtered.length + ' chapter' + (filtered.length !== 1 ? 's' : '') + '</div>';
 
-  // If no questions remain after filtering, show empty state
-  if (totalQs === 0 && q) {
-    return '<div style="text-align:center;padding:60px 20px;font-family:Cinzel,serif;color:rgba(212,170,80,.5);">No results — try different keywords.</div>';
-  }
+  filtered.forEach(function(key) {
+    var meta    = CHAPTER_META[key];
+    if (!meta) return;
+    var parts   = key.split('||');
+    var book    = parts[0];
+    var chapter = parts[1];
+    var bookLabel = PGP_BOOK_LABEL[book] || book;
+    var loc     = chapter === '1' && (book === 'JS-M' || book === 'JS-H' || book === 'AoF')
+                  ? bookLabel
+                  : bookLabel + ' ' + chapter;
+    var summary  = meta.summary     || '';
+    var themes   = meta.themes      || [];
+    var ponder   = meta.ponder      || [];
+    var notable  = meta.notable     || [];
+    var conns    = meta.connections || [];
 
-  var html = '<div style="font-family:Cinzel,serif;font-size:.7rem;color:rgba(216,184,72,.6);text-align:center;margin-bottom:20px;letter-spacing:.08em;">' + filteredSections.length + ' Books</div>';
+    // Themes row
+    var thHtml = themes.map(function(t) {
+      return '<span style="font-family:Cinzel,serif;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:9px;background:rgba(216,184,72,.1);border:1px solid rgba(216,184,72,.28);color:rgba(216,184,72,.9);">' + hubE(t) + '</span>';
+    }).join('');
 
-  // Intro banner
-  html += '<div style="background:rgba(212,170,80,.07);border:1px solid rgba(212,170,80,.25);border-radius:10px;padding:18px 20px;margin-bottom:28px;">' +
-    '<div style="font-family:Cinzel,serif;font-size:.65rem;color:#d4aa50;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">✦ Pearl of Great Price — Summaries</div>' +
-    '<div style="font-family:EB Garamond,serif;font-size:.97rem;line-height:1.7;color:#c8bca0;font-style:italic;">' +
-      'The Pearl of Great Price contains some of the most profound doctrines ever given — the nature of God, the premortal existence, the creation, the Restoration, and our divine identity. ' +
-      'Study Help questions drawn from <em>Preach My Gospel</em> principles have moved to the ' +
-      '<strong style="color:#d4aa50;cursor:pointer;" onclick="document.querySelectorAll(\'.hub-pill\').forEach(function(b){b.classList.remove(\'active\')});var p=document.querySelector(\'.hub-pill[data-src=PMG]\');if(p){p.classList.add(\'active\');}hubSetSrc(document.querySelector(\'.hub-pill[data-src=PMG]\'),\'PMG\');">✦ Preach My Gospel</strong> tab above — 60 thought-provoking, personally applied questions await you there.' +
-    '</div>' +
-  '</div>';
+    // Notable verse
+    var notHtml = '';
+    if (notable.length) {
+      var nv = notable[0];
+      notHtml = '<div style="margin-top:12px;padding:10px 12px;background:rgba(216,184,72,.07);border-left:3px solid #d8b848;border-radius:0 6px 6px 0;">' +
+        '<div style="font-family:Cinzel,serif;font-size:.65rem;color:#d8b848;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Key Verse — ' + hubE(loc) + ':' + hubE(nv.v) + '</div>' +
+        '<div style="font-family:EB Garamond,serif;font-size:.9rem;line-height:1.55;color:#c0c8d0;margin-bottom:6px;font-style:italic;">' + hubE(nv.text || '') + '</div>' +
+        '<div style="font-family:EB Garamond,serif;font-size:.9rem;line-height:1.5;color:#d0c8b8;">' + hubE(nv.note) + '</div>' +
+      '</div>';
+    }
 
-  filteredSections.forEach(function(section) {
-    // Section header
-    html += '<div style="margin-bottom:8px;">' +
-      '<div style="display:flex;align-items:center;gap:10px;padding:14px 0 10px;border-bottom:2px solid ' + section.color + '40;margin-bottom:18px;">' +
-        '<div style="font-family:Cinzel,serif;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:' + section.color + ';opacity:.8;">' + section.icon + ' Pearl of Great Price</div>' +
-        '<div style="font-family:Cinzel,serif;font-size:1.05rem;font-weight:700;color:' + section.color + ';">' + hubE(section.title) + '</div>' +
-      '</div>' +
-      '<div style="font-family:EB Garamond,serif;font-size:.93rem;line-height:1.65;color:#a0a890;margin-bottom:18px;padding:0 2px;">' + hubE(section.summary) + '</div>' +
-    '</div>' +
-    '<div style="height:8px;"></div>';
+    // Cross-references
+    var connHtml = '';
+    if (conns.length) {
+      connHtml = '<div style="margin-top:14px;">' +
+        '<div style="font-family:Cinzel,serif;font-size:.68rem;color:#a0b8c8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">✦ Cross-References</div>' +
+        conns.map(function(c) {
+          var s2 = hubSrcOf(c.ref);
+          var col2 = HUB_COL[s2] || '#c49a3c';
+          var lbl2 = HUB_LBL[s2] || s2;
+          return '<div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);">' +
+            '<span style="flex-shrink:0;font-family:Cinzel,serif;font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:4px;border:1px solid ' + col2 + ';color:' + col2 + ';background:rgba(255,255,255,.04);margin-top:1px;">' + hubE(lbl2) + '</span>' +
+            '<div style="flex:1;">' +
+              '<div style="font-family:Cinzel,serif;font-size:.7rem;font-weight:700;color:#e8c96a;margin-bottom:3px;">' + hubE(c.ref) + '</div>' +
+              '<div style="font-family:EB Garamond,serif;font-size:.9rem;line-height:1.5;color:#a8bac8;">' + hubE(c.note) + '</div>' +
+            '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+    }
+
+    // Ponder questions
+    var pondHtml = '';
+    if (ponder.length) {
+      pondHtml = '<div style="margin-top:14px;">' +
+        '<div style="font-family:Cinzel,serif;font-size:.68rem;color:#a8c0ff;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">✦ Questions to Ponder</div>' +
+        ponder.map(function(pq) {
+          var pqFmt = hubE(pq).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          return '<div style="display:flex;gap:8px;margin-bottom:8px;">' +
+            '<span style="color:#a8c0ff;flex-shrink:0;">›</span>' +
+            '<div style="font-family:EB Garamond,serif;font-size:.95rem;line-height:1.5;color:#b8c8e8;">' + pqFmt + '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+    }
+
+    // PMG badge
+    var pmgMatch = hubMatchPMG(meta);
+    var pmgHtml = '<div style="margin-top:14px;background:rgba(212,170,80,.07);border:1px solid rgba(212,170,80,.3);border-radius:8px;padding:12px 14px;">' +
+      '<div style="font-family:Cinzel,serif;font-size:.68rem;color:#d4aa50;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">✦ Preach My Gospel · ' + hubE(pmgMatch.principle) + '</div>' +
+      '<div style="font-family:EB Garamond,serif;font-size:.92rem;line-height:1.6;color:#d8c898;margin-bottom:8px;font-style:italic;">' + hubE(pmgMatch.pmg) + '</div>' +
+      '<div style="font-family:EB Garamond,serif;font-size:.92rem;line-height:1.55;color:#b8c8d8;">' + hubE(pmgMatch.teach) + '</div>' +
+    '</div>';
+
+    // Open-in-reader button — navigate to PGP chapter
+    var openBtn = '<button onclick="switchScriptureTab(\'pgp\');setTimeout(function(){var bd=document.getElementById(\'pgp-book-drop\');if(bd){bd.value=\'' + book + '\';buildPGPChapterDrop(\'' + book + '\');var cd=document.getElementById(\'pgp-ch-drop\');if(cd){cd.value=\'' + chapter + '\';renderPGPChapter(\'' + book + '\',\'' + chapter + '\');}}},120);" ' +
+      'style="font-family:Cinzel,serif;font-size:.6rem;font-weight:700;padding:4px 11px;border-radius:5px;border:1px solid rgba(216,184,72,.4);background:rgba(216,184,72,.12);color:#e8d068;cursor:pointer;white-space:nowrap;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0;">Open in Reader ↗</button>';
+
+    html +=
+      '<div style="background:#13201a;border:2px solid rgba(216,184,72,.35);border-radius:12px;padding:20px;margin-bottom:22px;position:relative;" ' +
+      'onmouseover="this.style.borderColor=\'rgba(216,184,72,.75)\';this.style.background=\'#1a2820\';" ' +
+      'onmouseout="this.style.borderColor=\'rgba(216,184,72,.35)\';this.style.background=\'#13201a\';">' +
+        '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">' +
+          '<div>' +
+            '<div style="font-family:Cinzel,serif;font-size:.62rem;font-weight:700;color:#d8b848;text-transform:uppercase;letter-spacing:.12em;margin-bottom:3px;">Pearl of Great Price</div>' +
+            '<div style="font-family:Cinzel,serif;font-size:1.05rem;font-weight:700;color:#f0d870;">' + hubE(loc) + '</div>' +
+          '</div>' +
+          openBtn +
+        '</div>' +
+        '<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">' + thHtml + '</div>' +
+        '<div style="font-family:EB Garamond,serif;font-size:.97rem;line-height:1.6;color:#b0bcc0;margin-top:10px;">' + hubE(summary) + '</div>' +
+        notHtml + pmgHtml + connHtml + pondHtml +
+      '</div>';
   });
 
   return html;
@@ -9224,6 +9352,17 @@ function hubSetSrc(btn, src) {
   HUB_SRC_FILTER = src;
   document.querySelectorAll('.hub-pill').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
+
+  // Show/hide PGP sub-filter row; reset sub-filter when leaving PGP
+  var subRow = document.getElementById('pgp-subfilter');
+  if (subRow) subRow.style.display = (src === 'PGP') ? 'flex' : 'none';
+  if (src !== 'PGP') {
+    HUB_PGP_FILTER = '';
+    document.querySelectorAll('.pgp-sub').forEach(function(b){ b.classList.remove('active'); });
+    var allSub = document.querySelector('.pgp-sub[data-pgp=""]');
+    if (allSub) allSub.classList.add('active');
+  }
+
   loadStudyHub();
 }
 
