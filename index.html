@@ -22,7 +22,7 @@
   --accent:#7c3b1d; --accent2:#a85230;
   --gold:#c49a3c; --gold-light:#e8c96a; --gold-pale:#f3e4b0;
   --divider:#c5b38a; --panel-border:#b8a47a;
-  --sky:#2e2318; --sky-dark:#1c160f;
+  --sky:#2e3650; --sky-dark:#202940;
   --bg: var(--parchment);
   --text: var(--ink);
   --panel-bg: var(--parchment);
@@ -1243,7 +1243,7 @@ svg.leaflet-zoom-animated{will-change:transform}
 #tl-header {
   display: flex; align-items: center; gap: 10px;
   padding: 11px 16px;
-  background: linear-gradient(90deg,#1c160f 0%,#2e2318 50%,#1c160f 100%);
+  background: linear-gradient(90deg,#202940 0%,#2c3554 50%,#202940 100%);
   border-bottom: 1px solid rgba(196,154,60,.22);
   cursor: pointer; user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -1320,7 +1320,7 @@ svg.leaflet-zoom-animated{will-change:transform}
   padding: 9px 12px 7px;
   border-bottom: 1px solid rgba(196,154,60,.1);
   position: sticky; top: 0; z-index: 2;
-  background: #1c160f;
+  background: #202940;
 }
 .tl-lane-badge {
   font-family: 'Cinzel',serif; font-size: .44rem; font-weight: 700;
@@ -1499,7 +1499,7 @@ svg.leaflet-zoom-animated{will-change:transform}
 .pgp-sub.active { background: rgba(216,184,72,.25); border-color: #d8b848; color: #f0d060; }
 
 /* ═══════════════ DEEP DIVE ═══════════════ */
-#page-deepdive { overflow-y:auto; -webkit-overflow-scrolling:touch; background:#1c160f; }
+#page-deepdive { overflow-y:auto; -webkit-overflow-scrolling:touch; background:#202940; }
 #dd-header { position:sticky; top:0; background:#08111e; border-bottom:2px solid #c49a3c; padding:14px 18px; z-index:20; display:flex; align-items:center; gap:12px; }
 #dd-back { font-family:'Cinzel',serif; font-size:.75rem; font-weight:700; color:#c49a3c; background:none; border:1px solid rgba(196,154,60,.4); border-radius:6px; padding:5px 12px; cursor:pointer; white-space:nowrap; letter-spacing:.05em; flex-shrink:0; }
 #dd-back:hover { background:rgba(196,154,60,.12); }
@@ -2099,7 +2099,7 @@ svg.leaflet-zoom-animated{will-change:transform}
 <!-- ══════════════ STUDY HUB PAGE — Elaborated ══════════════ -->
 <div class="page" id="page-studyhub" style="overflow-y:auto; -webkit-overflow-scrolling:touch; background:#0f1a28; padding:20px;">
 
-  <div style="position:sticky; top:0; background:#1c160f; border-bottom:2px solid #c49a3c; padding:16px; margin:-20px -20px 0 -20px; z-index:10;">
+  <div style="position:sticky; top:0; background:#202940; border-bottom:2px solid #c49a3c; padding:16px; margin:-20px -20px 0 -20px; z-index:10;">
 
     <!-- Title row with back -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
@@ -2141,7 +2141,7 @@ svg.leaflet-zoom-animated{will-change:transform}
 
 </div>
 <!-- ══════════════ DEEP DIVE ══════════════ -->
-<div class="page" id="page-deepdive" style="overflow-y:auto;-webkit-overflow-scrolling:touch;background:#1c160f;">
+<div class="page" id="page-deepdive" style="overflow-y:auto;-webkit-overflow-scrolling:touch;background:#202940;">
   <div id="dd-header">
     <button id="dd-back" onclick="deepDiveBack()">← Back</button>
     <div id="dd-header-title">Deep Dive</div>
@@ -7794,7 +7794,7 @@ function logout() {
 const THEMES = {
   // bg=page bg, text=ink, p1=panel bg, p2=panel2 bg, raised=slightly lighter surface for cards/study helps
   parchment:{bg:'#f6f1e7',text:'#18120a',p1:'#f6f1e7',p2:'#faf7f1',raised:'#ede5d0'},
-  dark:      {bg:'#1c160f',text:'#e8dfc8',p1:'#221a10',p2:'#1a1208',raised:'#2e2318'},
+  dark:      {bg:'#202940',text:'#caaa98',p1:'#252e47',p2:'#1d2638',raised:'#2c3554'},
   sepia:     {bg:'#f0e6d0',text:'#3b2a1a',p1:'#f0e6d0',p2:'#ece0c8',raised:'#e6d9c0'},
   white:     {bg:'#ffffff',text:'#111111',p1:'#ffffff',p2:'#f8f8f8',raised:'#f0f0f0'},
 };
@@ -7808,10 +7808,17 @@ function setTheme(name, el) {
   document.documentElement.style.setProperty('--panel2-bg', t.p2);
   document.documentElement.style.setProperty('--bg', t.bg);
   document.documentElement.style.setProperty('--surface-raised', t.raised || t.p2);
+  // Border/divider — muted on dark theme, warm on light themes
+  if (name === 'dark') {
+    document.documentElement.style.setProperty('--panel-border', '#4b4038');
+    document.documentElement.style.setProperty('--divider', '#4b4038');
+  } else {
+    document.documentElement.style.setProperty('--panel-border', '#b8a47a');
+    document.documentElement.style.setProperty('--divider', '#c5b38a');
+  }
   setCustomText(t.text);
   const bgInp = document.getElementById('custom-bg');
   if (bgInp) bgInp.value = t.bg;
-  // Persist theme name so it survives reload
   S._themeName = name;
   saveData();
 }
@@ -9291,9 +9298,9 @@ function buildPGPHub(q) {
       'style="font-family:Cinzel,serif;font-size:.6rem;font-weight:700;padding:4px 11px;border-radius:5px;border:1px solid rgba(216,184,72,.4);background:rgba(216,184,72,.12);color:#e8d068;cursor:pointer;white-space:nowrap;letter-spacing:.05em;text-transform:uppercase;flex-shrink:0;">Open in Reader ↗</button>';
 
     html +=
-      '<div style="background:#1e180e;border:2px solid rgba(216,184,72,.35);border-radius:12px;padding:20px;margin-bottom:22px;position:relative;" ' +
-      'onmouseover="this.style.borderColor=\'rgba(216,184,72,.75)\';this.style.background=\'#2a2015\';" ' +
-      'onmouseout="this.style.borderColor=\'rgba(216,184,72,.35)\';this.style.background=\'#1e180e\';">' +
+      '<div style="background:#252e47;border:2px solid rgba(216,184,72,.35);border-radius:12px;padding:20px;margin-bottom:22px;position:relative;" ' +
+      'onmouseover="this.style.borderColor=\'rgba(216,184,72,.75)\';this.style.background=\'#2c3554\';" ' +
+      'onmouseout="this.style.borderColor=\'rgba(216,184,72,.35)\';this.style.background=\'#252e47\';">' +
         '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">' +
           '<div>' +
             '<div style="font-family:Cinzel,serif;font-size:.62rem;font-weight:700;color:#d8b848;text-transform:uppercase;letter-spacing:.12em;margin-bottom:3px;">Pearl of Great Price</div>' +
@@ -9495,9 +9502,9 @@ function loadStudyHub() {
             '<div style="font-family:EB Garamond,serif;font-size:.92rem;line-height:1.55;color:#b8c8d8;">' + hubE(pmgEntry.teach) + '</div>' +
           '</div>' : '';
       dcHtml +=
-        '<div style="background:#1e1810;border:2px solid rgba(96,184,216,.35);border-radius:12px;padding:20px;margin-bottom:22px;position:relative;" ' +
+        '<div style="background:#1d2638;border:2px solid rgba(96,184,216,.35);border-radius:12px;padding:20px;margin-bottom:22px;position:relative;" ' +
         'onmouseover="this.style.borderColor=\'rgba(96,184,216,.75)\';this.style.background=\'#182840\';" ' +
-        'onmouseout="this.style.borderColor=\'rgba(96,184,216,.35)\';this.style.background=\'#1e1810\';">' +
+        'onmouseout="this.style.borderColor=\'rgba(96,184,216,.35)\';this.style.background=\'#1d2638\';">' +
           '<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">' +
             '<div>' +
               '<div style="font-family:Cinzel,serif;font-size:.62rem;font-weight:700;color:#60b8d8;text-transform:uppercase;letter-spacing:.12em;margin-bottom:3px;">Doctrine &amp; Covenants</div>' +
