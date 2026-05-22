@@ -9680,9 +9680,12 @@ const VERSE_LOOKUP = window.SCRIPTURE_DATA.VERSE_LOOKUP;
 
 // ══ DEEP DIVE ══
 var DD_PREV_SCROLL = 0;
+var DD_PREV_PAGE   = 'studyhub'; // page deepDive() was called from
 
 function deepDive(ddKey) {
   var hub = document.getElementById('page-studyhub');
+  // Capture the page we're coming from (studyhub, tree, or anything else)
+  DD_PREV_PAGE = (_navStack.length ? _navStack[_navStack.length - 1] : 'studyhub') || 'studyhub';
   // Save scroll to both the module var AND the current history state so
   // the back button can restore the exact position even after a full re-render
   if (hub) {
@@ -10153,17 +10156,27 @@ function dcSearchVerses(q) {
 
 
 function deepDiveBack() {
-  // Navigate directly to studyhub — no history.back() so there's no race
-  // condition between the browser restoring scroll and loadStudyHub re-rendering.
-  // We use the saved scroll offset from DD_PREV_SCROLL (set when deepDive() was called).
   var savedScroll = DD_PREV_SCROLL || 0;
-  // Show the studyhub page (triggers loadStudyHub via 30ms timeout inside showPage)
-  showPage('studyhub');
-  // Restore scroll after loadStudyHub has finished rendering
-  setTimeout(function() {
-    var hub = document.getElementById('page-studyhub');
-    if (hub) hub.scrollTop = savedScroll;
-  }, 80);
+  var destPage    = DD_PREV_PAGE   || 'studyhub';
+
+  // Replace the deepdive history entry with the destination so the browser
+  // back button goes to whatever was BEFORE the deepdive, not back to it.
+  try {
+    history.replaceState({ page: destPage, hubScroll: savedScroll }, '');
+  } catch(e) {}
+
+  // Show the destination without pushing another history entry
+  _historyNavigating = true;
+  showPage(destPage);
+  _historyNavigating = false;
+
+  // Restore studyhub scroll if that's where we're going
+  if (destPage === 'studyhub' && savedScroll) {
+    setTimeout(function() {
+      var hub = document.getElementById('page-studyhub');
+      if (hub) hub.scrollTop = savedScroll;
+    }, 80);
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════════════
