@@ -6162,8 +6162,31 @@ function renderAll() {
   if (!S.current) return;
 
   // ── DC section re-render ───────────────────────────────────────
+  // Avoid calling renderDCSection() which hits DC_MODERN (may be unavailable).
+  // Instead rebuild only the original panel spans directly.
   if (S.current.startsWith('DC||')) {
-    if (typeof renderDCSection === 'function') renderDCSection(S.current);
+    const _dcSec = (typeof DC_SECTIONS !== 'undefined') ? DC_SECTIONS[S.current] : null;
+    if (_dcSec) {
+      const _origPanel = document.getElementById('panel-original');
+      if (_origPanel) {
+        const _html = _dcSec.verses.map(function(v) {
+          const _aKey = S.current + '||' + v.num;
+          const _ann = S.annotations[_aKey];
+          const _dot = (_ann && _ann.note) ? '<div class="verse-note-dot"></div>' : '';
+          return '<div class="verse" data-verse="' + v.num + '" data-side="original">' +
+            '<span class="vnum" data-verse="' + v.num + '">' + v.num + '</span>' +
+            '<span class="vtext" data-verse="' + v.num + '" data-side="original">' + buildHighlightedText(v.text, _ann, 'original') + '</span>' +
+            _dot + '</div>';
+        }).join('');
+        // Preserve any intro card at top, only replace the prose-block
+        const _pb = _origPanel.querySelector('.prose-block');
+        if (_pb) {
+          _pb.innerHTML = _html;
+        } else {
+          _origPanel.innerHTML = '<div class="prose-block" style="user-select:text;-webkit-user-select:text;">' + _html + '</div>';
+        }
+      }
+    }
     return;
   }
 
