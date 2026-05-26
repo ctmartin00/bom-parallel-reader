@@ -6162,41 +6162,48 @@ function renderAll() {
   if (!S.current) return;
 
   // ── DC section re-render ───────────────────────────────────────
-  // Avoid calling renderDCSection() which hits DC_MODERN (may be unavailable).
-  // Instead rebuild only the original panel spans directly.
+  // Update all verse spans in both panels using the unified helper.
+  // Does NOT call renderDCSection() to avoid touching DC_MODERN.
   if (S.current.startsWith('DC||')) {
     const _dcSec = (typeof DC_SECTIONS !== 'undefined') ? DC_SECTIONS[S.current] : null;
     if (_dcSec) {
-      const _origPanel = document.getElementById('panel-original');
-      if (_origPanel) {
-        const _html = _dcSec.verses.map(function(v) {
-          const _aKey = S.current + '||' + v.num;
-          const _ann = S.annotations[_aKey];
-          const _dot = (_ann && _ann.note) ? '<div class="verse-note-dot"></div>' : '';
-          return '<div class="verse" data-verse="' + v.num + '" data-side="original">' +
-            '<span class="vnum" data-verse="' + v.num + '">' + v.num + '</span>' +
-            '<span class="vtext" data-verse="' + v.num + '" data-side="original">' + buildHighlightedText(v.text, _ann, 'original') + '</span>' +
-            _dot + '</div>';
-        }).join('');
-        // Preserve any intro card at top, only replace the prose-block
-        const _pb = _origPanel.querySelector('.prose-block');
-        if (_pb) {
-          _pb.innerHTML = _html;
-        } else {
-          _origPanel.innerHTML = '<div class="prose-block" style="user-select:text;-webkit-user-select:text;">' + _html + '</div>';
-        }
-      }
+      _dcSec.verses.forEach(function(v) {
+        const _key = S.current + '||' + v.num;
+        const _ann = S.annotations[_key];
+        // Update original panel span
+        document.querySelectorAll('.vtext[data-verse="' + v.num + '"][data-side="original"]').forEach(function(sp) {
+          sp.innerHTML = buildHighlightedText(v.text, _ann, 'original');
+        });
+        // Update note dot
+        const _dot = document.querySelector('.verse[data-verse="' + v.num + '"] .verse-note-dot');
+        if (_dot) _dot.style.display = (_ann && _ann.note) ? 'block' : 'none';
+      });
     }
     return;
   }
 
   // ── PGP chapter re-render ──────────────────────────────────────
+  // Update verse spans in-place; does NOT call renderPGPChapter (avoids scroll reset).
   const PGP_BOOKS = ['Moses','Abraham','JS-M','JS-H','AoF'];
   const [_pgpBook] = S.current.split('||');
   if (PGP_BOOKS.includes(_pgpBook)) {
-    if (typeof renderPGPChapter === 'function') {
-      const parts = S.current.split('||');
-      renderPGPChapter(parts[0], parts[1]);
+    const _pgpCh = (typeof PGP_CHAPTERS !== 'undefined') ? PGP_CHAPTERS[S.current] : null;
+    if (_pgpCh) {
+      ['original','modern'].forEach(function(sideKey) {
+        const vlist = sideKey === 'original' ? _pgpCh.verses : _pgpCh.modern;
+        if (!vlist) return;
+        vlist.forEach(function(v) {
+          const _key = S.current + '||' + v.num;
+          const _ann = S.annotations[_key];
+          document.querySelectorAll('.vtext[data-verse="' + v.num + '"][data-side="' + sideKey + '"]').forEach(function(sp) {
+            sp.innerHTML = buildHighlightedText(v.text, _ann, sideKey);
+          });
+          if (sideKey === 'original') {
+            const _dot = document.querySelector('.verse[data-verse="' + v.num + '"] .verse-note-dot');
+            if (_dot) _dot.style.display = (_ann && _ann.note) ? 'block' : 'none';
+          }
+        });
+      });
     }
     return;
   }
@@ -7107,6 +7114,25 @@ function addCustomAnnotationTag() {
   inp.focus();
 }
 
+// ── Unified verse-text lookup: BOM, D&C, and PGP ─────────────────
+function _getVerseObj(current, verseNum, side) {
+  const ch = CHAPTERS[current];
+  if (ch) {
+    const verses = side === 'original' ? ch.original : ch.modern;
+    return verses ? verses.find(v => v.num === verseNum) : null;
+  }
+  const dcSec = (typeof DC_SECTIONS !== 'undefined') ? DC_SECTIONS[current] : null;
+  if (dcSec) {
+    return side === 'original' ? dcSec.verses.find(v => v.num === verseNum) : null;
+  }
+  const pgpCh = (typeof PGP_CHAPTERS !== 'undefined') ? PGP_CHAPTERS[current] : null;
+  if (pgpCh) {
+    const verses = side === 'original' ? pgpCh.verses : pgpCh.modern;
+    return verses ? verses.find(v => v.num === verseNum) : null;
+  }
+  return null;
+}
+
 function applyAnnotationHL(hlNum) {
   if (_selVerseNum === null) return;
 
@@ -7153,48 +7179,23 @@ function applyAnnotationHL(hlNum) {
 
   saveData();
 
-  // Re-render all affected verse text spans
-  const ch = CHAPTERS[S.current];
-  if (ch) {
-    // BOM fast path — update spans directly without full re-render
-    verseNums.forEach(vn => {
-      const key = S.current + '||' + vn;
-      ['original','modern'].forEach(sideKey => {
-        const verses = sideKey === 'original' ? ch.original : ch.modern;
-        const v = verses.find(x => x.num === vn);
-        if (!v) return;
-        document.querySelectorAll(`.vtext[data-verse="${vn}"][data-side="${sideKey}"]`).forEach(span => {
-          span.innerHTML = buildHighlightedText(v.text, S.annotations[key], sideKey);
-        });
-        // Update note dot
+  // ── Unified fast-path span update: BOM, D&C, and PGP ────────────
+  // Uses _getVerseObj so the same logic works regardless of scripture collection.
+  verseNums.forEach(vn => {
+    const key = S.current + '||' + vn;
+    ['original', 'modern'].forEach(sideKey => {
+      const v = _getVerseObj(S.current, vn, sideKey);
+      if (!v) return;
+      document.querySelectorAll(`.vtext[data-verse="${vn}"][data-side="${sideKey}"]`).forEach(span => {
+        span.innerHTML = buildHighlightedText(v.text, S.annotations[key], sideKey);
+      });
+      // Update note dot (only once per verse)
+      if (sideKey === 'original') {
         const dot = document.querySelector(`.verse[data-verse="${vn}"] .verse-note-dot`);
         if (dot) dot.style.display = S.annotations[key]?.note ? 'block' : 'none';
-      });
+      }
     });
-  } else {
-    // DC / PGP fast path — update spans directly without full re-render
-    const dcSec = (typeof DC_SECTIONS !== 'undefined') ? DC_SECTIONS[S.current] : null;
-    const pgpCh = (typeof PGP_CHAPTERS !== 'undefined') ? PGP_CHAPTERS[S.current] : null;
-    const sourceChapter = dcSec || pgpCh;
-    if (sourceChapter) {
-      verseNums.forEach(vn => {
-        const key = S.current + '||' + vn;
-        const versesOrig = dcSec ? dcSec.verses : pgpCh.verses;
-        const versesMod  = pgpCh ? pgpCh.modern : null;
-        ['original','modern'].forEach(sideKey => {
-          const verseList = sideKey === 'modern' ? versesMod : versesOrig;
-          if (!verseList) return;
-          const v = verseList.find(x => x.num === vn);
-          if (!v) return;
-          document.querySelectorAll(`.vtext[data-verse="${vn}"][data-side="${sideKey}"]`).forEach(span => {
-            span.innerHTML = buildHighlightedText(v.text, S.annotations[key], sideKey);
-          });
-          const dot = document.querySelector(`.verse[data-verse="${vn}"] .verse-note-dot`);
-          if (dot) dot.style.display = S.annotations[key]?.note ? 'block' : 'none';
-        });
-      });
-    }
-  }
+  });
 
   // Update color dot indicators in toolbar
   const firstKey = S.current + '||' + verseNums[0];
@@ -7461,9 +7462,8 @@ function setupSelectionListener() {
 
       // For single-verse: capture char offset; multi: full highlight
       if (touchedVerses.length === 1) {
-        const ch = CHAPTERS[S.current];
-        const verses = ch ? (side === 'original' ? ch.original : ch.modern) : [];
-        const verse = verses.find(v => v.num === firstVerse);
+        // Look up verse text from BOM, D&C, or PGP
+        const verse = _getVerseObj(S.current, firstVerse, side);
         if (verse) {
           const selectedText = sel.toString().trim();
           const startOffset = verse.text.indexOf(selectedText);
