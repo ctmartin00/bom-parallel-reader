@@ -6161,7 +6161,24 @@ function buildHighlightedText(text, ann, side) {
 function renderAll() {
   if (!S.current) return;
 
-  // ── Sync nav dropdowns with S.current ─────────────────────────
+  // ── DC section re-render ───────────────────────────────────────
+  if (S.current.startsWith('DC||')) {
+    if (typeof renderDCSection === 'function') renderDCSection(S.current);
+    return;
+  }
+
+  // ── PGP chapter re-render ──────────────────────────────────────
+  const PGP_BOOKS = ['Moses','Abraham','JS-M','JS-H','AoF'];
+  const [_pgpBook] = S.current.split('||');
+  if (PGP_BOOKS.includes(_pgpBook)) {
+    if (typeof renderPGPChapter === 'function') {
+      const parts = S.current.split('||');
+      renderPGPChapter(parts[0], parts[1]);
+    }
+    return;
+  }
+
+  // ── BOM re-render ──────────────────────────────────────────────
   const [curBook, curCh] = S.current.split('||');
   const navBook = document.getElementById('nav-book');
   const navCh   = document.getElementById('nav-chapter');
@@ -7116,6 +7133,7 @@ function applyAnnotationHL(hlNum) {
   // Re-render all affected verse text spans
   const ch = CHAPTERS[S.current];
   if (ch) {
+    // BOM fast path — update spans directly without full re-render
     verseNums.forEach(vn => {
       const key = S.current + '||' + vn;
       ['original','modern'].forEach(sideKey => {
@@ -7130,6 +7148,29 @@ function applyAnnotationHL(hlNum) {
         if (dot) dot.style.display = S.annotations[key]?.note ? 'block' : 'none';
       });
     });
+  } else {
+    // DC / PGP fast path — update spans directly without full re-render
+    const dcSec = (typeof DC_SECTIONS !== 'undefined') ? DC_SECTIONS[S.current] : null;
+    const pgpCh = (typeof PGP_CHAPTERS !== 'undefined') ? PGP_CHAPTERS[S.current] : null;
+    const sourceChapter = dcSec || pgpCh;
+    if (sourceChapter) {
+      verseNums.forEach(vn => {
+        const key = S.current + '||' + vn;
+        const versesOrig = dcSec ? dcSec.verses : pgpCh.verses;
+        const versesMod  = pgpCh ? pgpCh.modern : null;
+        ['original','modern'].forEach(sideKey => {
+          const verseList = sideKey === 'modern' ? versesMod : versesOrig;
+          if (!verseList) return;
+          const v = verseList.find(x => x.num === vn);
+          if (!v) return;
+          document.querySelectorAll(`.vtext[data-verse="${vn}"][data-side="${sideKey}"]`).forEach(span => {
+            span.innerHTML = buildHighlightedText(v.text, S.annotations[key], sideKey);
+          });
+          const dot = document.querySelector(`.verse[data-verse="${vn}"] .verse-note-dot`);
+          if (dot) dot.style.display = S.annotations[key]?.note ? 'block' : 'none';
+        });
+      });
+    }
   }
 
   // Update color dot indicators in toolbar
