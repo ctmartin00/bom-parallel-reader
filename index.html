@@ -9327,6 +9327,392 @@ const DC_CARDS = window.SCRIPTURE_DATA.DC_CARDS;
 }());
 
 /* ══════════════════════════════════════════════════════════════════
+   PARALLEL THEMES ACROSS ALL SCRIPTURE — D&C Sections 1–10
+   Each section shows how its core revelation connects to the full
+   canon: Old Testament, New Testament, Book of Mormon, Pearl of
+   Great Price, and the Ethiopian Bible.
+   Injected after DC_CARDS is built, merged by section number.
+   ══════════════════════════════════════════════════════════════════ */
+(function() {
+  var DC_PARALLEL = {
+
+    1: [
+      { ref: '2 Nephi 26:14', note: 'Nephi prophesies that in the last days the Lord "will proceed to do a marvelous work" — D&C 1 is the formal opening of that marvelous work, the Lord's own preface to His dispensation.' },
+      { ref: 'Isaiah 55:10–11', note: '"My word… shall not return unto me void, but it shall accomplish that which I please." D&C 1:38 restates this same eternal guarantee: whether by God's own voice or His servants, it is the same.' },
+      { ref: '1 Enoch 1:1–9 (Ethiopian Bible)', note: 'Enoch opens his record with the identical voice-of-warning structure: a word "not for this generation, but for a remote one which is for to come." D&C 1 is written to the same audience — every generation until the Lord comes.' },
+      { ref: 'Moses 7:60–64 (Pearl of Great Price)', note: 'God promises Enoch that righteousness and truth will come down from heaven in the last days. D&C 1's opening of the Restoration is the fulfillment of that covenant, inaugurating the gathering Enoch wept to see.' },
+      { ref: 'Revelation 14:6', note: '"I saw another angel fly in the midst of heaven, having the everlasting gospel to preach." John's vision of the Restoration angel is the backdrop to D&C 1's proclamation that the gospel is again going to every nation.' },
+    ],
+
+    2: [
+      { ref: 'Malachi 4:5–6', note: 'The direct source text — God promises to send Elijah before the great and dreadful day of the Lord to "turn the heart of the fathers to the children." D&C 2 is Moroni quoting this promise to Joseph Smith as its imminent fulfillment.' },
+      { ref: '3 Nephi 25:5–6', note: 'Christ himself quotes this same Malachi passage to the Nephites, confirming it as an active covenant promise — not historical record. D&C 2 and 3 Nephi together establish the sealing keys as the capstone ordinance of the Restoration.' },
+      { ref: 'Abraham 1:2–4 (Pearl of Great Price)', note: 'Abraham's central desire was to receive "the right whereunto I should be ordained to administer the same" — the blessings and priesthood of the fathers. Elijah's mission in D&C 2 is precisely the restoration of that chain.' },
+      { ref: 'Jubilees 23:24–25 (Ethiopian Bible)', note: 'Jubilees prophesies a generation that will return to God's ordinances and "draw near to God in righteousness," their children following them. The hearts turning to fathers and children is an ancient covenant pattern, not a late addition.' },
+      { ref: 'D&C 110:13–16', note: 'The fulfillment — Elijah actually appears in the Kirtland Temple and commits the sealing keys. D&C 2 is the promise; D&C 110 is the delivery. Both together frame the entire purpose of temple work.' },
+    ],
+
+    3: [
+      { ref: 'Isaiah 14:24–27', note: '"The LORD of hosts hath purposed, and who shall disannul it?" Isaiah's rhetorical challenge to all opposition is the theological spine of D&C 3: God's work cannot be frustrated — not by Martin Harris, not by enemies, not by human weakness.' },
+      { ref: '1 Nephi 9:5–6', note: 'Nephi writes: "The Lord commanded me to make these plates for a wise purpose in him." The small plates — pre-made centuries earlier — were God's prepared answer to the very crisis D&C 3 addresses. The Lord planned the solution before the problem.' },
+      { ref: 'Helaman 12:3–6', note: 'Mormon diagnoses the cycle: "How great is the nothingness of the children of men" when they forget God in prosperity. Joseph's loss of the manuscript is the same pattern applied to an individual — given stewardship, he "set at naught the counsels of God."' },
+      { ref: 'Jubilees 1:22–25 (Ethiopian Bible)', note: 'God's covenant with Israel includes this promise: even when they transgress and are scattered, "I will not abandon them." D&C 3 speaks to the same covenant loyalty — God's work is not dependent on the faithfulness of any single human agent.' },
+      { ref: '2 Timothy 2:13', note: '"If we believe not, yet he abideth faithful: he cannot deny himself." Paul's statement about God's fidelity to covenant regardless of human failure is D&C 3's central doctrine, applied directly to Joseph's moment of failure.' },
+    ],
+
+    4: [
+      { ref: 'Isaiah 52:7', note: '"How beautiful upon the mountains are the feet of him that bringeth good tidings." Isaiah's harvest image is the prophetic backdrop to D&C 4's "field is white already to harvest." The call to proclaim good tidings is as old as Isaiah's Servant Songs.' },
+      { ref: 'Alma 17:3', note: 'The sons of Mosiah were "strong in the knowledge of truth" because of "much prayer and fasting." Their 14-year mission is D&C 4 lived out — faith, hope, charity, an eye single to the glory of God — and the fruit was miraculous.' },
+      { ref: 'Matthew 9:37–38', note: '"The harvest truly is plenteous, but the labourers are few." Christ's own harvest language, spoken in mortality, is the voice behind D&C 4's urgency. The "white field" ready for harvest is the world in every generation.' },
+      { ref: 'Jubilees 1:15–18 (Ethiopian Bible)', note: 'God's promise to send witnesses who will lead the people back to Him includes an implicit list of qualifications: they must be clean, willing, and filled with His Spirit. D&C 4's virtue-character-knowledge triad mirrors this ancient missionary profile.' },
+      { ref: '2 Nephi 31:20', note: '"Press forward with a steadfastness in Christ, having a perfect brightness of hope and a love of God and of all men." Nephi's summary of endurance is the same cluster — faith, hope, charity — that D&C 4 requires of every servant called to the work.' },
+    ],
+
+    5: [
+      { ref: 'Deuteronomy 19:15', note: '"In the mouth of two or three witnesses shall every word be established." The Law of Witnesses is the covenant foundation of D&C 5's command to show the plates to three men. God consistently operates through this legal standard in every dispensation.' },
+      { ref: '2 Nephi 27:12–14', note: 'Nephi prophesies that three witnesses shall "behold" the plates and "testify of the truth of the book." D&C 5 is the fulfillment — God designating and commissioning witnesses centuries after Nephi recorded the promise.' },
+      { ref: '1 Enoch 90:28–36 (Ethiopian Bible)', note: 'In Enoch's final vision, witnesses testify before the throne as the new house of God is established. The eschatological framework of witness-bearing for a divine record runs through the entire Ethiopian tradition — D&C 5 stands in this ancient covenant pattern.' },
+      { ref: 'John 5:36–37', note: '"The works which the Father hath given me to finish, the same works that I do, bear witness of me." Christ on witness establishes that testimony of divine work comes through multiple channels — the Spirit, the works, the witnesses — all of which D&C 5 employs.' },
+      { ref: 'Ether 5:2–4', note: 'Moroni seals up the record with the same three-witness structure, confirming that the number and role of witnesses was known and encoded in the Book of Mormon centuries before D&C 5 named them.' },
+    ],
+
+    6: [
+      { ref: 'Joshua 1:9', note: '"Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee." God's charge to Joshua when he began an impossible task is nearly identical in language to D&C 6:36's "Look unto me in every thought; doubt not, fear not."' },
+      { ref: '1 Nephi 17:3', note: '"If God had commanded me to do all things I could do them." Nephi's testimony of divine empowerment is the assurance D&C 6 offers Oliver. The call comes before the capacity — obedience unlocks the power.' },
+      { ref: 'Ether 12:27', note: '"I give unto men weakness that they may be humble; and my grace is sufficient for all men that humble themselves before me." Oliver's hesitancy is God's invitation. D&C 6 is the personal application of Moroni's universal doctrine.' },
+      { ref: 'D&C 18:10–11', note: '"The worth of souls is great in the sight of God." D&C 6 prepares Oliver for D&C 18 — the value of one soul converted justifies the entire work. God's mercy toward Oliver is the same mercy He extends through Oliver's future ministry.' },
+      { ref: 'Psalms of Solomon 3:1–4 (Ethiopian Bible)', note: 'The Psalms of Solomon describe the righteous man who stumbles, is corrected by God, and is restored to His presence — the same pattern of correction and reassurance that D&C 6 offers Oliver after his own stumbling.' },
+    ],
+
+    7: [
+      { ref: '2 Kings 2:11', note: 'Elijah taken in a whirlwind "by a chariot of fire" establishes the Old Testament template: righteous men can be taken from earth without dying, translated for continued service. D&C 7's John follows this same pattern.' },
+      { ref: '3 Nephi 28:6–10', note: 'The three Nephites express the same desire as John — to remain on earth and minister — and Christ grants it. D&C 7 and 3 Nephi 28 together establish that translated beings in every dispensation form an ongoing witness.' },
+      { ref: 'Jubilees 4:23–24 (Ethiopian Bible)', note: 'Enoch is translated and continues his ministry of writing and witnessing from the Garden of Eden. His pattern — righteous man, taken without death, still serving — is God's consistent model for translated beings that D&C 7 confirms.' },
+      { ref: 'Moses 7:21 (Pearl of Great Price)', note: 'The city of Enoch is translated to heaven, entire, for continued service in the work of redemption. D&C 7's John and 3 Nephi's disciples fit the same principle: translation is mission continuation, not retirement.' },
+      { ref: 'Revelation 10:11', note: '"Thou must prophesy again before many peoples, and nations, and tongues, and kings." This is the commission John received — and which D&C 7 confirms he is still fulfilling as a translated being among men.' },
+    ],
+
+    8: [
+      { ref: 'Job 32:8', note: '"There is a spirit in man: and the inspiration of the Almighty giveth them understanding." D&C 8:2–3 describes two channels: mind and heart, bosom and mind. Job identifies the same dual channel — spirit within, inspiration from above.' },
+      { ref: 'Enos 1:3–8', note: 'Enos prays, and "a voice came unto me, saying: Enos, thy sins are forgiven thee." Revelation came through a voice to a struggling mind — D&C 8's "spirit of revelation" described from the inside, by someone who experienced it.' },
+      { ref: 'Moroni 10:4–5', note: 'The Spirit manifests truth "by the power of the Holy Ghost" to mind and heart together. This is D&C 8's mechanism in its fullest Book of Mormon form — the same Spirit, the same two channels, the same individual responsibility to ask.' },
+      { ref: '1 Enoch 71:3–4 (Ethiopian Bible)', note: 'Enoch receives vision and revelation through the angelic voice speaking directly "into his spirit" — the divine word entering from outside and resonating within. D&C 8 systematizes what Enoch experiences firsthand.' },
+      { ref: '2 Nephi 28:30', note: '"I will give unto the children of men line upon line, precept upon precept, here a little and there a little." D&C 8's gift of revelation is God's consistent pattern of gradual, personal, cumulative communication — ancient in its design.' },
+    ],
+
+    9: [
+      { ref: 'Proverbs 3:5–6', note: '"Trust in the LORD with all thine heart; and lean not unto thine own understanding." Oliver's failure to translate was precisely leaning on his own understanding without engaging the required mental and spiritual effort. D&C 9 is Proverbs applied.' },
+      { ref: 'Alma 32:27–28', note: '"Awake and arouse your faculties, even to an experiment upon my words." Alma's teaching on faith demands active mental engagement — "try the experiment," "exercise a particle of faith." D&C 9's "study it out in your mind" is the same epistemology.' },
+      { ref: 'James 1:5', note: 'The same verse Joseph obeyed to receive the First Vision. D&C 9 gives the fuller mechanics behind that promise: asking isn't passive — it requires "studying it out," bringing your best thought to God, and then listening for confirmation.' },
+      { ref: '2 Nephi 32:8–9', note: '"Pray over all things; do not perform anything unto the Lord save in the first place ye shall pray." Nephi's principle is D&C 9's requirement stated differently — preparation and prayer must precede revelation, not substitute for it.' },
+      { ref: 'Moses 6:63 (Pearl of Great Price)', note: '"All things are created and made to bear record of me." The process of seeking revelation described in D&C 9 mirrors creation itself — effort, order, preparation, and then divine confirmation. Receiving revelation follows the same logic as God creating.' },
+    ],
+
+    10: [
+      { ref: 'Genesis 50:20', note: '"Ye thought evil against me; but God meant it unto good." Joseph in Egypt is the ultimate template for D&C 10: what the adversary intends for destruction, God has already planned to use for salvation. The lost pages crisis is Egypt in miniature.' },
+      { ref: '1 Nephi 9:5–6', note: 'Nephi wrote: "I have commanded me to make these plates for a wise purpose in him, which purpose I know not. But the Lord knoweth all things from the beginning." The small plates — made centuries earlier — were God's pre-prepared answer to Satan's specific plan described in D&C 10.' },
+      { ref: 'Moses 4:6 (Pearl of Great Price)', note: 'Satan's deceptions follow a consistent pattern: partial truth strategically placed to produce maximum doubt. D&C 10:24–28 is the doctrinal diagnosis of exactly this tactic — and Moses 4 shows it is as old as Eden.' },
+      { ref: '2 Enoch 29:4–5 (Ethiopian Bible)', note: 'Satan's original ambition was to "make another world" — his consistent desire to replace God's creation with his own plan. D&C 10's description of his plot against the plates is the same ancient pattern: counterfeit the divine work to neutralize it.' },
+      { ref: 'D&C 3:1–3', note: '"The works, and the designs, and the purposes of God cannot be frustrated." D&C 10 is the application of D&C 3's theology — God not only predicted Satan's scheme but prepared the solution first. The eternal plan absorbs every adversarial move.' },
+    ],
+
+  };
+
+  // Merge parallel theme connections into built DC_CARDS
+  DC_CARDS.forEach(function(card) {
+    var num = card._sectionNum || parseInt((card.ref || '').replace(/\D/g,''), 10);
+    var extras = DC_PARALLEL[num];
+    if (!extras || !extras.length) return;
+    // Prepend parallel theme connections before any existing ones
+    card.connections = extras.concat(card.connections || []);
+  });
+}());
+
+/* ── D&C Parallel Themes: Sections 11–20 ───────────────────────── */
+(function() {
+  var DC_PARALLEL = {
+
+    11: [
+      { ref: 'Proverbs 4:7', note: '"Wisdom is the principal thing; therefore get wisdom." God's first charge to Hyrum — study the word before you preach it — is the ancient wisdom tradition. D&C 11 applies Solomon's axiom to a modern missionary call.' },
+      { ref: 'Moses 6:32–33 (Pearl of Great Price)', note: 'God's answer to Enoch's protest of inadequacy: "Open thy mouth, and it shall be filled." D&C 11 applies the same sequence to Hyrum — prepare your heart and mind, then speak. The word comes to the prepared vessel.' },
+      { ref: 'Alma 31:5', note: '"The preaching of the word had a great tendency to lead the people to do that which was just — yea, it had had more powerful effect upon the minds of the people than the sword." D&C 11 sends Hyrum to the word first. Alma's lifetime of experience confirms the wisdom of that sequence.' },
+      { ref: 'Matthew 10:19–20', note: '"Take no thought how or what ye shall speak: for it shall be given you in that same hour what ye shall speak." D&C 11's promise that the Spirit will fill Hyrum's mouth is Christ's identical promise to His apostles — ancient, personal, and still active.' },
+      { ref: 'Jubilees 4:17–19 (Ethiopian Bible)', note: 'Enoch learned writing and wisdom before he became the great scribe of righteousness — the principle of preparation before proclamation. D&C 11's requirement that Hyrum study before he preaches follows Enoch's sequence: receive first, then give.' },
+    ],
+
+    12: [
+      { ref: 'Isaiah 6:8', note: '"Whom shall I send, and who will go for us? Then said I, Here am I; send me." Isaiah's response to the divine call is the covenant pattern behind every individual call in D&C. D&C 12 extends that call to Joseph Knight — the same God, the same question, a new name.' },
+      { ref: 'Alma 29:1–3', note: 'Alma's wish to "cry repentance with a voice to shake the earth" — the missionary longing D&C 12 tries to awaken. The desire to go is itself a gift from God, and D&C 12's invitation is God offering that desire to another soul.' },
+      { ref: '3 Nephi 27:20', note: '"Repent, be baptized in my name… that ye may be sanctified by the reception of the Holy Ghost." D&C 12's call to assist the work is a call to bring others to this path — Christ's own summary of the gospel, which is what assisting the work means.' },
+      { ref: 'D&C 4:1–2', note: '"A marvelous work is about to come forth." D&C 4, 11, 12, 14, 15, and 16 all open with the same proclamation, each addressed to a different individual. The marvelous work is both global and personal — every call is the whole gospel offered to one person.' },
+      { ref: '2 Enoch 41:1–2 (Ethiopian Bible)', note: 'God's invitation to those who hear His voice to come and serve — a universal call made particular to each individual. D&C 12 shows that being asked to join God's work is itself evidence of His mercy toward the one called.' },
+    ],
+
+    13: [
+      { ref: 'Malachi 3:1–3', note: '"The Lord, whom ye seek, shall suddenly come to his temple; even the messenger of the covenant." John the Baptist — the same spirit who prepared Christ's first coming — prepares His way again. D&C 13 is the second coming of the forerunner.' },
+      { ref: '3 Nephi 11:21–22', note: 'Christ gives Nephi the authority to baptize in water on this continent. D&C 13's restoration of the Aaronic Priesthood restores the same authority — the identical divine act, performed twice in sacred history to show its eternal indispensability.' },
+      { ref: 'Moses 6:52–60 (Pearl of Great Price)', note: 'Adam's baptism is the original institution of the ordinance — water, Spirit, blood. D&C 13 restores what was given in Eden. The Aaronic Priesthood is the priesthood of the first principles, and first principles were first given in the first family.' },
+      { ref: 'Numbers 8:10–11', note: 'The laying on of hands for ordination is an ancient covenant act — God ordained the Levites by this physical gesture. D&C 13's restoration of the Aaronic Priesthood through physical hands reconnects to the oldest ordination pattern in the Hebrew covenant.' },
+      { ref: 'Jubilees 21:10–12 (Ethiopian Bible)', note: 'The Aaronic priestly pattern of washing and purification, passed through the fathers, described in Jubilees' account of Abraham's covenant instructions. D&C 13's restoration reconnects this ancient priestly lineage after centuries of absence.' },
+    ],
+
+    14: [
+      { ref: 'John 17:3', note: '"This is life eternal, that they might know thee the only true God, and Jesus Christ." D&C 14:7 names eternal life as the greatest gift — Christ defines it as knowing God. Both texts point to relationship as the substance of eternity, not merely a destination.' },
+      { ref: 'Moses 1:39 (Pearl of Great Price)', note: '"This is my work and my glory — to bring to pass the immortality and eternal life of man." God's stated purpose IS D&C 14's promised gift — what He is most motivated to give is precisely what He promises as the greatest reward for faithfulness.' },
+      { ref: 'Alma 26:35', note: '"Who could have supposed that our God would have been so merciful?" Ammon's astonishment at salvation offered freely to all who would receive it is the emotional content of D&C 14's gift — the gift is surprising in its greatness, not merely large.' },
+      { ref: 'Isaiah 9:6–7', note: '"Of the increase of his government and peace there shall be no end." The eternal kingdom Isaiah prophesied presupposes eternal life for those who inhabit it. D&C 14's gift is the foundation on which all Isaiah's messianic promises rest.' },
+      { ref: '2 Enoch 65:6–10 (Ethiopian Bible)', note: 'The promise of eternal rest and blessing for the righteous — ancient articulation of the same gift D&C 14 calls the greatest from the hand of God. The Ethiopian canon preserves this promise as Enoch received it; D&C 14 delivers it through Christ.' },
+    ],
+
+    15: [
+      { ref: 'Luke 15:4–7', note: '"What man of you, having an hundred sheep, if he lose one of them, doth not leave the ninety and nine, and go after that which is lost?" Christ's lost sheep parable is D&C 15's theology made story — the "most worth while thing" is finding one person, and that has always been true.' },
+      { ref: 'Ezekiel 34:12', note: '"As a shepherd seeketh out his flock in the day that he is among his sheep that are scattered; so will I seek out my sheep." D&C 15 calls John Whitmer to participate in what God Himself does — the missionary is the shepherd's apprentice.' },
+      { ref: 'Alma 29:9–10', note: 'Alma reflects on souls saved through his specific mission and finds his joy there, not in grand scope. D&C 15's "most worth while" is Alma's same conclusion: the worth is individual, not aggregate.' },
+      { ref: 'D&C 18:10–11', note: '"The worth of souls is great in the sight of God; for, behold, the Lord your Redeemer suffered death in the flesh." D&C 15's "most worth" is explained three sections later — the worth is measured by the price already paid.' },
+      { ref: 'Jubilees 4:17 (Ethiopian Bible)', note: 'Enoch "bore witness to the sons of men among the generations of the earth" — his individual testimony work is the model D&C 15 echoes. Each soul brought to the record is another generation hearing Enoch's testimony through a new voice.' },
+    ],
+
+    16: [
+      { ref: 'Luke 15:10', note: '"Likewise, I say unto you, there is joy in the presence of the angels of God over one sinner that repenteth." D&C 16's commission to Peter Whitmer is a call to participate in the joy Christ describes — not just to do the work, but to share in heaven's celebration of it.' },
+      { ref: 'Isaiah 43:10', note: '"Ye are my witnesses, saith the LORD, and my servant whom I have chosen." The individual call to witness — ancient, personal, specific — that D&C 16 extends to Peter Whitmer by name. To be named as a witness by God is the oldest prophetic commission.' },
+      { ref: 'Helaman 5:12', note: '"It is upon the rock of our Redeemer, who is Christ, the Son of God, that ye must build your foundation." D&C 16's call to preach is a call to lay that rock under other lives — to build what the devil's winds cannot shake.' },
+      { ref: 'Moroni 9:22', note: '"Be faithful in Christ; and if it so be that he worketh in us we may be instruments in his hands." Mormon's charge to Moroni at civilization's end is the same spirit as D&C 16 — individual faithfulness as divine instrument, regardless of circumstances.' },
+      { ref: '1 Enoch 40:1–9 (Ethiopian Bible)', note: 'The four presences around the throne, each with a specific ministry — mercy, intercession, praise, resistance to Satan. D&C 16 reflects this pattern: specific callings for specific people, each essential to the whole.' },
+    ],
+
+    17: [
+      { ref: 'Isaiah 43:9–10', note: '"Let them bring forth their witnesses, that they may be justified… ye are my witnesses, saith the LORD." The legal witness pattern established in Isaiah is fulfilled in D&C 17. The Three Witnesses are Isaiah's prophecy answered, centuries later, by name.' },
+      { ref: 'Ether 5:2–4', note: '"By the mouth of three witnesses shall these things be established." Moroni sealed up the three-witness commission centuries before D&C 17 — the witnesses were pre-specified in the very record they would testify of. D&C 17 is Ether 5's fulfillment.' },
+      { ref: '1 Nephi 13:40', note: 'Nephi sees in vision that additional witnesses would come forth to establish the truth of the gospel record among the Gentiles. D&C 17 is the specific fulfillment of Nephi's prophetic vision — named men, named plates, named angel.' },
+      { ref: 'Matthew 17:1–5', note: 'The Transfiguration — where three witnesses (Peter, James, John) see the glorified Christ and the ancient prophets. D&C 17's Three Witnesses follow this pattern: a small number of designated men, divine presence, record-bearing experience.' },
+      { ref: '1 Enoch 106:19 (Ethiopian Bible)', note: 'The angel's testimony to Enoch that the "great secret" will be preserved and its witnesses will come forth in the appointed time. D&C 17's three witnesses are part of this ancient covenant pattern of sacred record and human testimony working together.' },
+    ],
+
+    18: [
+      { ref: 'Isaiah 53:11', note: '"He shall see of the travail of his soul, and shall be satisfied: by his knowledge shall my righteous servant justify many." D&C 18's worth of souls is measured by the travail Isaiah describes — Christ endured what He endured because each soul was worth exactly that.' },
+      { ref: 'Alma 36:19–21', note: 'Alma's exquisite joy after forgiveness — "there could be nothing so exquisite and sweet as was my joy." D&C 18's "joy with him in the kingdom" is this joy — not an abstraction but the specific, overwhelming relief of a soul washed clean.' },
+      { ref: 'Luke 15:4–10', note: 'The lost sheep and lost coin parables — D&C 18:10 is the doctrinal distillation of what Christ illustrated twice in one sitting. One soul is worth the whole search, the whole cost, the whole celebration.' },
+      { ref: '1 Enoch 48:4–7 (Ethiopian Bible)', note: 'The Elect One will be "a staff to the righteous… the light of the Gentiles, and the hope of those who are troubled of heart." D&C 18's revelation about the worth of souls is grounded in the Enochian identification of Christ as the one who makes every soul worth saving.' },
+      { ref: 'Moses 1:39 (Pearl of Great Price)', note: '"This is my work and my glory — to bring to pass the immortality and eternal life of man." D&C 18's worth of souls and Moses 1:39's glory of God are two sides of one equation. Every soul saved adds to the very glory of God.' },
+    ],
+
+    19: [
+      { ref: 'Isaiah 53:3–5', note: '"He was wounded for our transgressions, he was bruised for our iniquities: the chastisement of our peace was upon him." Isaiah describes Gethsemane from the outside; D&C 19 is Christ describing it from the inside. Together they form the fullest picture of the Atonement in all scripture.' },
+      { ref: 'Mosiah 3:7', note: '"He shall suffer… even more than man can suffer… blood cometh from every pore, so great shall be his anguish." King Benjamin's angel announces what D&C 19 now confirms in Christ's own first-person voice — the suffering was real, physical, and beyond human comparison.' },
+      { ref: '2 Nephi 9:21', note: '"He suffereth the pains of all men, yea, the pains of every living creature, both men, women, and children." Jacob's description matches D&C 19:16–18 precisely — Christ took all, so all need not take their own. The substitution is complete.' },
+      { ref: 'Hebrews 5:7–9', note: '"In the days of his flesh, when he had offered up prayers and supplications with strong crying and tears… he learned obedience by the things which he suffered." The author of Hebrews glimpsed the same Gethsemane reality D&C 19 now reveals in full.' },
+      { ref: '1 Enoch 62:3–5 (Ethiopian Bible)', note: 'The suffering and transformative power of the Elect One described through the reaction of kings who behold it — they are overcome with anguish. D&C 19 provides the interior reality that Enoch's vision only glimpsed from outside the veil.' },
+    ],
+
+    20: [
+      { ref: 'Acts 2:41–42', note: '"Then they that gladly received his word were baptized… and they continued steadfastly in the apostles' doctrine and fellowship, and in breaking of bread, and in prayers." The Primitive Church's founding ordinances described in Acts are identical to D&C 20's organization — same doctrines, same officers, same covenant path.' },
+      { ref: 'Moroni 6:4–6', note: '"After they had been received unto baptism… they were numbered among the people of the church of Christ." The membership, fellowship, and ordinance procedures Moroni describes match D&C 20 exactly. The church of Christ is the same church in every dispensation.' },
+      { ref: 'Exodus 18:25–26', note: 'Moses organizes Israel by leaders of thousands, hundreds, fifties, and tens. D&C 20's structure of officers and duties follows this same divinely-given organizational wisdom — heavenly order applied to earthly institutions.' },
+      { ref: 'Moses 6:64–68 (Pearl of Great Price)', note: 'Adam's baptism, reception of the Holy Ghost, and registration by the angels — the original covenant recording that D&C 20's record-keeping restores. God keeps records; D&C 20 commands the Church to mirror that heavenly practice.' },
+      { ref: 'Jubilees 6:17–22 (Ethiopian Bible)', note: 'God's institution of the Feast of Weeks and the covenant of sacred calendar from Noah's day — the organization of sacred time and ordinances. D&C 20 restores this ancient pattern: covenant life structured by divinely-appointed ordinances and regular observance.' },
+    ],
+
+  };
+
+  DC_CARDS.forEach(function(card) {
+    var num = card._sectionNum || parseInt((card.ref || '').replace(/\D/g,''), 10);
+    var extras = DC_PARALLEL[num];
+    if (!extras || !extras.length) return;
+    card.connections = extras.concat(card.connections || []);
+  });
+}());
+
+/* ── D&C Parallel Themes: Sections 21–30 ───────────────────────── */
+(function() {
+  var DC_PARALLEL = {
+
+    21: [
+      { ref: 'Amos 3:7', note: '"Surely the Lord God will do nothing, but he revealeth his secret unto his servants the prophets." D&C 21 organizes the Church around a prophet — restoring the oldest covenant pattern: God speaks through a designated human voice, and the people follow that voice.' },
+      { ref: 'Mosiah 26:38', note: '"The Lord said unto Alma: Blessed art thou, and blessed are they who were baptized in the waters of Mormon." The same divine act of founding a covenant church — same language, same structure, different dispensation. D&C 21 is Mosiah 26 reopened.' },
+      { ref: 'Ephesians 2:19–20', note: '"The household of God… built upon the foundation of the apostles and prophets, Jesus Christ himself being the chief corner stone." D&C 21's restoration of prophetic leadership restores what Paul declared was essential to God's household — without it, the building has no foundation.' },
+      { ref: 'Moses 6:26–27 (Pearl of Great Price)', note: 'God calls Enoch with the promise to be with him in all his speaking and walking. D&C 21's promise that Joseph's words shall be received "as if from mine own mouth" mirrors the original prophet commission — divine presence validating human voice.' },
+      { ref: 'Jubilees 1:4–6 (Ethiopian Bible)', note: 'God commands Moses on Sinai to write the laws and establish covenant order through a chosen prophet. D&C 21's founding of the Church is the same covenant-organizing act — one man, one mountain, one commission to establish God's order on earth.' },
+    ],
+
+    22: [
+      { ref: '3 Nephi 11:23–26', note: 'Christ gives Nephi the exact formula for baptism — exact words, exact authority, exact manner — with zero ambiguity. D&C 22's insistence that rebaptism is required echoes Christ's precision: the form and authority matter, not sincerity alone.' },
+      { ref: 'Ezekiel 36:25–26', note: '"I will sprinkle clean water upon you, and ye shall be clean… I will also take away the stony heart." Ezekiel's new covenant includes cleansing by water — D&C 22 clarifies that this divine cleansing requires proper authority to be valid.' },
+      { ref: 'Moses 6:52–53 (Pearl of Great Price)', note: '"Inasmuch as ye were born into the world by water, and blood, and the spirit… even so ye must be born again." Adam's original baptism establishes that the ordinance is universal and essential, not optional in any dispensation.' },
+      { ref: 'Hebrews 9:15', note: '"He is the mediator of the new testament, that by means of death, for the redemption of the transgressions that were under the first testament, they which are called might receive the promise." D&C 22's "new and everlasting covenant" is the living fulfillment of Hebrews' new testament.' },
+      { ref: 'Jubilees 15:33–34 (Ethiopian Bible)', note: 'The covenant of circumcision was non-transferable — those not included in its specific covenantal form were cut off, regardless of their Abrahamic descent. D&C 22 applies the same ancient logic: covenant form is divinely designed and cannot be improvised.' },
+    ],
+
+    23: [
+      { ref: '1 Corinthians 12:14–18', note: '"The body is not one member, but many… God hath set the members every one of them in the body, as it hath pleased him." D&C 23's five individual callings in a single revelation show Paul's body-of-Christ principle in action — differentiated gifts, unified mission.' },
+      { ref: 'Alma 29:9', note: '"I know that which the Lord hath commanded me, and I glory in it." Alma's contentment with his specific, limited calling — rather than wishing for another — is the spirit D&C 23 tries to cultivate in each of the five people called.' },
+      { ref: 'Exodus 18:21', note: '"Thou shalt provide out of all the people able men… and place such over them, to be rulers of thousands, and rulers of hundreds." Every covenant organization begins the same way: God assigns specific roles to specific willing people. D&C 23 is the Restoration's Exodus 18.' },
+      { ref: 'D&C 4:5–6', note: '"Faith, hope, charity and love, with an eye single to the glory of God, qualify him for the work." The qualifications D&C 23 assumes are precisely what D&C 4 articulates. Individual callings flow from common character requirements, not from unique credentials.' },
+      { ref: 'Jubilees 4:1–5 (Ethiopian Bible)', note: 'Seth, Cain, Abel — each given different stations by divine assignment from the first family. The pattern of differentiated individual callings within the covenant community is as old as the first generation.' },
+    ],
+
+    24: [
+      { ref: 'Jeremiah 1:17–19', note: '"For, behold, I have made thee this day a defenced city, and an iron pillar… and they shall fight against thee; but they shall not prevail against thee." Jeremiah's call included guaranteed persecution and guaranteed protection — D&C 24's promise to Joseph follows this exact prophetic template.' },
+      { ref: 'Moses 1:20–22 (Pearl of Great Price)', note: 'After Satan departs, Moses is so weakened he falls to the earth — but recovers and receives God's greater presence. D&C 24's pattern of persecution followed by divine confirmation mirrors Moses 1: the attack precedes the blessing, and both are part of the calling.' },
+      { ref: 'Alma 36:27–28', note: '"I have been supported under trials and troubles of every kind… I trust that I shall be lifted up at the last day." Alma's summary of a faithful life under persecution is the posture D&C 24 calls Joseph to maintain through his own years of affliction.' },
+      { ref: 'Matthew 5:10–12', note: '"Blessed are they which are persecuted for righteousness' sake… for so persecuted they the prophets which were before you." Christ names persecution as a mark of prophetic calling. D&C 24 confirms: the opposition Joseph faces is evidence of, not against, his divine mission.' },
+      { ref: 'Jubilees 17:15–18 (Ethiopian Bible)', note: 'Abraham's trials catalogued — God observing Abraham's faithfulness under every attack from the adversary. D&C 24's confirmation of Joseph amid persecution places him in the Abrahamic covenant tradition of tested prophets whose calling is proved by what they endure.' },
+    ],
+
+    25: [
+      { ref: 'Proverbs 31:10, 25–26', note: '"Who can find a virtuous woman? for her price is far above rubies… Strength and honour are her clothing… She openeth her mouth with wisdom; and in her tongue is the law of kindness." D&C 25's vision for Emma is not restriction but the ancient highest calling — wise, strong, faithful covenant partner.' },
+      { ref: 'Alma 56:47–48', note: '"Our mothers knew it." The Stripling Warriors' mothers taught them faith-courage that no sword could shake. Emma's calling in D&C 25 — to comfort, expound scripture, compile hymns — is this same formative feminine covenant ministry written as a personal revelation.' },
+      { ref: 'Revelation 12:1', note: '"A woman clothed with the sun, and the moon under her feet, and upon her head a crown of twelve stars." The symbolic woman of covenant in John's apocalyptic vision — D&C 25's "elect lady" carries this same covenantal dignity: crowned, robed in light, essential to the plan.' },
+      { ref: 'Abraham 2:22–24 (Pearl of Great Price)', note: 'Sarai's covenant role — accompanying Abraham through danger, protecting the patriarchal line through her own sacrifice. D&C 25's Emma stands in Sarai's tradition: the prophet's covenant companion, whose faithfulness is essential to the mission's survival.' },
+      { ref: 'Testament of Abraham 1–3 (Ethiopian Bible)', note: 'Sarah is described as equal partner in holiness and hospitality — her domestic ministry sustains the covenant household. D&C 25's Emma is called to the same sustaining role: not behind the prophet but alongside him, as the household of God requires.' },
+    ],
+
+    26: [
+      { ref: 'Exodus 19:8', note: '"And all the people answered together, and said, All that the LORD hath spoken we will do." The covenant ratification at Sinai is the original common consent — God proposes, the people formally accept. D&C 26 restores this ancient covenantal structure to the restored Church.' },
+      { ref: 'Mosiah 29:25–26', note: '"It is not common that the voice of the people desireth anything contrary to that which is right… if the time comes that the voice of the people doth choose iniquity, then is the time that the judgments of God will come upon them." Common consent has a built-in accountability that D&C 26 preserves.' },
+      { ref: 'Acts 6:2–5', note: '"The whole multitude of the disciples" chose the first deacons — common consent in the Primitive Church, exactly as D&C 26 restores. The pattern of the people sustaining church officers by unified vote is apostolic in origin.' },
+      { ref: '2 Nephi 5:18–19', note: 'Nephi refused to be king even when desired — "the Lord is your ruler." D&C 26's common consent is the institutional form of what Nephi modeled: leadership exercised through covenant agreement, not force or hereditary claim.' },
+      { ref: 'Jubilees 21:20–22 (Ethiopian Bible)', note: 'The patriarchal pattern of establishing ordinances and covenant agreements through communal acknowledgment and witness. D&C 26's common consent is rooted in the very first covenant communities — the principle is not invented but restored.' },
+    ],
+
+    27: [
+      { ref: 'Genesis 14:18–20', note: 'Melchizedek brought forth bread and wine to Abraham and blessed him. This is the first recorded type of the Sacrament administered by Melchizedek Priesthood authority — D&C 27 reveals the sacrament's eternal scope, of which Melchizedek's meal was the ancient token.' },
+      { ref: '3 Nephi 18:1–12', note: 'Christ institutes the sacrament among the Nephites with the same covenant language — "do this in remembrance of me." D&C 27's expanded vision of who has administered the sacrament throughout all history gives the Nephite sacrament its full eternal context.' },
+      { ref: 'Luke 22:14–20', note: 'The Last Supper — Christ institutes the sacrament in mortality, calling the cup "the new testament in my blood." D&C 27 reveals that this Last Supper is one moment in an eternal covenant meal that extends from Adam to the Millennium.' },
+      { ref: 'D&C 110:13–16', note: 'Moses, Elias, and Elijah restore their keys in the Kirtland Temple. D&C 27 foreshadows this: the same heavenly messengers whose keys D&C 27 names are the ones D&C 110 records delivering their commissions. The sacrament connects to all covenant keys.' },
+      { ref: 'Jubilees 32:1–9 (Ethiopian Bible)', note: 'Jacob's covenant meal and tithe at Bethel — the pattern of sacred eating as covenant renewal. D&C 27's sacrament carries this same ancient meaning: the meal is not nutrition but covenant confirmation, partaken with the full weight of the promises.' },
+    ],
+
+    28: [
+      { ref: 'Deuteronomy 13:1–3', note: '"If there arise among you a prophet… and giveth thee a sign or a wonder… Thou shalt not hearken unto the words of that prophet." Even a sign-working prophet is rejected if he leads away from covenant order. D&C 28's Hiram Page principle is Deuteronomy's ancient discernment test applied anew.' },
+      { ref: '1 Corinthians 14:33', note: '"God is not the author of confusion." D&C 28's insistence on a single channel for revelation to the whole Church is Paul's principle made institutional. The order of revelation is as much God's signature as its content.' },
+      { ref: 'Moses 1:12–22 (Pearl of Great Price)', note: 'When Satan imitated the divine revelation to Moses, Moses recognized the counterfeit by its diminished glory. D&C 28's seer stone problem follows the same discernment pattern — unauthorized revelation carries a different spiritual signature.' },
+      { ref: 'Alma 43:23–24', note: 'Moroni inquires of God through Alma the prophet. Even the chief military commander of the Nephites went through the established prophetic channel — D&C 28's principle is not a Restoration innovation but Nephite standard practice.' },
+      { ref: '1 Enoch 13:1–2 (Ethiopian Bible)', note: 'God's rebuke of those who speak presumptuously in His name — the Enochian tradition established that divine communication has defined channels, and prophesying outside those channels is transgression, however sincere the instrument.' },
+    ],
+
+    29: [
+      { ref: 'Joel 2:28–32', note: '"I will pour out my spirit upon all flesh; and your sons and daughters shall prophesy… before the great and terrible day of the LORD come." Joel's gathering and signs of the Second Coming are the same events D&C 29 describes in doctrinal fullness — prophecy met by revelation.' },
+      { ref: '1 Nephi 22:13–17', note: 'Nephi's vision of the gathering of Israel and the burning of the wicked at the Second Coming. D&C 29 provides the systematic doctrinal framework for what Nephi saw in prophetic symbol — the theology behind the imagery.' },
+      { ref: 'Moses 3:5–7 (Pearl of Great Price)', note: '"I, the Lord God, created all things… spiritually, before they were naturally upon the face of the earth." D&C 29:31–32 confirms this same two-stage creation doctrine. Together, Moses 3 and D&C 29 establish it as one of the most foundational truths of the Restoration.' },
+      { ref: 'Matthew 24:29–31', note: 'Christ's own description of the Second Coming — sun darkened, Son of Man coming in clouds, angels gathering the elect from the four winds. D&C 29 is the systematic theology behind Christ's apocalyptic description, filling in every detail.' },
+      { ref: '1 Enoch 45:3–6 (Ethiopian Bible)', note: 'Enoch's vision of the elect gathered and dwelling with the Son of Man in the renewed earth — the same eschatological gathering D&C 29 describes, preserved in the Ethiopian tradition as ancient prophecy from the first patriarch who saw it.' },
+    ],
+
+    30: [
+      { ref: 'Isaiah 51:12–13', note: '"Who art thou, that thou shouldest be afraid of a man that shall die?" God's challenge to Israel is D&C 30's precise rebuke of David Whitmer — the fear of man over the fear of God is the oldest form of covenant faithlessness, and God names it by name.' },
+      { ref: 'John 12:42–43', note: '"Many believed on him; but because of the Pharisees they did not confess him… for they loved the praise of men more than the praise of God." D&C 30's rebuke is John's diagnosis in a Restoration setting — the same temptation, a different century.' },
+      { ref: '1 Nephi 4:1–3', note: 'Nephi refuses the fear of man when his brothers despair — "the Lord is able to deliver us, even as our fathers." D&C 30's call for David Whitmer to go without fear is the same trust Nephi models: God's past faithfulness is sufficient reason for present courage.' },
+      { ref: '2 Nephi 28:31', note: '"Cursed is he that putteth his trust in man, or maketh flesh his arm, or shall hearken unto the precepts of men." Nephi's warning is D&C 30's rebuke to David Whitmer from a prophet who understood that every mission requires choosing God over the crowd.' },
+      { ref: 'Jubilees 17:17–18 (Ethiopian Bible)', note: 'The contrast between Abraham's faithfulness under pressure and those who shrink from their calling when the adversary applies social force. D&C 30's rebuke places David Whitmer's struggle in this ancient framework — the fear of man is the adversary's oldest disqualifying tool.' },
+    ],
+
+  };
+
+  DC_CARDS.forEach(function(card) {
+    var num = card._sectionNum || parseInt((card.ref || '').replace(/\D/g,''), 10);
+    var extras = DC_PARALLEL[num];
+    if (!extras || !extras.length) return;
+    card.connections = extras.concat(card.connections || []);
+  });
+}());
+/* ── D&C Parallel Themes: Sections 31–40 ───────────────────────── */
+(function() {
+  var DC_PARALLEL = {
+
+    31: [
+      { ref: 'Luke 14:26–27', note: '"If any man come to me, and hate not his father, and mother, and wife, and children… he cannot be my disciple." D&C 31's call to Thomas B. Marsh to leave his family for a season echoes Christ's teaching — the kingdom requires a loyalty that supersedes even the most sacred earthly bonds.' },
+      { ref: '1 Nephi 2:4', note: 'Lehi leaves his house, lands, gold, and silver at God's command, taking nothing but his family and provisions. Thomas B. Marsh's call in D&C 31 follows Lehi's pattern exactly — the covenant summons a man away from everything he has built.' },
+      { ref: 'Ruth 1:16–17', note: '"Whither thou goest, I will go… thy people shall be my people, and thy God my God." Ruth's covenant loyalty that surpassed natural family ties is the spirit D&C 31 calls Thomas B. Marsh to exercise toward God's mission — a loyalty chosen, not inherited.' },
+      { ref: 'Jubilees 12:28–31 (Ethiopian Bible)', note: 'Abraham departs from Haran at God's command, leaving his father's household for the last time. The departure from family and homeland for covenant mission is not a New Testament novelty — it is the defining Abrahamic pattern that D&C 31 renews in a new man.' },
+      { ref: 'D&C 24:8', note: '"Be patient in afflictions, for thou shalt have many; but endure them, for, lo, I am with thee." D&C 31 gives Thomas B. Marsh the identical charge given to Joseph three revelations earlier — patience under affliction is the universal missionary commission, not a personal concession.' },
+    ],
+
+    32: [
+      { ref: '2 Nephi 30:3–6', note: 'Nephi prophesies that a remnant of Jacob would receive the gospel and "blossom as a rose." D&C 32's mission to the Lamanites is the first organized attempt to fulfill that prophecy — a Book of Mormon prediction fulfilled by men sent out with the Book of Mormon in their hands.' },
+      { ref: 'Ezekiel 37:19–20', note: '"I will take the stick of Joseph, which is in the hand of Ephraim… and will make them one stick." The joining of Judah and Joseph's records is the same gathering D&C 32's Lamanite mission begins — the stick of Joseph is now being brought to Joseph's descendants.' },
+      { ref: '3 Nephi 20:29', note: '"I will remember the covenant which I have made with my people… and I will gather my people." Christ's direct promise to gather the remnant of the house of Israel — D&C 32 is the first institutionalized response to that covenant promise in the Restoration.' },
+      { ref: 'Isaiah 11:11–12', note: '"The Lord shall set his hand again the second time to recover the remnant of his people… and shall assemble the outcasts of Israel." D&C 32 is the first organized missionary fulfillment of Isaiah's second-gathering prophecy — small steps in an enormous covenant promise.' },
+      { ref: '1 Enoch 90:30–33 (Ethiopian Bible)', note: 'Enoch's vision of scattered sheep from many nations being gathered under the Shepherd at the end of days. D&C 32's Lamanite mission is part of this ancient gathering vision — among the first steps in restoring what was scattered across centuries.' },
+    ],
+
+    33: [
+      { ref: 'Matthew 20:6–9', note: '"About the eleventh hour he went out, and found others standing idle… Go ye also into the vineyard." Christ's parable of the eleventh-hour workers is quoted directly in D&C 33 — Ezra Thayre and Northrop Sweet are specifically called as eleventh-hour laborers in the final dispensation.' },
+      { ref: 'Jacob 5:70–72', note: 'The master of the vineyard in Zenos's allegory calls urgently for workers in the last effort to save the tame olive trees. D&C 33's urgency mirrors Jacob 5 — the last call before the burning, and every laborer matters in ways they cannot yet see.' },
+      { ref: 'Isaiah 52:1–3', note: '"Awake, awake; put on thy strength, O Zion… shake thyself from the dust; arise." D&C 33:10's "open your mouths and they shall be filled" echoes Isaiah's awakening call — the same urgency, the same arising, the same preparation for final proclamation.' },
+      { ref: 'Moses 7:62 (Pearl of Great Price)', note: '"Righteousness will I send down out of heaven; and truth will I send forth out of the earth, to bear testimony of mine Only Begotten." D&C 33's call to bear testimony is the fulfillment of God's promise to Enoch — the testimony sent from heaven and earth together, in the last days.' },
+      { ref: 'D&C 4:4', note: '"Behold the field is white already to harvest; and lo, he that thrusteth in his sickle with his might, the same layeth up in store that he perisheth not." D&C 33 restates and personalizes D&C 4's harvest urgency — the field has not changed, only the hands newly put to work in it.' },
+    ],
+
+    34: [
+      { ref: 'Joel 2:28–32', note: '"I will pour out my spirit upon all flesh… before the great and terrible day of the LORD come." D&C 34's proclamation that the Second Coming is "nigh at hand" is the fulfillment phase of Joel's prophecy — the spirit being poured out is the sign that the day approaches.' },
+      { ref: '2 Nephi 25:17', note: '"The Lord will set his hand again the second time to restore his people from their lost and fallen state." Nephi's second-gathering prophecy is the covenant basis for D&C 34's urgency. Young Orson Pratt is being called into the middle of that promised recovery.' },
+      { ref: 'Revelation 22:12', note: '"Behold, I come quickly; and my reward is with me, to give every man according as his work shall be." D&C 34's cry of imminent fulfillment mirrors Christ's own last recorded words in scripture — "quickly" and "behold" are the vocabulary of a coming that cannot be delayed.' },
+      { ref: 'Moses 6:57–60 (Pearl of Great Price)', note: 'The gospel preached to Adam established that all of mortal history moves toward the Second Coming as its culmination. D&C 34's call to Orson Pratt is a call to participate in the final act of a drama that began in Eden.' },
+      { ref: '1 Enoch 51:1–5 (Ethiopian Bible)', note: 'Enoch's vision of the resurrection and gathering at the coming of the Elect One — the dead rising, the earth giving back its trust. D&C 34 frames the Second Coming as the goal of all missionary preaching; 1 Enoch shows what that goal actually looks like when it arrives.' },
+    ],
+
+    35: [
+      { ref: 'Isaiah 40:10', note: '"Behold, the Lord God will come with strong hand, and his arm shall rule for him: behold, his reward is with him." D&C 35:8's "mine arm is not shortened" quotes and completes Isaiah's promise — the arm that will rule has not grown weary, and it reaches to Sidney Rigdon's generation without diminishment.' },
+      { ref: 'Alma 26:11–12', note: '"I do not boast in my own strength, nor in my own wisdom; but behold, my joy is full… in my God." Ammon's testimony that the Lord's arm accomplished everything — D&C 35 gives Sidney Rigdon the same invitation: become an instrument of that arm rather than the author of his own work.' },
+      { ref: '1 Nephi 20:14', note: '"The LORD hath loved him: he will do his pleasure on Babylon… The LORD, even the LORD, hath spoken it." D&C 35's promise that God's arm will accomplish His purposes — regardless of what nations or individuals do — is Isaiah's irrevocable declaration reissued.' },
+      { ref: 'Moses 1:6 (Pearl of Great Price)', note: '"Thou art my son… I have a work for thee, Moses, my son." D&C 35's call to Sidney Rigdon — "prepare the way before me" — echoes the commission that opened the last great dispensation before Joseph's. The preparation-of-the-way role is the highest prophetic calling.' },
+      { ref: 'Jubilees 1:21–24 (Ethiopian Bible)', note: 'God's promise to create a new spirit in Israel that will lead them back — the arm of the Lord as an active, transformative force operating through chosen servants. D&C 35's Sidney Rigdon is called to be a channel of that ancient promise.' },
+    ],
+
+    36: [
+      { ref: 'Acts 8:17–18', note: '"Then laid they their hands on them, and they received the Holy Ghost." D&C 36's instruction to confer the Holy Ghost on Edward Partridge by the laying on of hands restores what Acts describes — the Primitive Church's covenant gesture, its exact form and purpose recovered.' },
+      { ref: '2 Nephi 31:17–18', note: '"After ye have received the Holy Ghost, ye can speak with the tongue of angels." The gift conferred in D&C 36 is the gateway 2 Nephi describes — the Holy Ghost is not merely comfort but the medium through which mortals access celestial language and understanding.' },
+      { ref: 'Isaiah 44:3', note: '"I will pour water upon him that is thirsty, and floods upon the dry ground: I will pour my spirit upon thy seed." D&C 36's personal conferral of the Holy Ghost is the intimate fulfillment of Isaiah's pouring promise — not a spiritual abstraction but hands, power, and a named person.' },
+      { ref: 'Moses 6:66 (Pearl of Great Price)', note: 'Adam received the Holy Ghost and "was caught away by the Spirit of the Lord, and was carried down into the water." D&C 36 restores Adam's original covenant sequence — baptism, then laying on of hands, then the Holy Ghost fills the vessel.' },
+      { ref: 'Jubilees 3:26–27 (Ethiopian Bible)', note: 'The divine designation and setting apart of covenant persons for specific sacred work — the pattern of being filled with God's Spirit for a particular calling. D&C 36's ordinance for Edward Partridge is this ancient setting-apart made physical and permanent.' },
+    ],
+
+    37: [
+      { ref: 'Genesis 12:1', note: '"Get thee out of thy country, and from thy kindred, and from thy father's house, unto a land that I will shew thee." Abraham's gathering command is the eternal template for D&C 37 — God calling His people to leave the familiar for a promised place of covenant concentration.' },
+      { ref: 'Isaiah 11:12', note: '"He shall set up an ensign for the nations, and shall assemble the outcasts of Israel, and gather together the dispersed of Judah from the four corners of the earth." D&C 37's command to gather to Ohio is the first organizational step of Isaiah's second gathering — every gathering place begins as a small geographic move.' },
+      { ref: '3 Nephi 20:13', note: '"The remnants… scattered abroad upon the face of the earth, shall be gathered in from the east and from the west, and from the south and from the north." D&C 37 is the first physical fulfillment of this promise — the gathered remnant starts with a small group going to Ohio.' },
+      { ref: 'Moses 7:18–21 (Pearl of Great Price)', note: 'The City of Enoch gathered because they were "of one heart and one mind." D&C 37 begins the physical gathering that will eventually build Zion — the same principle, the same purpose, initiated by the same kind of divine command to come together.' },
+      { ref: 'Jubilees 13:1–3 (Ethiopian Bible)', note: 'Abraham's journey from Haran described step by step — each stage a covenant movement toward the promised place. D&C 37's "go to Ohio" is the Restoration's equivalent: a small geographic step with enormous covenantal significance, taken by faith before the destination is fully known.' },
+    ],
+
+    38: [
+      { ref: 'Acts 2:44–45', note: '"All that believed were together, and had all things common; and sold their possessions and goods, and parted them to all men, as every man had need." D&C 38's call to equality and care for the poor is the Primitive Church's consecration restored — not abstract principle but covenantal practice.' },
+      { ref: '4 Nephi 1:3–4', note: '"They had all things common among them, every man dealing justly, one with another… and there were no poor among them." D&C 38's "be one; and if ye are not one ye are not mine" is 4 Nephi's 200-year golden era stated as a commandment — the condition that produced Zion is being named as a requirement.' },
+      { ref: 'Moses 7:18 (Pearl of Great Price)', note: '"The LORD called his people ZION, because they were of one heart and one mind, and dwelt in righteousness; and there was no poor among them." D&C 38's "be one" and "care for the poor" are precisely the two marks Moses 7 gives for Zion — D&C 38 is Zion's constitution being read aloud.' },
+      { ref: 'Isaiah 33:22', note: '"The LORD is our judge, the LORD is our lawgiver, the LORD is our king; he will save us." D&C 38's declaration that God knows all things and governs all nations is Isaiah's same proclamation — the Lawgiver who announces D&C 38's equality command is the same Judge who sees every soul's need.' },
+      { ref: '1 Enoch 46:3–5 (Ethiopian Bible)', note: 'The Son of Man who knows all the secrets of the hearts of men — no injustice is hidden from him. D&C 38's statement that God knows the hearts of His children and commands equality is grounded in this same omniscience: He sees every act of hoarding and every act of sharing.' },
+    ],
+
+    39: [
+      { ref: 'Luke 18:22–23', note: '"Yet lackest thou one thing: sell all that thou hast… And when he heard this, he was very sorrowful: for he was very rich." The rich young ruler is the New Testament type for James Covill — so prepared, so close, so capable of discipleship, yet unwilling at the one required step.' },
+      { ref: 'Alma 34:32–33', note: '"This life is the time for men to prepare to meet God… do not procrastinate the day of your repentance until the end." Alma's warning is D&C 39's exact context — Covill had heard the gospel for decades and kept deferring. The invitation in D&C 39 is God refusing to let him defer again.' },
+      { ref: 'Jeremiah 8:20', note: '"The harvest is past, the summer is ended, and we are not saved." The ancient lament over missed covenant moments — D&C 39's gracious call to James Covill is God's refusal to let the harvest pass without one more personal invitation, however many times it has been offered before.' },
+      { ref: '2 Nephi 28:24–25', note: '"Wo be unto him that heareth the word of the Spirit of the Holy One of Israel; resist it not." D&C 39's patient invitation is shadowed by Nephi's warning — hearing God's word repeatedly without acting on it does not leave a person unchanged. It either opens or hardens.' },
+      { ref: 'Jubilees 23:16–17 (Ethiopian Bible)', note: 'Those who have heard the covenant call and yet walk in their own ways — D&C 39's James Covill is an instance of this ancient pattern, a man with great covenant potential who turned to his own wisdom rather than submitting to what he had already heard.' },
+    ],
+
+    40: [
+      { ref: 'Mark 4:18–19', note: '"These are they which are sown among thorns; such as hear the word, and the cares of this world, and the deceitfulness of riches, and the lusts of other things entering in, choke the word, and it becometh unfruitful." D&C 40 is the Parable of the Sower fulfilled in a real man — James Covill, choked by thorns.' },
+      { ref: 'Helaman 12:2–4', note: '"Yea, and we may see at the very time when he doth prosper his people… then is the time that they do harden their hearts." Covill's rejection follows this Nephite pattern: prepared, prospered with light and opportunity, yet hardened at the moment of fullest invitation.' },
+      { ref: '1 Nephi 15:3', note: 'Laman and Lemuel "were hardened" against Lehi's vision because they "hearkened not unto the word of the Lord." D&C 40's Covill hardened his heart the same way — not through violence or wickedness, but through the steady choice not to respond to what he already knew.' },
+      { ref: 'Genesis 19:16–17', note: 'Lot "lingered" when the angels commanded him to flee Sodom — and had to be physically led out. D&C 40's Covill is the spiritual version of this lingering: warned, invited, fully informed, yet clinging to what God had specifically commanded him to leave.' },
+      { ref: 'Jubilees 23:14 (Ethiopian Bible)', note: 'The account of those who are shown the path of life and yet choose the path of their own hearts — D&C 40's diagnostic "fear of persecution and the cares of the world" fits this ancient description: a heart that turns away at the very threshold of covenant life.' },
+    ],
+
+  };
+
+  DC_CARDS.forEach(function(card) {
+    var num = card._sectionNum || parseInt((card.ref || '').replace(/\D/g,''), 10);
+    var extras = DC_PARALLEL[num];
+    if (!extras || !extras.length) return;
+    card.connections = extras.concat(card.connections || []);
+  });
+}());
+
+
+
+
+/* ══════════════════════════════════════════════════════════════════
    PEARL OF GREAT PRICE — Questions to Ponder
    Organized by book. Each question links to the journal/notes page.
    Clicking "Answer in Notes" navigates to the Notes page and pre-fills
