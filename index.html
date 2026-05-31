@@ -1863,6 +1863,260 @@ svg.leaflet-zoom-animated{will-change:transform}
   color: var(--muted, #999);
   font-size: 1rem;
 }
+
+/* ══════════════════════════════════════════════════════
+   STUDY BY TOPIC — Page, Cards, Accordion, Banner
+   ══════════════════════════════════════════════════════ */
+#page-topic-study {
+  background: var(--parchment);
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  display: none;
+  flex-direction: column;
+}
+#page-topic-study.active { display: flex; }
+
+/* Header */
+.ts-header {
+  padding: 20px 18px 14px;
+  border-bottom: 1.5px solid rgba(196,154,60,0.22);
+  background: var(--parchment-mid);
+  flex-shrink: 0;
+}
+.ts-header-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.ts-header-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.ts-header-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  margin-top: 3px;
+}
+
+/* Topic list */
+.ts-list {
+  flex: 1;
+  padding: 16px 0 60px;
+}
+
+/* Topic card (accordion trigger) */
+.ts-topic-card {
+  margin: 0 16px 10px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(196,154,60,0.28);
+  background: var(--panel2-bg);
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+.ts-topic-card.open {
+  box-shadow: 0 2px 14px rgba(196,154,60,0.12);
+  border-color: rgba(196,154,60,0.5);
+}
+.ts-topic-trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 16px 14px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ts-topic-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 36px;
+  text-align: center;
+}
+.ts-topic-info { flex: 1; min-width: 0; }
+.ts-topic-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.ts-topic-meta {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.78rem;
+  color: var(--ink-light);
+  margin-top: 2px;
+}
+.ts-topic-progress-wrap {
+  height: 3px;
+  background: rgba(196,154,60,0.15);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+.ts-topic-progress-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.ts-topic-chevron {
+  font-size: 1rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.22s ease;
+  line-height: 1;
+}
+.ts-topic-card.open .ts-topic-chevron { transform: rotate(180deg); }
+
+/* Accordion body */
+.ts-accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.ts-accordion-body.open { max-height: 2000px; }
+
+/* Sub-section header */
+.ts-subsection {
+  border-top: 1px solid rgba(196,154,60,0.15);
+  padding: 0 16px;
+}
+.ts-subsection-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 12px 0 6px;
+  border-bottom: 1px solid rgba(196,154,60,0.1);
+  margin-bottom: 2px;
+}
+
+/* Verse row */
+.ts-verse-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(196,154,60,0.07);
+  -webkit-tap-highlight-color: transparent;
+}
+.ts-verse-row:last-child { border-bottom: none; }
+
+/* Checkbox */
+.ts-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(196,154,60,0.45);
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.ts-check.checked {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.ts-check.checked::after {
+  content: '✓';
+  font-size: 0.65rem;
+  color: white;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Verse ref link */
+.ts-verse-ref {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  text-transform: uppercase;
+  flex-shrink: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  padding: 2px 0;
+  min-width: 110px;
+}
+.ts-verse-ref:active { opacity: 0.6; }
+.ts-verse-row.studied .ts-verse-ref {
+  color: var(--ink-light);
+  text-decoration: line-through;
+  text-decoration-color: rgba(196,154,60,0.5);
+}
+
+/* Verse snippet */
+.ts-verse-snippet {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--ink-light);
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.ts-verse-row.studied .ts-verse-snippet { opacity: 0.5; }
+
+/* ── Return-to-Topic banner (floats inside reader) ── */
+#ts-return-banner {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: var(--sky-dark);
+  border-bottom: 2px solid var(--gold);
+  flex-shrink: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+#ts-return-banner.visible { display: flex; }
+.ts-return-icon { font-size: 1rem; flex-shrink: 0; }
+.ts-return-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--gold-light);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ts-return-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  border: 1px solid rgba(196,154,60,0.4);
+  border-radius: 12px;
+  padding: 4px 10px;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 </style>
 <body>
 
@@ -1962,6 +2216,10 @@ svg.leaflet-zoom-animated{will-change:transform}
     <div class="dash-tool" onclick="showPage('dict')">
       <span class="dash-tool-icon">📖</span>
       <div class="dash-tool-label">Dictionary</div>
+    </div>
+    <div class="dash-tool" onclick="showTopicStudyPage()">
+      <span class="dash-tool-icon">🗺</span>
+      <div class="dash-tool-label">Study by Topic</div>
     </div>
   </div>
 
@@ -2088,6 +2346,13 @@ svg.leaflet-zoom-animated{will-change:transform}
     <button onclick="navGoBack()" style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;padding:5px 10px;background:rgba(196,154,60,.12);border:1px solid rgba(196,154,60,.3);border-radius:5px;color:var(--gold-light);cursor:pointer;-webkit-tap-highlight-color:transparent;">← Back</button>
     <button onclick="showPage('home')" style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;padding:5px 10px;background:none;border:1px solid rgba(196,154,60,.2);border-radius:5px;color:var(--divider);cursor:pointer;-webkit-tap-highlight-color:transparent;">⌂ Home</button>
     <div style="flex:1;font-family:'Cinzel',serif;font-size:.58rem;color:var(--gold);opacity:.6;letter-spacing:.1em;text-align:right;" id="reader-location-badge"></div>
+  </div>
+
+  <!-- ── Study-by-Topic return banner (shown when reading from a topic guide) ── -->
+  <div id="ts-return-banner" onclick="returnToTopicStudy()">
+    <span class="ts-return-icon">📚</span>
+    <span class="ts-return-text" id="ts-return-label">Study by Topic</span>
+    <button class="ts-return-btn" onclick="event.stopPropagation();returnToTopicStudy()">← Return</button>
   </div>
 
   <!-- ── Scripture source tabs ── -->
@@ -6021,6 +6286,7 @@ var _navCrumbs = {
   'settings':    { label: 'Settings', back: 'home' },
   'deepdive':    { label: 'Deep Dive', back: 'studyhub' },
   'thematic':    { label: null /* set dynamically */, back: 'reader' },
+  'topic-study': { label: 'Study by Topic', back: 'home' },
 };
 
 function _updateNavChrome(id) {
@@ -6060,7 +6326,7 @@ function showPage(id) {
   const pg = document.getElementById('page-'+id);
   if (!pg) return;
   pg.classList.add('active');
-  const flexPages = ['reader', 'thematic'];
+  const flexPages = ['reader', 'thematic', 'topic-study'];
   pg.style.display = flexPages.includes(id) ? 'flex' : 'block';
   const tab = document.getElementById('tab-'+id);
   if (tab) tab.classList.add('active');
@@ -12040,6 +12306,703 @@ PGP_CHAPTERS["Moses||7"]={book:"Moses",chapter:"7",verses:[{num:1,text:"And it c
 PGP_CHAPTERS["Moses||8"]={book:"Moses",chapter:"8",verses:[{num:1,text:"And all the days of Enoch were four hundred and thirty years."},{num:2,text:"And it came to pass that Methuselah, the son of Enoch, was not taken, that the covenants of the Lord might be fulfilled, which he made to Enoch; for he truly covenanted with Enoch that Noah should be of the fruit of his loins."},{num:3,text:"And it came to pass that Methuselah prophesied that from his loins should spring all the kingdoms of the earth (through Noah), and he took glory unto himself."},{num:4,text:"And there came forth a great famine into the land, and the Lord cursed the earth with a sore curse, and many of the inhabitants thereof died."},{num:5,text:"And it came to pass that Methuselah lived one hundred and eighty-seven years, and begat Lamech;"},{num:6,text:"And Methuselah lived, after he begat Lamech, seven hundred and eighty-two years, and begat sons and daughters;"},{num:7,text:"And all the days of Methuselah were nine hundred and sixty-nine years, and he died."},{num:8,text:"And Lamech lived one hundred and eighty-two years, and begat a son,"},{num:9,text:"And he called his name Noah, saying: This son shall comfort us concerning our work and toil of our hands, because of the ground which the Lord hath cursed."},{num:10,text:"And Lamech lived, after he begat Noah, five hundred and ninety-five years, and begat sons and daughters;"},{num:11,text:"And all the days of Lamech were seven hundred and seventy-seven years, and he died."},{num:12,text:"And Noah was four hundred and fifty years old, and begat Japheth; and forty-two years afterward he begat Shem of her who was the mother of Japheth, and when he was five hundred years old he begat Ham."},{num:13,text:"And Noah and his sons hearkened unto the Lord, and gave heed, and they were called the sons of God."},{num:14,text:"And when these men began to multiply on the face of the earth, and daughters were born unto them, the sons of men saw that those daughters were fair, and they took them wives, even as they chose."},{num:15,text:"And the Lord said unto Noah: The daughters of thy sons have sold themselves; for behold mine anger is kindled against the sons of men, for they will not hearken to my voice."},{num:16,text:"And it came to pass that Noah prophesied, and taught the things of God, even as it was in the beginning."},{num:17,text:"And the Lord said unto Noah: My Spirit shall not always strive with man, for he shall know that all flesh shall die; yet his days shall be an hundred and twenty years; and if men do not repent, I will send in the floods upon them."},{num:18,text:"And in those days there were giants on the earth, and they sought Noah to take away his life; but the Lord was with Noah, and the power of the Lord was upon him."},{num:19,text:"And the Lord ordained Noah after his own order, and commanded him that he should go forth and declare his Gospel unto the children of men, even as it was given unto Enoch."},{num:20,text:"And it came to pass that Noah called upon the children of men that they should repent; but they hearkened not unto his words;"},{num:21,text:"And also, after that they had heard him, they came up before him, saying: Behold, we are the sons of God; have we not taken unto ourselves the daughters of men? And are we not eating and drinking, and marrying and giving in marriage? And our wives bear unto us children, and the same are mighty men, which are like unto men of old, men of great renown. And they hearkened not unto the words of Noah."},{num:22,text:"And God saw that the wickedness of men had become great in the earth; and every man was lifted up in the imagination of the thoughts of his heart, being only evil continually."},{num:23,text:"And it came to pass that Noah continued his preaching unto the people, saying: Hearken, and give heed unto my words;"},{num:24,text:"Believe and repent of your sins and be baptized in the name of Jesus Christ, the Son of God, even as our fathers, and ye shall receive the Holy Ghost, that ye may have all things made manifest; and if ye do not this, the floods will come in upon you; nevertheless they hearkened not."},{num:25,text:"And it repented Noah, and his heart was pained that the Lord had made man on the earth, and it grieved him at the heart."},{num:26,text:"And the Lord said: I will destroy man whom I have created, from the face of the earth, both man and beast, and the creeping things, and the fowls of the air; for it repenteth Noah that I have created them, and that I have made them; and he hath called upon me; for they have sought his life."},{num:27,text:"And thus Noah found grace in the eyes of the Lord; for Noah was a just man, and perfect in his generation; and he walked with God, as did also his three sons, Shem, Ham, and Japheth."},{num:28,text:"The earth was corrupt before God, and it was filled with violence."},{num:29,text:"And God looked upon the earth, and, behold, it was corrupt, for all flesh had corrupted its way upon the earth."},{num:30,text:"And God said unto Noah: The end of all flesh is come before me, for the earth is filled with violence, and behold I will destroy all flesh from off the earth."}],modern:[{num:1,text:"All the days of Enoch were 430 years."},{num:2,text:"Methuselah, the son of Enoch, was not taken with Zion, so that the Lord's covenants made to Enoch could be fulfilled \u2014 for God had truly covenanted with Enoch that Noah would come from his descendants."},{num:3,text:"Methuselah prophesied that from his line all the kingdoms of the earth would spring through Noah, and he took glory to himself."},{num:4,text:"A great famine came upon the land. The Lord cursed the earth with a severe curse, and many of its inhabitants died."},{num:5,text:"Methuselah lived 187 years and fathered Lamech."},{num:6,text:"After fathering Lamech, Methuselah lived 782 years and had sons and daughters."},{num:7,text:"All of Methuselah's days were 969 years, and he died."},{num:8,text:"Lamech lived 182 years and fathered a son."},{num:9,text:"He called his name Noah, saying: This son will comfort us concerning our work and the toil of our hands, because of the ground the Lord has cursed."},{num:10,text:"After fathering Noah, Lamech lived 595 years and had sons and daughters."},{num:11,text:"All of Lamech's days were 777 years, and he died."},{num:12,text:"Noah was 450 years old when he fathered Japheth. Forty-two years later he fathered Shem by the same woman who was Japheth's mother, and at age 500 he fathered Ham."},{num:13,text:"Noah and his sons listened to the Lord, paid attention, and heeded his words. They were called the sons of God."},{num:14,text:"When these righteous men began to have daughters, the sons of men \u2014 who were of the world \u2014 saw that the daughters were beautiful and married whomever they chose."},{num:15,text:"The Lord said to Noah: Your sons' daughters have sold themselves, for my anger is kindled against the sons of men \u2014 they will not listen to my voice."},{num:16,text:"Noah prophesied and taught the things of God, just as it had been from the very beginning."},{num:17,text:"The Lord said to Noah: My Spirit will not strive with man forever, for man will know that all flesh must die. But Noah will be given 120 years; if men do not repent in that time, I will send the floods upon them."},{num:18,text:"In those days there were giants on the earth, and they sought Noah's life. But the Lord was with Noah, and the power of the Lord was upon him."},{num:19,text:"The Lord ordained Noah after his own order and commanded him to go forth and preach the gospel to the children of men, just as it had been given to Enoch."},{num:20,text:"Noah called on the children of men to repent \u2014 but they would not listen to his words."},{num:21,text:"After they had heard him, they came before him, saying: We are sons of God \u2014 haven't we taken the daughters of men as wives? And aren't we eating and drinking and marrying and giving in marriage? Our wives bear us children who are mighty men of great renown. And they refused to listen to Noah's words."},{num:22,text:"God saw that the wickedness of men had become great in the earth, and every thought and every imagination of every man's heart was only evil all the time."},{num:23,text:"Noah continued preaching to the people: Listen and pay careful attention to my words."},{num:24,text:"Believe and repent of your sins, and be baptized in the name of Jesus Christ, the Son of God, just as our fathers were. You will receive the Holy Ghost and have all things made clear to you. If you refuse to do this, the floods will come upon you. But they would not listen."},{num:25,text:"Noah grieved, and his heart ached that the Lord had made man on the earth. He was deeply troubled at heart."},{num:26,text:"The Lord said: I will destroy man whom I have created from the face of the earth \u2014 both man and beast, every creature and every bird of the sky \u2014 for Noah grieves that I created them; they have sought his life."},{num:27,text:"Noah found grace in the eyes of the Lord, for Noah was a just man, perfect in his generation. He walked with God. So did his three sons \u2014 Shem, Ham, and Japheth."},{num:28,text:"The earth had become corrupt before God and was filled with violence."},{num:29,text:"God looked upon the earth, and behold, it was corrupt \u2014 all flesh had corrupted its way upon the earth."},{num:30,text:"God said to Noah: The end of all flesh has come before me, for the earth is filled with violence. Behold, I will destroy all flesh from off the earth."}]};
 
 
+
+// ══════════════════════════════════════════════════════════════════════════════
+// STUDY BY TOPIC — Data & UI System
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── Topic Library Data ────────────────────────────────────────────────────────
+const topicStudyLibrary = [
+  {
+    id: 'plan-of-salvation',
+    icon: '🌌',
+    title: 'The Plan of Salvation',
+    desc: 'God\'s eternal plan for His children',
+    subsections: [
+      {
+        label: 'Premortal Life',
+        verses: [
+          { ref: 'Abraham 3:22', chKey: 'Abraham||3', num: 22, snippet: 'God showed Abraham the spirits chosen before they were born.' },
+          { ref: 'Abraham 3:25', chKey: 'Abraham||3', num: 25, snippet: 'We will prove them herewith, to see if they will do all things the Lord commands.' },
+          { ref: 'Alma 13:3',    chKey: 'Alma||13',   num: 3,  snippet: 'Priests called and prepared from the foundation of the world.' },
+          { ref: 'D&C 93:29',   chKey: 'DC||93',     num: 29, snippet: 'Man was also in the beginning with God — intelligence is eternal.' },
+          { ref: 'Jeremiah 1:5',chKey: null,          num: null, snippet: 'Before I formed thee in the belly I knew thee.' }
+        ]
+      },
+      {
+        label: 'The Fall',
+        verses: [
+          { ref: '2 Nephi 2:22', chKey: '2 Nephi||2', num: 22, snippet: 'If Adam had not transgressed, all things would have remained in the same state.' },
+          { ref: '2 Nephi 2:23', chKey: '2 Nephi||2', num: 23, snippet: 'They would have had no joy, for they knew no misery.' },
+          { ref: '2 Nephi 2:25', chKey: '2 Nephi||2', num: 25, snippet: 'Adam fell that men might be; and men are, that they might have joy.' },
+          { ref: 'Moses 5:10',   chKey: 'Moses||5',   num: 10, snippet: 'Because of my transgression my eyes are opened, and in this life I shall have joy.' },
+          { ref: 'Moses 5:11',   chKey: 'Moses||5',   num: 11, snippet: 'Eve gloried that a Savior would come and give eternal life to the obedient.' },
+          { ref: 'Alma 42:7',   chKey: 'Alma||42',   num: 7,  snippet: 'Man had become carnal, sensual, and devilish by nature — the temporal and spiritual death.' }
+        ]
+      },
+      {
+        label: 'Mortality',
+        verses: [
+          { ref: '2 Nephi 2:27', chKey: '2 Nephi||2', num: 27, snippet: 'Men are free to choose liberty and eternal life, or captivity and death.' },
+          { ref: 'Alma 34:32',   chKey: 'Alma||34',   num: 32, snippet: 'This life is the time to prepare to meet God.' },
+          { ref: 'Alma 34:33',   chKey: 'Alma||34',   num: 33, snippet: 'Do not procrastinate the day of your repentance.' },
+          { ref: 'Alma 42:4',    chKey: 'Alma||42',   num: 4,  snippet: 'A probationary time was granted to man, to repent and serve God.' },
+          { ref: 'D&C 29:43',   chKey: 'DC||29',     num: 43, snippet: 'Man tasted the bitter so he might learn to prize the good.' }
+        ]
+      },
+      {
+        label: 'The Spirit World',
+        verses: [
+          { ref: 'Alma 40:11',  chKey: 'Alma||40',   num: 11, snippet: 'The spirits of all men are taken home to that God who gave them life.' },
+          { ref: 'Alma 40:12',  chKey: 'Alma||40',   num: 12, snippet: 'The righteous are received into a state of happiness, called paradise.' },
+          { ref: 'Alma 40:13',  chKey: 'Alma||40',   num: 13, snippet: 'The wicked are cast into outer darkness — a state of misery.' },
+          { ref: 'D&C 138:30', chKey: 'DC||138',    num: 30, snippet: 'The dead who repent will be redeemed through obedience to Christ.' },
+          { ref: 'D&C 138:57', chKey: 'DC||138',    num: 57, snippet: 'The dead were given the power to come forth after their resurrection.' }
+        ]
+      },
+      {
+        label: 'Resurrection & Judgment',
+        verses: [
+          { ref: 'Alma 11:43',  chKey: 'Alma||11',   num: 43, snippet: 'The spirit and body shall be reunited — restored to its perfect form.' },
+          { ref: 'Alma 40:23',  chKey: 'Alma||40',   num: 23, snippet: 'Every limb and joint shall be restored to the body — yea, even a hair of the head.' },
+          { ref: '2 Nephi 9:15',chKey: '2 Nephi||9', num: 15, snippet: 'We shall have a perfect knowledge of our guilt, or righteousness, being pure.' },
+          { ref: '2 Nephi 9:16',chKey: '2 Nephi||9', num: 16, snippet: 'The righteous shall have a perfect knowledge of their enjoyment and their righteousness.' },
+          { ref: 'Alma 41:3',   chKey: 'Alma||41',   num: 3,  snippet: 'It is requisite that all things should be restored to their proper order.' },
+          { ref: 'D&C 76:62',  chKey: 'DC||76',     num: 62, snippet: 'These are they who shall dwell in the presence of God and his Christ forever.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'doctrine-of-christ',
+    icon: '✦',
+    title: 'The Doctrine of Christ',
+    desc: 'The covenant path back to the Father',
+    subsections: [
+      {
+        label: 'Faith in Jesus Christ',
+        verses: [
+          { ref: 'Alma 32:21',  chKey: 'Alma||32',   num: 21, snippet: 'Faith is not to have a perfect knowledge of things; hope for things not seen.' },
+          { ref: 'Alma 32:27',  chKey: 'Alma||32',   num: 27, snippet: 'Awake and arouse your faculties — even to an experiment upon my words.' },
+          { ref: 'Ether 12:4',  chKey: 'Ether||12',  num: 4,  snippet: 'Whoso believeth in God might with surety hope — an anchor to the souls of men.' },
+          { ref: 'Ether 12:6',  chKey: 'Ether||12',  num: 6,  snippet: 'Ye receive no witness until after the trial of your faith.' },
+          { ref: '2 Nephi 31:19',chKey: '2 Nephi||31',num: 19,snippet: 'After ye have received the remission of your sins — press forward.' },
+          { ref: 'Moroni 7:33', chKey: 'Moroni||7',  num: 33, snippet: 'If ye have faith ye can do all things which are expedient unto me.' }
+        ]
+      },
+      {
+        label: 'Repentance',
+        verses: [
+          { ref: 'Mosiah 4:10',  chKey: 'Mosiah||4',  num: 10, snippet: 'Believe, repent, and humble yourselves before God and ask in sincerity of heart.' },
+          { ref: 'Alma 5:14',    chKey: 'Alma||5',    num: 14, snippet: 'Have ye experienced this mighty change in your hearts?' },
+          { ref: 'Alma 36:19',   chKey: 'Alma||36',   num: 19, snippet: 'My soul was filled with joy as exceeding as was my pain.' },
+          { ref: 'Alma 42:23',   chKey: 'Alma||42',   num: 23, snippet: 'God himself atoneth for the sins of the world, to bring about a plan of mercy.' },
+          { ref: '3 Nephi 9:20', chKey: '3 Nephi||9', num: 20, snippet: 'Whoso cometh unto me with a broken heart and a contrite spirit, him will I baptize.' },
+          { ref: 'Moroni 8:26',  chKey: 'Moroni||8',  num: 26, snippet: 'The remission of sins bringeth meekness and lowliness of heart.' }
+        ]
+      },
+      {
+        label: 'Baptism',
+        verses: [
+          { ref: '2 Nephi 31:5', chKey: '2 Nephi||31', num: 5,  snippet: 'Christ was baptized, fulfilling all righteousness and humbling himself before the Father.' },
+          { ref: '2 Nephi 31||9', chKey: '2 Nephi||31', num: 9,  snippet: 'Follow me — do the things which ye have seen me do.' },
+          { ref: 'Mosiah 18:10', chKey: 'Mosiah||18', num: 10, snippet: 'What have you against being baptized in the name of the Lord?' },
+          { ref: '3 Nephi 11:23',chKey: '3 Nephi||11',num: 23, snippet: 'Whoso repenteth and is baptized in my name shall be filled.' },
+          { ref: 'D&C 20:73',   chKey: 'DC||20',     num: 73, snippet: 'The baptismal covenant: Having been commissioned of Jesus Christ.' },
+          { ref: 'Moroni 6:3',  chKey: 'Moroni||6',  num: 3,  snippet: 'None were received unto baptism save they took upon them the name of Christ.' }
+        ]
+      },
+      {
+        label: 'Gift of the Holy Ghost',
+        verses: [
+          { ref: '2 Nephi 31:12',chKey: '2 Nephi||31',num: 12, snippet: 'Follow the Son with full purpose of heart — the Holy Ghost will come.' },
+          { ref: '2 Nephi 31:13',chKey: '2 Nephi||31',num: 13, snippet: 'Baptism of fire and of the Holy Ghost — remission of sins.' },
+          { ref: '2 Nephi 32:5', chKey: '2 Nephi||32',num: 5,  snippet: 'The Holy Ghost will show you all things what ye should do.' },
+          { ref: '3 Nephi 11:35',chKey: '3 Nephi||11',num: 35, snippet: 'Father, Son, and Holy Ghost are one — a witness of the Father and the Son.' },
+          { ref: 'Moroni 2:3',   chKey: 'Moroni||2',  num: 3,  snippet: 'Ye shall call on the Father in my name, in mighty prayer — the Holy Ghost will fall.' },
+          { ref: 'D&C 130:22',  chKey: 'DC||130',    num: 22, snippet: 'The Holy Ghost has not a body of flesh and bones but is a personage of Spirit.' }
+        ]
+      },
+      {
+        label: 'Enduring to the End',
+        verses: [
+          { ref: '2 Nephi 31||20',chKey: '2 Nephi||31',num: 20, snippet: 'Press forward with steadfastness in Christ, feasting on his word.' },
+          { ref: '2 Nephi 31:21',chKey: '2 Nephi||31',num: 21, snippet: 'This is the doctrine of Christ, and the only and true doctrine of the Father.' },
+          { ref: 'Omni 1:26',   chKey: 'Omni||1',    num: 26, snippet: 'Come unto Christ, and partake of his salvation and the power of his redemption.' },
+          { ref: 'Mosiah 4:30', chKey: 'Mosiah||4',  num: 30, snippet: 'If ye do not watch yourselves, ye must perish — so watch yourselves, and your thoughts.' },
+          { ref: 'Alma 38:2',   chKey: 'Alma||38',   num: 2,  snippet: 'In your patience and in your faith ye have had great hopes.' },
+          { ref: 'Moroni 8:26', chKey: 'Moroni||8',  num: 26, snippet: 'And the remission of sins bringeth meekness, and cometh because of faith.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'attributes-of-christ',
+    icon: '☀️',
+    title: 'The Attributes of Jesus Christ',
+    desc: 'Knowing Him whom to become',
+    subsections: [
+      {
+        label: 'Love & Compassion',
+        verses: [
+          { ref: '1 Nephi 11:17',chKey: '1 Nephi||11',num: 17, snippet: 'The love of God, which sheddeth itself abroad in the hearts of the children of men.' },
+          { ref: '3 Nephi 17:6', chKey: '3 Nephi||17',num: 6,  snippet: 'His bowels were filled with compassion — and he healed them every one.' },
+          { ref: '3 Nephi 17:21',chKey: '3 Nephi||21',num: 21, snippet: 'He wept — and blessed the little children, one by one.' },
+          { ref: 'Moroni 7:47', chKey: 'Moroni||7',  num: 47, snippet: 'Charity is the pure love of Christ, and it endureth forever.' },
+          { ref: 'D&C 6:20',   chKey: 'DC||6',      num: 20, snippet: 'Be faithful and diligent — and I love you with a perfect love.' }
+        ]
+      },
+      {
+        label: 'Obedience to the Father',
+        verses: [
+          { ref: '3 Nephi 11:11',chKey: '3 Nephi||11',num: 11, snippet: 'Having drunk the bitter cup, he glorified the Father in taking upon himself the sins of the world.' },
+          { ref: '3 Nephi 27:13',chKey: '3 Nephi||27',num: 13, snippet: 'I came into the world to do the will of my Father.' },
+          { ref: 'Mosiah 15:7', chKey: 'Mosiah||15', num: 7,  snippet: 'His will being swallowed up in the will of the Father.' },
+          { ref: '2 Nephi 31:7',chKey: '2 Nephi||31',num: 7,  snippet: 'He showeth unto the children of men that the Father commandeth all men to follow him.' },
+          { ref: 'Ether 3:14',  chKey: 'Ether||3',   num: 14, snippet: 'I am the Father and the Son — in me shall all mankind have life.' }
+        ]
+      },
+      {
+        label: 'Mercy & Forgiveness',
+        verses: [
+          { ref: 'Mosiah 26:29',chKey: 'Mosiah||26', num: 29, snippet: 'As often as my people repent will I forgive them their trespasses.' },
+          { ref: 'Alma 7:12',   chKey: 'Alma||7',    num: 12, snippet: 'He will take upon him death, that he may loose the bands of death.' },
+          { ref: 'Alma 42:15', chKey: 'Alma||42',   num: 15, snippet: 'Mercy can satisfy the demands of justice, and encircles them in the arms of safety.' },
+          { ref: '3 Nephi 9:14',chKey: '3 Nephi||9', num: 14, snippet: 'Come unto me and be baptized — that ye may be sanctified.' },
+          { ref: 'Moroni 10:32',chKey: 'Moroni||10', num: 32, snippet: 'Come unto Christ and be perfected in him — his grace is sufficient.' }
+        ]
+      },
+      {
+        label: 'Light & Life of the World',
+        verses: [
+          { ref: '3 Nephi 11||10',chKey: '3 Nephi||11',num: 10, snippet: 'Behold, I am Jesus Christ, whom the prophets testified shall come.' },
+          { ref: '3 Nephi 15:9', chKey: '3 Nephi||15',num: 9,  snippet: 'I am the law, and the light — look unto me, and endure to the end.' },
+          { ref: 'Alma 38:9',   chKey: 'Alma||38',   num: 9,  snippet: 'There is no other way or means whereby man can be saved, only through Christ.' },
+          { ref: 'Ether 4:12',  chKey: 'Ether||4',   num: 12, snippet: 'Whatsoever thing persuadeth men to do good is of me — I am the light and the truth.' },
+          { ref: 'D&C 88:6',   chKey: 'DC||88',     num: 6,  snippet: 'He descended below all things and ascended above all things — he comprehendeth all things.' },
+          { ref: 'D&C 93:2',   chKey: 'DC||93',     num: 2,  snippet: 'The day shall come that you shall see me and know that I am — all in all.' }
+        ]
+      }
+    ]
+  },
+  {
+    id: "prayer-revelation",
+    icon: "🙏",
+    title: "Prayer & Revelation",
+    desc: "Communicating with God and receiving His word",
+    subsections: [
+      {
+        label: "Why We Pray",
+        verses: [
+          { ref: "2 Nephi 32:8",  chKey: "2 Nephi||32", num: 8,  snippet: "Pray always that ye enter not into temptation — that ye may abide the day of trial." },
+          { ref: "2 Nephi 32:9",  chKey: "2 Nephi||32", num: 9,  snippet: "Pray unto the Father before ye do anything, and he will consecrate thy performance." },
+          { ref: "Alma 34:17",    chKey: "Alma||34",    num: 17, snippet: "Cry unto him in your fields, yea, over all your flocks." },
+          { ref: "Alma 34:27",    chKey: "Alma||34",    num: 27, snippet: "Let your hearts be full, drawn out in prayer unto him continually." },
+          { ref: "3 Nephi 18:19", chKey: "3 Nephi||18", num: 19, snippet: "Ye must always pray unto the Father in my name." },
+          { ref: "D&C 10:5",      chKey: "DC||10",      num: 5,  snippet: "Pray always, that you may come off conqueror — that you may conquer Satan." }
+        ]
+      },
+      {
+        label: "How God Answers",
+        verses: [
+          { ref: "Enos 1:3",     chKey: "Enos||1",     num: 3,  snippet: "The words sunk deep into my heart — I knelt down before my Maker and cried in mighty prayer." },
+          { ref: "Enos 1:4",     chKey: "Enos||1",     num: 4,  snippet: "There came a voice: Enos, thy sins are forgiven thee, and thou shalt be blessed." },
+          { ref: "Enos 1:10",    chKey: "Enos||1",     num: 10, snippet: "I prayed and labored with all diligence — the Lord said: I will grant unto thee thy desire." },
+          { ref: "D&C 9:8",      chKey: "DC||9",       num: 8,  snippet: "Study it out in your mind; then ask if it be right — a burning in the bosom." },
+          { ref: "D&C 8:2",      chKey: "DC||8",       num: 2,  snippet: "I will tell you in your mind and in your heart, by the Holy Ghost, which shall come upon you." },
+          { ref: "Moroni 10:4",  chKey: "Moroni||10",  num: 4,  snippet: "Ask God with a sincere heart, with real intent, having faith in Christ." }
+        ]
+      },
+      {
+        label: "Prophets & Modern Revelation",
+        verses: [
+          { ref: "D&C 1:38",     chKey: "DC||1",       num: 38, snippet: "Whether by mine own voice or by the voice of my servants, it is the same." },
+          { ref: "D&C 68:4",     chKey: "DC||68",      num: 4,  snippet: "When moved upon by the Holy Ghost, it shall be the will of the Lord, the mind of the Lord." },
+          { ref: "2 Nephi 29:9", chKey: "2 Nephi||29", num: 9,  snippet: "I speak the same words to one nation like another — my word is the same to all nations." },
+          { ref: "Alma 37:37",   chKey: "Alma||37",    num: 37, snippet: "Counsel with the Lord in all thy doings — let him direct thee for good." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "covenant-path",
+    icon: "⚔️",
+    title: "The Covenant Path",
+    desc: "Sacred promises between God and His children",
+    subsections: [
+      {
+        label: "Nature of Covenants",
+        verses: [
+          { ref: "Mosiah 18:8",  chKey: "Mosiah||18",  num: 8,  snippet: "Bear one another burdens, that they may be light — mourn with those that mourn." },
+          { ref: "Mosiah 18:9",  chKey: "Mosiah||18",  num: 9,  snippet: "To stand as witnesses of God at all times and in all things, and in all places." },
+          { ref: "Mosiah 18:10", chKey: "Mosiah||18",  num: 10, snippet: "What have you against being baptized in the name of the Lord?" },
+          { ref: "D&C 82:10",    chKey: "DC||82",      num: 10, snippet: "I, the Lord, am bound when ye do what I say; but when ye do not, ye have no promise." },
+          { ref: "3 Nephi 11:38",chKey: "3 Nephi||11", num: 38, snippet: "Repent and become as a little child — the foundation of his doctrine." }
+        ]
+      },
+      {
+        label: "The Abrahamic Covenant",
+        verses: [
+          { ref: "1 Nephi 15:18",chKey: "1 Nephi||15", num: 18, snippet: "In the seed of Abraham shall all kindreds of the earth be blessed — the gospel." },
+          { ref: "3 Nephi 20:25",chKey: "3 Nephi||20", num: 25, snippet: "Ye are the children of the prophets — in thee shall all families of the earth be blessed." },
+          { ref: "3 Nephi 20:27",chKey: "3 Nephi||20", num: 27, snippet: "The Father having raised me up first, sent me to bless you in turning away iniquity." },
+          { ref: "D&C 132:29",   chKey: "DC||132",     num: 29, snippet: "Abraham received all things by revelation and commandment — sealed by the Holy Spirit." }
+        ]
+      },
+      {
+        label: "Keeping Our Covenants",
+        verses: [
+          { ref: "Mosiah 5:7",   chKey: "Mosiah||5",   num: 7,  snippet: "Ye shall be called the children of Christ, his sons and daughters — born of him." },
+          { ref: "Mosiah 5:8",   chKey: "Mosiah||5",   num: 8,  snippet: "There is no other name given whereby salvation cometh — know the name by which ye are called." },
+          { ref: "D&C 20:77",    chKey: "DC||20",      num: 77, snippet: "Willing to take upon them the name of thy Son — always remember him and keep his commandments." },
+          { ref: "3 Nephi 18:11",chKey: "3 Nephi||18", num: 11, snippet: "This shall ye do in remembrance of my blood — always remember me." },
+          { ref: "Moroni 6:3",   chKey: "Moroni||6",   num: 3,  snippet: "None were received unto baptism save they took upon them the name of Christ with full purpose." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "service-christlike-love",
+    icon: "🤝",
+    title: "Service & Christlike Love",
+    desc: "Losing yourself in the service of others",
+    subsections: [
+      {
+        label: "Serving God Through Others",
+        verses: [
+          { ref: "Mosiah 2:17",  chKey: "Mosiah||2",   num: 17, snippet: "When ye are in the service of your fellow beings, ye are only in the service of your God." },
+          { ref: "Mosiah 4:26",  chKey: "Mosiah||4",   num: 26, snippet: "Impart of your substance to the poor — for the sake of retaining a remission of sins." },
+          { ref: "Alma 1:27",    chKey: "Alma||1",     num: 27, snippet: "They were liberal to all, both old and young, bond and free, male and female." },
+          { ref: "4 Nephi 1:3",  chKey: "4 Nephi||1",  num: 3,  snippet: "There were no contentions — the people of Christ did love one another." }
+        ]
+      },
+      {
+        label: "The Pure Love of Christ",
+        verses: [
+          { ref: "Moroni 7:44",  chKey: "Moroni||7",   num: 44, snippet: "If a man have not charity, he is nothing — pray for the gift of charity." },
+          { ref: "Moroni 7:45",  chKey: "Moroni||7",   num: 45, snippet: "Charity suffereth long, is kind, envieth not, is not puffed up, seeketh not her own." },
+          { ref: "Moroni 7:46",  chKey: "Moroni||7",   num: 46, snippet: "Wherefore, if ye have not charity, ye are nothing, for charity never faileth." },
+          { ref: "Moroni 7:47",  chKey: "Moroni||7",   num: 47, snippet: "Charity is the pure love of Christ, and it endureth forever." },
+          { ref: "Moroni 7:48",  chKey: "Moroni||7",   num: 48, snippet: "Pray with all the energy of heart, that ye may be filled with this love." }
+        ]
+      },
+      {
+        label: "Zion: A People of One Heart",
+        verses: [
+          { ref: "Moses 7:18",   chKey: "Moses||7",    num: 18, snippet: "The Lord called his people Zion, because they were of one heart and one mind." },
+          { ref: "4 Nephi 1:15", chKey: "4 Nephi||1",  num: 15, snippet: "There was no contention because of the love of God which did dwell in their hearts." },
+          { ref: "4 Nephi 1:17", chKey: "4 Nephi||1",  num: 17, snippet: "There were no robbers, no murderers, no Nephites or Lamanites — they were one, children of Christ." },
+          { ref: "D&C 38:27",    chKey: "DC||38",      num: 27, snippet: "Be one; and if ye are not one ye are not mine." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "scripture-word-of-god",
+    icon: "📜",
+    title: "The Word of God",
+    desc: "Why and how to feast on the scriptures",
+    subsections: [
+      {
+        label: "Power of the Word",
+        verses: [
+          { ref: "Alma 31:5",    chKey: "Alma||31",    num: 5,  snippet: "The preaching of the word had more powerful effect than the sword." },
+          { ref: "Alma 37:44",   chKey: "Alma||37",    num: 44, snippet: "The words of Christ will carry you beyond this vale of sorrow to a better land." },
+          { ref: "Helaman 3:29", chKey: "Helaman||3",  num: 29, snippet: "The word of God leadeth the man of Christ across the everlasting gulf of misery." },
+          { ref: "2 Nephi 32:3", chKey: "2 Nephi||32", num: 3,  snippet: "Feast upon the words of Christ — the words of Christ will tell you all things." },
+          { ref: "Jacob 2:8",    chKey: "Jacob||2",    num: 8,  snippet: "The word of God healeth the wounded soul, and gives power and courage." }
+        ]
+      },
+      {
+        label: "Searching the Scriptures",
+        verses: [
+          { ref: "1 Nephi 19:23",chKey: "1 Nephi||19", num: 23, snippet: "Liken all scriptures unto us, that it might be for our profit and learning." },
+          { ref: "2 Nephi 4:15", chKey: "2 Nephi||4",  num: 15, snippet: "My soul delighteth in the scriptures — my heart pondereth upon what I have learned." },
+          { ref: "Alma 17:2",    chKey: "Alma||17",    num: 2,  snippet: "The sons of Mosiah searched the scriptures diligently that they might know the word of God." }
+        ]
+      },
+      {
+        label: "The Book of Mormon Witness",
+        verses: [
+          { ref: "2 Nephi 29:3", chKey: "2 Nephi||29", num: 3,  snippet: "A Bible! A Bible! — But the Lord speaks to all nations, and they shall write it." },
+          { ref: "2 Nephi 29:8", chKey: "2 Nephi||29", num: 8,  snippet: "I speak the same words to one nation like another — my word is the same to all nations." },
+          { ref: "Moroni 10:3",  chKey: "Moroni||10",  num: 3,  snippet: "Remember how merciful the Lord hath been from creation to the time ye shall receive these things." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "trials-adversity",
+    icon: "⛰️",
+    title: "Trials & Adversity",
+    desc: "Finding strength and purpose in suffering",
+    subsections: [
+      {
+        label: "Purpose of Trials",
+        verses: [
+          { ref: "2 Nephi 2:11", chKey: "2 Nephi||2",  num: 11, snippet: "It must needs be that there is an opposition in all things." },
+          { ref: "2 Nephi 2:2",  chKey: "2 Nephi||2",  num: 2,  snippet: "In thy childhood thou hast suffered afflictions — God shall consecrate thine afflictions for thy gain." },
+          { ref: "Alma 62:41",   chKey: "Alma||62",    num: 41, snippet: "Many were softened because of their afflictions — many were also hardened." },
+          { ref: "Helaman 12:3", chKey: "Helaman||12", num: 3,  snippet: "In the day of their peace they were lifted up — in adversity they remember God." }
+        ]
+      },
+      {
+        label: "God With Us in Suffering",
+        verses: [
+          { ref: "Mosiah 24:14", chKey: "Mosiah||24",  num: 14, snippet: "I will ease the burdens on your shoulders, that even you cannot feel them upon your backs." },
+          { ref: "Mosiah 24:15", chKey: "Mosiah||24",  num: 15, snippet: "The burdens were light — the Lord had strengthened them, and they were cheerful and patient." },
+          { ref: "Alma 7:11",    chKey: "Alma||7",     num: 11, snippet: "He will take upon him their infirmities, that he may know how to succor his people." },
+          { ref: "Alma 36:3",    chKey: "Alma||36",    num: 3,  snippet: "Whosoever trusts in God shall be supported in their trials, troubles, and afflictions." },
+          { ref: "D&C 121:7",    chKey: "DC||121",     num: 7,  snippet: "Peace be unto thy soul — thine adversity and afflictions shall be but a small moment." },
+          { ref: "D&C 122:7",    chKey: "DC||122",     num: 7,  snippet: "All these things shall give thee experience, and shall be for thy good." }
+        ]
+      },
+      {
+        label: "Enduring with Hope",
+        verses: [
+          { ref: "Ether 12:4",   chKey: "Ether||12",   num: 4,  snippet: "Faith is an anchor to the souls of men — hope for a better world." },
+          { ref: "Moroni 9:25",  chKey: "Moroni||9",   num: 25, snippet: "Be faithful in Christ — let his sufferings, death, and mercy rest in your mind forever." },
+          { ref: "Jacob 3:1",    chKey: "Jacob||3",    num: 1,  snippet: "Look unto God with firmness of mind, and pray with exceeding faith — he will console you." },
+          { ref: "2 Nephi 4:20", chKey: "2 Nephi||4",  num: 20, snippet: "My God hath been my support — he led me through mine afflictions in the wilderness." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "eternal-family",
+    icon: "👨‍👩‍👧‍👦",
+    title: "Eternal Families",
+    desc: "Family relationships sealed for eternity",
+    subsections: [
+      {
+        label: "God's Design for Families",
+        verses: [
+          { ref: "Moses 2:27",   chKey: "Moses||2",    num: 27, snippet: "God created man in his own image — male and female created he them." },
+          { ref: "2 Nephi 25:23",chKey: "2 Nephi||25", num: 23, snippet: "We labor diligently to persuade our children to believe in Christ and be reconciled to God." },
+          { ref: "Alma 56:47",   chKey: "Alma||56",    num: 47, snippet: "They had been taught by their mothers — if they did not doubt, God would deliver them." },
+          { ref: "Alma 57:21",   chKey: "Alma||57",    num: 21, snippet: "Their faith was exceeding great — the miraculous power of God in their preservation." }
+        ]
+      },
+      {
+        label: "Eternal Sealing",
+        verses: [
+          { ref: "D&C 132:19",   chKey: "DC||132",     num: 19, snippet: "Sealed by the Holy Spirit of Promise — their glory shall be a fulness and continuation forever." },
+          { ref: "D&C 131:2",    chKey: "DC||131",     num: 2,  snippet: "To obtain the highest degree of celestial glory a man must enter into the new and everlasting covenant." },
+          { ref: "D&C 138:47",   chKey: "DC||138",     num: 47, snippet: "The dead had looked upon the long absence of their spirits from their bodies as a bondage." }
+        ]
+      },
+      {
+        label: "Hearts Turning to Fathers",
+        verses: [
+          { ref: "3 Nephi 25:6", chKey: "3 Nephi||25", num: 6,  snippet: "He shall turn the heart of the fathers to the children, and the children to the fathers." },
+          { ref: "D&C 2:2",      chKey: "DC||2",       num: 2,  snippet: "He shall plant in the hearts of the children the promises made to the fathers." },
+          { ref: "D&C 128:15",   chKey: "DC||128",     num: 15, snippet: "We without them cannot be made perfect; neither can they without us be made perfect." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "priesthood-authority",
+    icon: "🔑",
+    title: "Priesthood & Authority",
+    desc: "The power and authority of God on earth",
+    subsections: [
+      {
+        label: "What Is the Priesthood",
+        verses: [
+          { ref: "Alma 13:1",    chKey: "Alma||13",    num: 1,  snippet: "Priests were ordained after the order of the Son — a holy calling." },
+          { ref: "Alma 13:7",    chKey: "Alma||13",    num: 7,  snippet: "This high priesthood was from the foundation of the world — Christ after the same order." },
+          { ref: "D&C 107:3",    chKey: "DC||107",     num: 3,  snippet: "The Melchizedek Priesthood holds the right of presidency and the keys of the kingdom." }
+        ]
+      },
+      {
+        label: "Restored Authority",
+        verses: [
+          { ref: "D&C 13:1",     chKey: "DC||13",      num: 1,  snippet: "I confer the Priesthood of Aaron, which holds the keys of the ministering of angels." },
+          { ref: "3 Nephi 11:21",chKey: "3 Nephi||11", num: 21, snippet: "I give unto you power that ye shall baptize this people when I ascend up unto the Father." },
+          { ref: "Mosiah 18:17", chKey: "Mosiah||18",  num: 17, snippet: "They were called the church of God, or the church of Christ, from that time forward." }
+        ]
+      },
+      {
+        label: "Righteous Use of Authority",
+        verses: [
+          { ref: "D&C 121:36",   chKey: "DC||121",     num: 36, snippet: "The rights of the priesthood are inseparably connected with the powers of heaven." },
+          { ref: "D&C 121:41",   chKey: "DC||121",     num: 41, snippet: "Only by persuasion, long-suffering, gentleness, meekness, and love unfeigned." },
+          { ref: "D&C 121:45",   chKey: "DC||121",     num: 45, snippet: "Let virtue garnish thy thoughts unceasingly — thy confidence shall wax strong before God." },
+          { ref: "D&C 121:46",   chKey: "DC||121",     num: 46, snippet: "The Holy Ghost shall be thy constant companion — thy dominion an everlasting dominion." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "sin-forgiveness",
+    icon: "🕊️",
+    title: "Sin & Forgiveness",
+    desc: "Understanding sin, guilt, and the miracle of forgiveness",
+    subsections: [
+      {
+        label: "The Reality of Sin",
+        verses: [
+          { ref: "Alma 5:18",    chKey: "Alma||5",     num: 18, snippet: "Can ye imagine yourselves brought before God with your souls filled with guilt and remorse?" },
+          { ref: "Alma 12:14",   chKey: "Alma||12",    num: 14, snippet: "Our words, works, and thoughts will condemn us — the wicked dread to look upon God." },
+          { ref: "Alma 42:16",   chKey: "Alma||42",    num: 16, snippet: "Repentance could not come unto men except there were a punishment — justice exerciseth all demands." },
+          { ref: "Helaman 13:38",chKey: "Helaman||13", num: 38, snippet: "Ye have procrastinated the day of salvation until it is too late — the day of your probation." }
+        ]
+      },
+      {
+        label: "The Miracle of Forgiveness",
+        verses: [
+          { ref: "Alma 36:19",   chKey: "Alma||36",    num: 19, snippet: "I could remember my pains no more — my soul was filled with joy as exceeding as was my pain." },
+          { ref: "Alma 36:20",   chKey: "Alma||36",    num: 20, snippet: "What joy, what marvelous light, did I behold — my soul was filled with it." },
+          { ref: "Mosiah 26:29", chKey: "Mosiah||26",  num: 29, snippet: "As often as my people repent will I forgive them their trespasses against me." },
+          { ref: "D&C 58:42",    chKey: "DC||58",      num: 42, snippet: "He who has repented of his sins is forgiven, and I, the Lord, remember them no more." },
+          { ref: "D&C 58:43",    chKey: "DC||58",      num: 43, snippet: "By this ye may know if a man repenteth — he will confess them and forsake them." }
+        ]
+      },
+      {
+        label: "Forgiving Others",
+        verses: [
+          { ref: "3 Nephi 13:14",chKey: "3 Nephi||13", num: 14, snippet: "If ye forgive men their trespasses, your heavenly Father will also forgive you." },
+          { ref: "3 Nephi 13:15",chKey: "3 Nephi||13", num: 15, snippet: "If ye forgive not men their trespasses, neither will your Father forgive your trespasses." },
+          { ref: "D&C 64:10",    chKey: "DC||64",      num: 10, snippet: "I, the Lord, will forgive whom I will forgive, but of you it is required to forgive all men." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "second-coming-last-days",
+    icon: "⚡",
+    title: "The Second Coming",
+    desc: "Signs of the times and preparing for Christ's return",
+    subsections: [
+      {
+        label: "Signs of the Times",
+        verses: [
+          { ref: "D&C 45:26",    chKey: "DC||45",      num: 26, snippet: "Men's hearts shall fail them — wars, rumors of wars, and the whole earth in commotion." },
+          { ref: "D&C 45:28",    chKey: "DC||45",      num: 28, snippet: "Signs and wonders shall be shown forth in the heavens above and in the earth beneath." },
+          { ref: "3 Nephi 21:1", chKey: "3 Nephi||21", num: 1,  snippet: "When these things come to pass ye may know the sign of the Father's work has commenced." },
+          { ref: "1 Nephi 14:14",chKey: "1 Nephi||14", num: 14, snippet: "The power of the Lamb of God descended on the saints of the church of the Lamb." }
+        ]
+      },
+      {
+        label: "The Restoration Prepares the Way",
+        verses: [
+          { ref: "D&C 65:2",     chKey: "DC||65",      num: 2,  snippet: "The keys of the kingdom of God are committed to man — the gospel shall fill the whole earth." },
+          { ref: "1 Nephi 13:37",chKey: "1 Nephi||13", num: 37, snippet: "Blessed are they who seek to bring forth my Zion — they shall have the gift and the power." },
+          { ref: "D&C 1:11",     chKey: "DC||1",       num: 11, snippet: "The voice of the Lord is unto all men — none shall escape." }
+        ]
+      },
+      {
+        label: "Preparing to Meet Him",
+        verses: [
+          { ref: "D&C 33:17",    chKey: "DC||33",      num: 17, snippet: "Be faithful, praying always, having your lamps trimmed and burning, and oil with you." },
+          { ref: "D&C 38:30",    chKey: "DC||38",      num: 30, snippet: "If ye are prepared ye shall not fear." },
+          { ref: "Helaman 5:12", chKey: "Helaman||5",  num: 12, snippet: "Build upon the rock of our Redeemer — when the storms beat upon you, ye shall not fall." },
+          { ref: "Mormon 9:27",  chKey: "Mormon||9",   num: 27, snippet: "Doubt not, but be believing, and begin as in times of old and come unto the Lord." },
+          { ref: "Moroni 10:32", chKey: "Moroni||10",  num: 32, snippet: "Come unto Christ and be perfected in him — deny yourselves of all ungodliness." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "faith-doubt-testimony",
+    icon: "🌿",
+    title: "Faith, Doubt & Testimony",
+    desc: "Building and strengthening your witness of truth",
+    subsections: [
+      {
+        label: "What Is Faith",
+        verses: [
+          { ref: "Alma 32:21",   chKey: "Alma||32",    num: 21, snippet: "Faith is not to have a perfect knowledge — hope for things which are not seen, which are true." },
+          { ref: "Alma 32:26",   chKey: "Alma||32",    num: 26, snippet: "A perfect knowledge is not faith — but ye can know with a perfect knowledge." },
+          { ref: "Ether 12:6",   chKey: "Ether||12",   num: 6,  snippet: "Ye receive no witness until after the trial of your faith." },
+          { ref: "Ether 12:12",  chKey: "Ether||12",   num: 12, snippet: "It was the faith of Alma and Amulek that caused the prison to tumble to the earth." }
+        ]
+      },
+      {
+        label: "Planting and Nurturing the Seed",
+        verses: [
+          { ref: "Alma 32:27",   chKey: "Alma||32",    num: 27, snippet: "Awake and arouse your faculties — experiment upon my words — desire to believe." },
+          { ref: "Alma 32:28",   chKey: "Alma||32",    num: 28, snippet: "If ye give place for a portion of my words — the seed swelleth and beginneth to grow." },
+          { ref: "Alma 32:41",   chKey: "Alma||32",    num: 41, snippet: "Nourish the tree as it begins to grow — by your faith, patience, and diligence." },
+          { ref: "Alma 32:43",   chKey: "Alma||32",    num: 43, snippet: "Ye shall pluck the fruit which is most precious, sweet above all, which is pure." }
+        ]
+      },
+      {
+        label: "When Doubt Comes",
+        verses: [
+          { ref: "Ether 12:27",  chKey: "Ether||12",   num: 27, snippet: "I give men weakness that they may be humble — my grace is sufficient for all who humble themselves." },
+          { ref: "Mormon 9:27",  chKey: "Mormon||9",   num: 27, snippet: "Doubt not, but be believing — begin as in times of old and come unto the Lord." },
+          { ref: "2 Nephi 4:34", chKey: "2 Nephi||4",  num: 34, snippet: "I will not put my trust in the arm of flesh — cursed is he that trusteth in man." },
+          { ref: "Helaman 5:12", chKey: "Helaman||5",  num: 12, snippet: "Build on the rock of Christ — when the storms beat upon you, ye cannot fall." }
+        ]
+      }
+    ]
+  }
+];
+
+// ── State ─────────────────────────────────────────────────────────────────────
+// Tracks which topic the user came from when reading in the reader
+var _tsActiveTopic = null;  // { topicId, subsectionLabel, verseRef }
+
+// ── LocalStorage helpers ──────────────────────────────────────────────────────
+function tsGetStudied() {
+  try { return JSON.parse(localStorage.getItem('ts_studied') || '{}'); } catch(e) { return {}; }
+}
+function tsSetStudied(data) {
+  try { localStorage.setItem('ts_studied', JSON.stringify(data)); } catch(e) {}
+}
+function tsToggleStudied(verseRef) {
+  const data = tsGetStudied();
+  data[verseRef] = !data[verseRef];
+  tsSetStudied(data);
+  return data[verseRef];
+}
+function tsIsStudied(verseRef) {
+  return !!tsGetStudied()[verseRef];
+}
+
+// ── Progress calculation ──────────────────────────────────────────────────────
+function tsTopicProgress(topic) {
+  const studied = tsGetStudied();
+  const all = topic.subsections.reduce((acc, s) => acc + s.verses.length, 0);
+  const done = topic.subsections.reduce((acc, s) =>
+    acc + s.verses.filter(v => studied[v.ref]).length, 0);
+  return { done, all, pct: all > 0 ? Math.round((done / all) * 100) : 0 };
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
+function renderTopicStudyPage() {
+  const container = document.getElementById('ts-topic-list');
+  if (!container) return;
+  const studied = tsGetStudied();
+
+  container.innerHTML = topicStudyLibrary.map(topic => {
+    const prog = tsTopicProgress(topic);
+    const subsHtml = topic.subsections.map(sub => {
+      const versesHtml = sub.verses.map(v => {
+        const done = !!studied[v.ref];
+        return `<div class="ts-verse-row${done ? ' studied' : ''}" id="ts-row-${CSS.escape(v.ref)}">
+          <div class="ts-check${done ? ' checked' : ''}"
+               onclick="tsHandleCheck(event,'${v.ref.replace(/'/g,"\\'")}','${topic.id}')"></div>
+          <div class="ts-verse-ref"
+               onclick="tsOpenVerse('${v.ref.replace(/'/g,"\\'")}','${(v.chKey||'').replace(/'/g,"\\'")}',${v.num||0},'${topic.title.replace(/'/g,"\\'")}','${sub.label.replace(/'/g,"\\'")}')">
+            ${esc(v.ref)}
+          </div>
+          <div class="ts-verse-snippet">${esc(v.snippet)}</div>
+        </div>`;
+      }).join('');
+      return `<div class="ts-subsection">
+        <div class="ts-subsection-label">${esc(sub.label)}</div>
+        ${versesHtml}
+      </div>`;
+    }).join('');
+
+    return `<div class="ts-topic-card" id="ts-card-${topic.id}">
+      <div class="ts-topic-trigger" onclick="tsToggleTopic('${topic.id}')">
+        <div class="ts-topic-icon">${topic.icon}</div>
+        <div class="ts-topic-info">
+          <div class="ts-topic-title">${esc(topic.title)}</div>
+          <div class="ts-topic-meta">${esc(topic.desc)} · ${prog.done}/${prog.all} studied</div>
+          <div class="ts-topic-progress-wrap">
+            <div class="ts-topic-progress-fill" style="width:${prog.pct}%"></div>
+          </div>
+        </div>
+        <div class="ts-topic-chevron">⌄</div>
+      </div>
+      <div class="ts-accordion-body" id="ts-body-${topic.id}">
+        ${subsHtml}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Accordion toggle ──────────────────────────────────────────────────────────
+function tsToggleTopic(topicId) {
+  const card = document.getElementById('ts-card-' + topicId);
+  const body = document.getElementById('ts-body-' + topicId);
+  if (!card || !body) return;
+  const isOpen = card.classList.contains('open');
+  // Close all others
+  topicStudyLibrary.forEach(t => {
+    const c = document.getElementById('ts-card-' + t.id);
+    const b = document.getElementById('ts-body-' + t.id);
+    if (c && b) { c.classList.remove('open'); b.classList.remove('open'); }
+  });
+  // Toggle this one
+  if (!isOpen) {
+    card.classList.add('open');
+    body.classList.add('open');
+  }
+}
+
+// ── Checkbox handler ──────────────────────────────────────────────────────────
+function tsHandleCheck(event, verseRef, topicId) {
+  event.stopPropagation();
+  const nowStudied = tsToggleStudied(verseRef);
+  // Update row class
+  const safeRef = CSS.escape(verseRef);
+  const row = document.getElementById('ts-row-' + safeRef);
+  const chk = row && row.querySelector('.ts-check');
+  if (row) row.classList.toggle('studied', nowStudied);
+  if (chk) chk.classList.toggle('checked', nowStudied);
+  // Update progress bar & meta
+  const topic = topicStudyLibrary.find(t => t.id === topicId);
+  if (topic) {
+    const prog = tsTopicProgress(topic);
+    const card = document.getElementById('ts-card-' + topicId);
+    if (card) {
+      const fill = card.querySelector('.ts-topic-progress-fill');
+      const meta = card.querySelector('.ts-topic-meta');
+      if (fill) fill.style.width = prog.pct + '%';
+      if (meta) meta.textContent = topic.desc + ' \u00b7 ' + prog.done + '/' + prog.all + ' studied';
+    }
+  }
+}
+
+// ── Open a verse in the reader ────────────────────────────────────────────────
+function tsOpenVerse(verseRef, chKey, verseNum, topicTitle, subsectionLabel) {
+  if (!chKey) {
+    // No in-app key (e.g. OT/NT reference) — just show a note
+    alert(verseRef + '\n\nThis reference is from outside the app\u2019s current scriptures.\nFind it in your physical scriptures or Gospel Library app.');
+    return;
+  }
+  // Store active topic context for the return banner
+  _tsActiveTopic = { verseRef, chKey, topicTitle, subsectionLabel };
+  // Navigate to the verse
+  _jumpToVerse(chKey, verseNum);
+  // Show the return banner
+  tsShowReturnBanner(topicTitle, subsectionLabel);
+}
+
+// ── Return banner ─────────────────────────────────────────────────────────────
+function tsShowReturnBanner(topicTitle, subsectionLabel) {
+  const banner = document.getElementById('ts-return-banner');
+  const label  = document.getElementById('ts-return-label');
+  if (!banner) return;
+  if (label) label.textContent = '\u2190 ' + topicTitle + ' \u00b7 ' + subsectionLabel;
+  banner.classList.add('visible');
+}
+
+function tsHideReturnBanner() {
+  const banner = document.getElementById('ts-return-banner');
+  if (banner) banner.classList.remove('visible');
+  _tsActiveTopic = null;
+}
+
+function returnToTopicStudy() {
+  tsHideReturnBanner();
+  showTopicStudyPage();
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+function showTopicStudyPage() {
+  renderTopicStudyPage();
+  showPage('topic-study');
+  _navStack.push('topic-study');
+  _updateNavChrome('topic-study');
+}
+
 // ── THEMATIC TAG INJECTION ────────────────────────────────────────────────
 // Runs once after all CHAPTERS[] data is defined above.
 // Reads window.SCRIPTURE_DATA.thematicMap from scriptures_db.js and stamps
@@ -12072,6 +13035,27 @@ PGP_CHAPTERS["Moses||8"]={book:"Moses",chapter:"8",verses:[{num:1,text:"And all 
       <div class="thematic-count" id="thematic-count">0 verses</div>
     </div>
     <div class="thematic-list" id="thematic-list"></div>
+  </div>
+
+  <!-- ── Study-by-Topic return banner (shown when reading from a topic guide) ── -->
+  <div id="ts-return-banner" onclick="returnToTopicStudy()">
+    <span class="ts-return-icon">📚</span>
+    <span class="ts-return-text" id="ts-return-label">Study by Topic</span>
+    <button class="ts-return-btn" onclick="event.stopPropagation();returnToTopicStudy()">← Return</button>
+  </div>
+
+
+
+  <!-- ══ STUDY BY TOPIC PAGE ══ -->
+  <div class="page" id="page-topic-study">
+    <div class="ts-header">
+      <div class="ts-header-label">✦ Guided Learning</div>
+      <div class="ts-header-title">Study by Topic</div>
+      <div class="ts-header-sub">Explore the gospel through curated scripture collections</div>
+    </div>
+    <div class="ts-list" id="ts-topic-list">
+      <!-- Populated by renderTopicStudyPage() -->
+    </div>
   </div>
 
   <div id="bm-toast" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(18,10,4,.9);color:var(--gold);font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.08em;padding:9px 20px;border-radius:20px;border:1px solid rgba(196,154,60,.4);z-index:999;pointer-events:none;white-space:nowrap;"></div>
