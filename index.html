@@ -6020,6 +6020,7 @@ var _navCrumbs = {
   'dict':        { label: 'Dictionary', back: 'home' },
   'settings':    { label: 'Settings', back: 'home' },
   'deepdive':    { label: 'Deep Dive', back: 'studyhub' },
+  'thematic':    { label: null /* set dynamically */, back: 'reader' },
 };
 
 function _updateNavChrome(id) {
@@ -6059,7 +6060,7 @@ function showPage(id) {
   const pg = document.getElementById('page-'+id);
   if (!pg) return;
   pg.classList.add('active');
-  const flexPages = ['reader'];
+  const flexPages = ['reader', 'thematic'];
   pg.style.display = flexPages.includes(id) ? 'flex' : 'block';
   const tab = document.getElementById('tab-'+id);
   if (tab) tab.classList.add('active');
@@ -6569,14 +6570,18 @@ function _renderThematicOverlay(tagName, results) {
   title.textContent = tagName;
   count.textContent = results.length + (results.length === 1 ? ' verse' : ' verses');
 
+  // Set dynamic crumb label so nav chrome shows the topic name
+  if (typeof _navCrumbs !== 'undefined') _navCrumbs['thematic'].label = tagName;
+
   if (!results.length) {
-    list.innerHTML = `<div class="thematic-empty">No verses tagged with this topic yet.</div>`;
+    list.innerHTML = '<div class="thematic-empty">No verses tagged with this topic yet.</div>';
   } else {
     list.innerHTML = results.map(r => {
       const ref  = r.book + ' ' + r.chapter + ':' + r.num;
-      const text = r.text.length > 220 ? r.text.slice(0, 218) + '…' : r.text;
+      const text = r.text.length > 220 ? r.text.slice(0, 218) + '...' : r.text;
+      const safeKey = esc(r.chKey);
       return `<div class="thematic-verse-card"
-          onclick="closeThematicView();_jumpToVerse('${esc(r.chKey)}',${r.num})"
+          onclick="closeThematicView();_jumpToVerse('${safeKey}',${r.num})"
           role="button" tabindex="0">
         <div class="thematic-verse-ref">${esc(ref)}</div>
         <div class="thematic-verse-text">${esc(text)}</div>
@@ -6584,27 +6589,26 @@ function _renderThematicOverlay(tagName, results) {
     }).join('');
   }
 
-  document.querySelectorAll('.page').forEach(p => {
-    p.classList.remove('active'); p.style.display = 'none';
-  });
-  page.classList.add('active');
-  page.style.display = 'flex';
-  list.scrollTop = 0;
+  // Use showPage so all nav chrome updates correctly
+  showPage('thematic');
   if (typeof _navStack !== 'undefined') _navStack.push('thematic');
   if (typeof _updateNavChrome === 'function') _updateNavChrome('thematic');
+  list.scrollTop = 0;
 }
 
-// Close overlay and return to the previous page
+// Close overlay and return to the page the user came from
 function closeThematicView() {
-  const page = document.getElementById('page-thematic');
-  if (page) { page.classList.remove('active'); page.style.display = 'none'; }
-  if (typeof _navStack !== 'undefined' && _navStack.length > 0) {
-    const prev = _navStack[_navStack.length - 1];
-    const prevPage = document.getElementById('page-' + prev) || document.getElementById(prev);
-    if (prevPage) { prevPage.classList.add('active'); prevPage.style.display = 'flex'; }
+  // Pop 'thematic' off the stack
+  if (typeof _navStack !== 'undefined') {
+    const idx = _navStack.lastIndexOf('thematic');
+    if (idx > -1) _navStack.splice(idx, 1);
   }
+  // Go back to whatever was below it — default reader
+  const returnTo = (typeof _navStack !== 'undefined' && _navStack.length > 0)
+    ? _navStack[_navStack.length - 1] : 'reader';
+  if (typeof showPage === 'function') showPage(returnTo);
+  if (typeof _updateNavChrome === 'function') _updateNavChrome(returnTo);
 }
-
 // Navigate to a chapter and scroll/highlight the target verse
 function _jumpToVerse(chKey, verseNum) {
   const parts   = chKey.split('||');
