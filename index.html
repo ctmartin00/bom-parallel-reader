@@ -740,14 +740,14 @@ select.rsel:disabled{opacity:.35;cursor:default;}
 .bh-ch{font-family:'Cinzel',serif;font-size:.8rem;color:var(--ink-light);letter-spacing:.14em;margin-top:3px;opacity:.65;}
 .bh-rule{width:42px;height:1px;background:var(--gold);margin:8px auto 0;}
 
-.verse{display:flex;gap:8px;margin-bottom:8px;padding:4px 6px;border-radius:3px;transition:background .12s;cursor:pointer;position:relative;}
+.verse{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;padding:4px 6px;border-radius:3px;transition:background .12s;cursor:pointer;position:relative;}
 .verse:hover{background:rgba(196,154,60,.18);outline:1px solid rgba(196,154,60,.35);}
 .verse.range-start{background:rgba(196,154,60,.25);outline:2px solid var(--gold);}
 .verse.range-mid{background:rgba(196,154,60,.18);outline:1px solid rgba(196,154,60,.5);}
 .verse.active{outline:2px solid var(--gold);}
 .verse.sel-range{background:rgba(196,154,60,.22);outline:1px solid rgba(196,154,60,.5);}
 .vnum{font-family:'Cinzel',serif;font-size:.61rem;font-weight:600;color:var(--gold);min-width:20px;padding-top:4px;text-align:right;flex-shrink:0;}
-.vtext{font-size:1.02rem;color:var(--text);line-height:1.82;}
+.vtext{font-size:1.02rem;color:var(--text);line-height:1.82;flex:1;min-width:0;word-break:break-word;}
 #panel-modern .vtext{font-family:'EB Garamond',Georgia,serif;font-size:1.02rem;font-weight:700;font-style:normal;}
 .verse-note-dot{position:absolute;right:4px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.7;}
 
@@ -1743,12 +1743,16 @@ svg.leaflet-zoom-animated{will-change:transform}
 /* ══════════════════════════════════════════
    THEMATIC LINKAGE — Tag Badges & Overlay
    ══════════════════════════════════════════ */
+.verse-tag-row {
+  width: 100%;
+  flex-basis: 100%;
+  padding-left: 28px;
+}
 .theme-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 6px;
-  margin-left: 26px;
+  margin-top: 4px;
 }
 .theme-tag {
   display: inline-flex;
@@ -6763,7 +6767,7 @@ function renderPanel(id, book, chapter, verses, side) {
     return `<div class="verse" data-verse="${v.num}" data-side="${side}">
       <span class="vnum" data-verse="${v.num}">${v.num}</span>
       <span class="vtext" data-verse="${v.num}" data-side="${side}">${vtextHtml}${xrefHtml}</span>
-      ${dot}${tagHtml}
+      ${dot}${tagHtml ? `<div class="verse-tag-row">${tagHtml}</div>` : ''}
     </div>`;
   }).join('');
 
