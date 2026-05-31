@@ -2339,208 +2339,339 @@ window.SCRIPTURE_DATA.DICT_ENTRIES = [
 ];
 
 // ════════════════════════════════════════════════════════════════════════════
-// THEMATIC LINKAGE MAP  —  append to the BOTTOM of scriptures_db.js
-//
-// KEY FORMAT:  "Book||chapter||verse"   (matches S.current + '||' + v.num)
-//
-// HOW IT WORKS:
-//   On startup, the forEach loop below reads every entry and stamps
-//   a `tags` array onto the matching verse object inside CHAPTERS[].
-//   No line of the 2,340-line scripture array is ever touched.
-//
-// TO ADD A NEW TAG:  just add another key → [tags] entry below and reload.
+// THEMATIC LINKAGE MAP
+// KEY FORMAT: "Book||chapter||verse"  →  array of topic strings
+// The injection loop in index.html reads this at startup and stamps
+// a `tags` array onto matching verse objects in CHAPTERS[].
+// To add tags: just add entries here and reload. Zero edits to scripture data.
 // ════════════════════════════════════════════════════════════════════════════
-
-window.SCRIPTURE_DATA = window.SCRIPTURE_DATA || {};
 
 window.SCRIPTURE_DATA.thematicMap = {
 
   // ── ATTRIBUTES OF CHRIST ─────────────────────────────────────────────────
-  "1 Nephi||11||18"  : ["Attributes of Christ"],               // Mother of the Son of God
-  "1 Nephi||11||31"  : ["Attributes of Christ"],               // Jesus heals the sick
-  "2 Nephi||2||8"    : ["Attributes of Christ", "Atonement"],  // No flesh can dwell in God's presence without his merits
-  "2 Nephi||9||21"   : ["Attributes of Christ", "Atonement"],  // He suffered pains of every person
-  "2 Nephi||31||7"   : ["Attributes of Christ", "Baptism"],    // Christ was baptized to fulfil righteousness
-  "Mosiah||3||5"     : ["Attributes of Christ"],               // He shall come down from heaven
-  "Mosiah||3||7"     : ["Attributes of Christ", "Atonement"],  // Blood from every pore
-  "Mosiah||4||2"     : ["Attributes of Christ", "Atonement"],  // Atoning blood of Christ
-  "Alma||7||11"      : ["Attributes of Christ", "Atonement"],  // Pains, sicknesses, infirmities
-  "Alma||7||12"      : ["Attributes of Christ", "Atonement"],  // Death, that he may loose the bands
-  "3 Nephi||11||10"  : ["Attributes of Christ"],               // I am Jesus Christ whom the prophets testified
-  "3 Nephi||11||11"  : ["Attributes of Christ", "Atonement"],  // I have drunk out of that bitter cup
-  "3 Nephi||17||6"   : ["Attributes of Christ"],               // His bowels filled with compassion
-  "3 Nephi||17||7"   : ["Attributes of Christ"],               // He healed them every one
-  "3 Nephi||17||21"  : ["Attributes of Christ"],               // He wept and blessed the children
-  "Ether||3||14"     : ["Attributes of Christ"],               // I am the Father and the Son
-  "Moroni||7||47"    : ["Attributes of Christ", "Charity"],    // Charity is the pure love of Christ
-  "Moroni||10||32"   : ["Attributes of Christ", "Atonement"],  // Come unto Christ, be perfected in him
+  "1 Nephi||11||18"  : ["Attributes of Christ"],
+  "1 Nephi||11||31"  : ["Attributes of Christ"],
+  "2 Nephi||2||8"    : ["Attributes of Christ", "Atonement"],
+  "2 Nephi||9||21"   : ["Attributes of Christ", "Atonement"],
+  "2 Nephi||31||7"   : ["Attributes of Christ", "Baptism"],
+  "Mosiah||3||5"     : ["Attributes of Christ"],
+  "Mosiah||3||7"     : ["Attributes of Christ", "Atonement"],
+  "Mosiah||4||2"     : ["Attributes of Christ", "Atonement"],
+  "Alma||7||11"      : ["Attributes of Christ", "Atonement"],
+  "Alma||7||12"      : ["Attributes of Christ", "Atonement"],
+  "3 Nephi||11||10"  : ["Attributes of Christ"],
+  "3 Nephi||11||11"  : ["Attributes of Christ", "Atonement"],
+  "3 Nephi||17||6"   : ["Attributes of Christ"],
+  "3 Nephi||17||7"   : ["Attributes of Christ"],
+  "3 Nephi||17||21"  : ["Attributes of Christ"],
+  "Ether||3||14"     : ["Attributes of Christ"],
+  "Moroni||7||47"    : ["Attributes of Christ", "Charity"],
+  "Moroni||10||32"   : ["Attributes of Christ", "Atonement"],
 
   // ── THE GOSPEL OF CHRIST ─────────────────────────────────────────────────
-  "2 Nephi||31||2"   : ["The Gospel of Christ"],               // The doctrine of Christ
-  "2 Nephi||31||11"  : ["The Gospel of Christ", "Holy Ghost"], // Holy Ghost as witness after baptism
-  "2 Nephi||31||12"  : ["The Gospel of Christ", "Baptism"],    // Follow the Son with full purpose of heart
-  "2 Nephi||31||13"  : ["The Gospel of Christ", "Holy Ghost"], // Remission of sins, baptism of fire
-  "2 Nephi||31||17"  : ["The Gospel of Christ"],               // Gate by which ye should enter
-  "2 Nephi||31||18"  : ["The Gospel of Christ"],               // Press forward feasting on the word
-  "2 Nephi||31||20"  : ["The Gospel of Christ", "Enduring to the End"], // Press forward with steadfastness
-  "2 Nephi||31||21"  : ["The Gospel of Christ"],               // This is the way, the life, and the truth
-  "2 Nephi||32||3"   : ["The Gospel of Christ", "Scripture Study"], // Feast on the words of Christ
-  "2 Nephi||32||5"   : ["The Gospel of Christ", "Holy Ghost"], // Holy Ghost shows all things to do
-  "3 Nephi||11||31"  : ["The Gospel of Christ"],               // Christ declares his doctrine
-  "3 Nephi||11||32"  : ["The Gospel of Christ"],               // Father, Son, Holy Ghost — one
-  "3 Nephi||11||33"  : ["The Gospel of Christ", "Baptism"],    // Believe and be baptized and be saved
-  "3 Nephi||11||35"  : ["The Gospel of Christ"],               // Witness of the Father, Son, and Holy Ghost
-  "3 Nephi||11||38"  : ["The Gospel of Christ", "Repentance"], // Repent and become as a little child
-  "3 Nephi||11||39"  : ["The Gospel of Christ"],               // Foundation of Satan — contention
-  "3 Nephi||27||13"  : ["The Gospel of Christ", "Atonement"],  // I came to do the will of the Father
-  "3 Nephi||27||14"  : ["The Gospel of Christ", "Atonement"],  // Lifted up on the cross
-  "3 Nephi||27||16"  : ["The Gospel of Christ", "Repentance"], // Repent and be baptized in my name
-  "3 Nephi||27||19"  : ["The Gospel of Christ"],               // Nothing unclean can enter his kingdom
-  "3 Nephi||27||20"  : ["The Gospel of Christ"],               // This is the gospel — repent, be baptized, sanctified
-  "Moroni||8||25"    : ["The Gospel of Christ", "Baptism"],    // Baptism unto repentance
-  "Moroni||8||26"    : ["The Gospel of Christ", "Holy Ghost"], // Remission → meekness → Holy Ghost → hope → love
+  "2 Nephi||31||2"   : ["The Gospel of Christ"],
+  "2 Nephi||31||11"  : ["The Gospel of Christ", "Holy Ghost"],
+  "2 Nephi||31||12"  : ["The Gospel of Christ", "Baptism"],
+  "2 Nephi||31||13"  : ["The Gospel of Christ", "Holy Ghost"],
+  "2 Nephi||31||17"  : ["The Gospel of Christ"],
+  "2 Nephi||31||18"  : ["The Gospel of Christ"],
+  "2 Nephi||31||20"  : ["The Gospel of Christ", "Enduring to the End"],
+  "2 Nephi||31||21"  : ["The Gospel of Christ"],
+  "2 Nephi||32||3"   : ["The Gospel of Christ", "Scripture Study"],
+  "2 Nephi||32||5"   : ["The Gospel of Christ", "Holy Ghost"],
+  "3 Nephi||11||31"  : ["The Gospel of Christ"],
+  "3 Nephi||11||32"  : ["The Gospel of Christ"],
+  "3 Nephi||11||33"  : ["The Gospel of Christ", "Baptism"],
+  "3 Nephi||11||35"  : ["The Gospel of Christ"],
+  "3 Nephi||11||38"  : ["The Gospel of Christ", "Repentance"],
+  "3 Nephi||11||39"  : ["The Gospel of Christ"],
+  "3 Nephi||27||13"  : ["The Gospel of Christ", "Atonement"],
+  "3 Nephi||27||14"  : ["The Gospel of Christ", "Atonement"],
+  "3 Nephi||27||16"  : ["The Gospel of Christ", "Repentance"],
+  "3 Nephi||27||19"  : ["The Gospel of Christ"],
+  "3 Nephi||27||20"  : ["The Gospel of Christ"],
+  "Moroni||8||25"    : ["The Gospel of Christ", "Baptism"],
+  "Moroni||8||26"    : ["The Gospel of Christ", "Holy Ghost"],
 
   // ── COMMANDMENTS ─────────────────────────────────────────────────────────
-  "1 Nephi||3||7"    : ["Commandments"],                       // The Lord prepares a way
-  "2 Nephi||32||8"   : ["Commandments", "Prayer"],             // Pray always
-  "2 Nephi||32||9"   : ["Commandments", "Prayer"],             // Pray before ye do anything
-  "Mosiah||2||17"    : ["Commandments", "Service"],            // Serving fellow beings = serving God
-  "Mosiah||4||10"    : ["Commandments", "Repentance"],         // Believe, repent, humble yourself
-  "Mosiah||4||30"    : ["Commandments"],                       // Watch your thoughts, words, deeds
-  "Alma||32||21"     : ["Commandments", "Faith"],              // Faith is not a perfect knowledge
-  "Alma||34||15"     : ["Commandments", "Atonement"],          // Great and last sacrifice
-  "Alma||34||17"     : ["Commandments", "Prayer"],             // Cry unto him in your fields
-  "Alma||34||18"     : ["Commandments", "Prayer"],             // Cry unto him over your flocks
-  "Alma||34||27"     : ["Commandments", "Prayer"],             // Pray morning, noon, evening
-  "Alma||37||35"     : ["Commandments"],                       // Learn wisdom in thy youth
-  "Alma||37||37"     : ["Commandments", "Prayer"],             // Counsel with the Lord in all thy doings
-  "Helaman||5||12"   : ["Commandments"],                       // Build upon Christ, the sure foundation
-  "3 Nephi||12||3"   : ["Commandments"],                       // Blessed are the poor in spirit (Beatitudes)
-  "3 Nephi||12||6"   : ["Commandments"],                       // Blessed are they who hunger for righteousness
-  "3 Nephi||12||19"  : ["Commandments"],                       // Come unto me with a broken heart
-  "3 Nephi||12||48"  : ["Commandments"],                       // Be ye therefore perfect
-  "3 Nephi||13||33"  : ["Commandments"],                       // Seek ye first the kingdom of God
-  "3 Nephi||14||7"   : ["Commandments", "Prayer"],             // Ask and it shall be given
-  "3 Nephi||18||19"  : ["Commandments", "Prayer"],             // Pray in my name to the Father
-  "3 Nephi||18||20"  : ["Commandments", "Prayer"],             // Whatsoever ye ask the Father in my name
-  "3 Nephi||18||21"  : ["Commandments", "Prayer"],             // Pray in your families
-  "Mormon||9||27"    : ["Commandments"],                       // Doubt not, but be believing
-  "Moroni||6||4"     : ["Commandments"],                       // Remembered and nourished by the good word
-  "Moroni||7||45"    : ["Commandments", "Charity"],            // Charity suffereth long and is kind
-  "Moroni||7||48"    : ["Commandments", "Charity"],            // Pray for charity with all energy of heart
-  "Moroni||10||4"    : ["Commandments"],                       // Ask God if these things are not true
+  "1 Nephi||3||7"    : ["Commandments"],
+  "2 Nephi||32||8"   : ["Commandments", "Prayer"],
+  "2 Nephi||32||9"   : ["Commandments", "Prayer"],
+  "Mosiah||2||17"    : ["Commandments", "Service"],
+  "Mosiah||4||10"    : ["Commandments", "Repentance"],
+  "Mosiah||4||30"    : ["Commandments"],
+  "Alma||32||21"     : ["Commandments", "Faith"],
+  "Alma||34||15"     : ["Commandments", "Atonement"],
+  "Alma||34||17"     : ["Commandments", "Prayer"],
+  "Alma||34||18"     : ["Commandments", "Prayer"],
+  "Alma||34||27"     : ["Commandments", "Prayer"],
+  "Alma||37||35"     : ["Commandments"],
+  "Alma||37||37"     : ["Commandments", "Prayer"],
+  "Helaman||5||12"   : ["Commandments"],
+  "3 Nephi||12||3"   : ["Commandments"],
+  "3 Nephi||12||6"   : ["Commandments"],
+  "3 Nephi||12||19"  : ["Commandments"],
+  "3 Nephi||12||48"  : ["Commandments"],
+  "3 Nephi||13||33"  : ["Commandments"],
+  "3 Nephi||14||7"   : ["Commandments", "Prayer"],
+  "3 Nephi||18||19"  : ["Commandments", "Prayer"],
+  "3 Nephi||18||20"  : ["Commandments", "Prayer"],
+  "3 Nephi||18||21"  : ["Commandments", "Prayer"],
+  "Mormon||9||27"    : ["Commandments"],
+  "Moroni||6||4"     : ["Commandments"],
+  "Moroni||7||45"    : ["Commandments", "Charity"],
+  "Moroni||7||48"    : ["Commandments", "Charity"],
+  "Moroni||10||4"    : ["Commandments"],
 
-  // ── FAITH ─────────────────────────────────────────────────────────────────
-  "1 Nephi||7||12"   : ["Faith"],                              // The Lord is able to do all things
-  "2 Nephi||4||34"   : ["Faith"],                              // Trust in the Lord, not the arm of flesh
-  "Jacob||4||6"      : ["Faith"],                              // Faith unshaken before God
-  "Enos||1||8"       : ["Faith"],                              // Thy faith hath made thee whole
-  "Alma||32||28"     : ["Faith"],                              // The seed experiment
-  "Alma||32||40"     : ["Faith"],                              // Root yourselves in the faith
-  "Alma||32||43"     : ["Faith"],                              // Pluck the fruit of the tree of life
-  "Ether||12||4"     : ["Faith"],                              // Hope as an anchor to the soul
-  "Ether||12||6"     : ["Faith"],                              // No witness until after the trial of faith
-  "Ether||12||27"    : ["Faith"],                              // Weak things become strong
-  "Moroni||7||33"    : ["Faith"],                              // If ye have faith ye can do all things
+  // ── FAITH ────────────────────────────────────────────────────────────────
+  "1 Nephi||7||12"   : ["Faith"],
+  "2 Nephi||4||34"   : ["Faith"],
+  "Jacob||4||6"      : ["Faith"],
+  "Enos||1||8"       : ["Faith"],
+  "Alma||32||21"     : ["Faith"],
+  "Alma||32||28"     : ["Faith"],
+  "Alma||32||40"     : ["Faith"],
+  "Alma||32||43"     : ["Faith"],
+  "Ether||12||4"     : ["Faith"],
+  "Ether||12||6"     : ["Faith"],
+  "Ether||12||27"    : ["Faith"],
+  "Moroni||7||33"    : ["Faith"],
 
-  // ── REPENTANCE ────────────────────────────────────────────────────────────
-  "Mosiah||4||3"     : ["Repentance"],                         // Remission of sins — peace of conscience
-  "Mosiah||26||29"   : ["Repentance"],                         // As often as my people repent
-  "Alma||5||14"      : ["Repentance"],                         // Have ye experienced a mighty change of heart
-  "Alma||5||26"      : ["Repentance"],                         // If ye have felt to sing the song of redeeming love
-  "Alma||36||19"     : ["Repentance"],                         // Alma's moment of forgiveness
-  "Helaman||5||10"   : ["Repentance"],                         // It is upon the rock of our Redeemer
-  "3 Nephi||9||20"   : ["Repentance"],                         // Broken heart and contrite spirit
-  "Moroni||8||12"    : ["Repentance"],                         // Repentance for those who are accountable
+  // ── REPENTANCE ───────────────────────────────────────────────────────────
+  "Mosiah||4||3"     : ["Repentance"],
+  "Mosiah||26||29"   : ["Repentance"],
+  "Alma||5||14"      : ["Repentance"],
+  "Alma||5||26"      : ["Repentance"],
+  "Alma||36||19"     : ["Repentance"],
+  "Helaman||5||10"   : ["Repentance"],
+  "3 Nephi||9||20"   : ["Repentance", "Holy Ghost"],
+  "Moroni||8||12"    : ["Repentance"],
 
-  // ── ATONEMENT ─────────────────────────────────────────────────────────────
-  "2 Nephi||2||7"    : ["Atonement"],                          // He offereth himself a sacrifice for sin
-  "2 Nephi||25||23"  : ["Atonement"],                          // After all we can do
-  "Jacob||4||11"     : ["Atonement"],                          // Reconcile yourselves to God
-  "Mosiah||3||17"    : ["Atonement"],                          // Salvation through Christ alone
-  "Mosiah||15||7"    : ["Atonement"],                          // His will swallowed up in the Father
-  "Alma||7||11"      : ["Atonement"],                          // He took pains and sicknesses
-  "Alma||34||8"      : ["Atonement"],                          // An infinite and eternal atonement
-  "Alma||34||9"      : ["Atonement"],                          // Infinite and eternal sacrifice
-  "Alma||34||10"     : ["Atonement"],                          // None but an infinite being can atone
-  "Alma||42||15"     : ["Atonement"],                          // Plan of mercy to satisfy justice
-  "Helaman||14||15"  : ["Atonement"],                          // Redemption from spiritual death
-  "3 Nephi||11||14"  : ["Atonement"],                          // Arise and come unto me
+  // ── ATONEMENT ────────────────────────────────────────────────────────────
+  "2 Nephi||2||7"    : ["Atonement"],
+  "2 Nephi||25||23"  : ["Atonement"],
+  "Jacob||4||11"     : ["Atonement"],
+  "Mosiah||3||17"    : ["Atonement"],
+  "Mosiah||15||7"    : ["Atonement"],
+  "Alma||34||8"      : ["Atonement"],
+  "Alma||34||9"      : ["Atonement"],
+  "Alma||34||10"     : ["Atonement"],
+  "Alma||42||15"     : ["Atonement"],
+  "Helaman||14||15"  : ["Atonement"],
+  "3 Nephi||11||14"  : ["Atonement"],
 
-  // ── HOLY GHOST ────────────────────────────────────────────────────────────
-  "2 Nephi||31||14"  : ["Holy Ghost"],                         // Voice of the Holy Ghost
-  "2 Nephi||33||1"   : ["Holy Ghost"],                         // Power of the Holy Ghost carries words to hearts
-  "3 Nephi||9||20"   : ["Holy Ghost", "Repentance"],           // Baptism of fire and the Holy Ghost
-  "3 Nephi||19||13"  : ["Holy Ghost"],                         // Holy Ghost descended on disciples
-  "Moroni||2||3"     : ["Holy Ghost"],                         // Gift of the Holy Ghost
-  "Moroni||10||5"    : ["Holy Ghost"],                         // By the power of the Holy Ghost
-  "Moroni||10||7"    : ["Holy Ghost"],                         // Deny not the gifts of God
+  // ── HOLY GHOST ───────────────────────────────────────────────────────────
+  "2 Nephi||31||14"  : ["Holy Ghost"],
+  "2 Nephi||33||1"   : ["Holy Ghost"],
+  "3 Nephi||19||13"  : ["Holy Ghost"],
+  "Moroni||2||3"     : ["Holy Ghost"],
+  "Moroni||10||5"    : ["Holy Ghost"],
+  "Moroni||10||7"    : ["Holy Ghost"],
 
   // ── SCRIPTURE STUDY ──────────────────────────────────────────────────────
-  "1 Nephi||19||23"  : ["Scripture Study"],                    // Liken the scriptures to ourselves
-  "2 Nephi||4||15"   : ["Scripture Study"],                    // My soul delighteth in the scriptures
-  "2 Nephi||29||3"   : ["Scripture Study"],                    // A Bible! A Bible! We have a Bible
-  "Jacob||2||8"      : ["Scripture Study"],                    // The word heals the wounded soul
-  "Alma||17||2"      : ["Scripture Study"],                    // Sons of Mosiah searched the scriptures
-  "Alma||31||5"      : ["Scripture Study"],                    // Word has more effect than the sword
-  "Helaman||3||29"   : ["Scripture Study"],                    // Word of God leads across the gulf
+  "1 Nephi||19||23"  : ["Scripture Study"],
+  "2 Nephi||4||15"   : ["Scripture Study"],
+  "2 Nephi||29||3"   : ["Scripture Study"],
+  "Jacob||2||8"      : ["Scripture Study"],
+  "Alma||17||2"      : ["Scripture Study"],
+  "Alma||31||5"      : ["Scripture Study"],
+  "Helaman||3||29"   : ["Scripture Study"],
 
-  // ── SERVICE ───────────────────────────────────────────────────────────────
-  "Mosiah||2||17"    : ["Service"],                            // Serving others = serving God
-  "Mosiah||18||8"    : ["Service"],                            // Bear one another's burdens
-  "Mosiah||18||9"    : ["Service"],                            // Mourn with those that mourn
-  "Mosiah||4||26"    : ["Service"],                            // Impart of your substance to the poor
-  "Alma||1||27"      : ["Service"],                            // Imparted freely to one another
-  "4 Nephi||1||3"    : ["Service"],                            // No poor among them
+  // ── SERVICE ──────────────────────────────────────────────────────────────
+  "Mosiah||2||17"    : ["Service"],
+  "Mosiah||18||8"    : ["Service"],
+  "Mosiah||18||9"    : ["Service"],
+  "Mosiah||4||26"    : ["Service"],
+  "Alma||1||27"      : ["Service"],
+  "4 Nephi||1||3"    : ["Service"],
 
   // ── ENDURING TO THE END ──────────────────────────────────────────────────
-  "1 Nephi||13||37"  : ["Enduring to the End"],                // Bear these things to the end
-  "2 Nephi||9||24"   : ["Enduring to the End"],                // Baptism + endure to the end
-  "Alma||38||2"      : ["Enduring to the End"],                // Trust in God and you shall be delivered
-  "3 Nephi||15||9"   : ["Enduring to the End"],                // Old law fulfilled; look to Christ
-  "Moroni||8||26"    : ["Enduring to the End"],                // Love endures by diligence unto prayer
+  "1 Nephi||13||37"  : ["Enduring to the End"],
+  "2 Nephi||9||24"   : ["Enduring to the End"],
+  "Alma||38||2"      : ["Enduring to the End"],
+  "3 Nephi||15||9"   : ["Enduring to the End"],
+  "Moroni||8||26"    : ["Enduring to the End"],
 
-  // ── PRAYER ────────────────────────────────────────────────────────────────
-  "1 Nephi||1||5"    : ["Prayer"],                             // Lehi prays with whole heart
-  "Enos||1||2"       : ["Prayer"],                             // My soul hungered
-  "Enos||1||4"       : ["Prayer"],                             // Voice came: Enos, thy sins are forgiven
-  "Alma||37||37"     : ["Prayer"],                             // Counsel with the Lord in all doings
-  "3 Nephi||17||15"  : ["Prayer"],                             // His prayer could not be written
+  // ── PRAYER ───────────────────────────────────────────────────────────────
+  "1 Nephi||1||5"    : ["Prayer"],
+  "Enos||1||2"       : ["Prayer"],
+  "Enos||1||4"       : ["Prayer"],
+  "Alma||37||37"     : ["Prayer"],
+  "3 Nephi||17||15"  : ["Prayer"],
 
   // ── CHARITY ──────────────────────────────────────────────────────────────
-  "Moroni||7||44"    : ["Charity"],                            // Without charity ye are nothing
-  "Moroni||7||45"    : ["Charity"],                            // Charity never faileth
-  "Moroni||7||46"    : ["Charity"],                            // Charity is the pure love of Christ
-  "Moroni||7||47"    : ["Charity"],                            // Charity endureth forever
+  "Moroni||7||44"    : ["Charity"],
+  "Moroni||7||45"    : ["Charity"],
+  "Moroni||7||46"    : ["Charity"],
+  "Moroni||7||47"    : ["Charity"],
 
 };
 
-// ── INJECTION LOOP ──────────────────────────────────────────────────────────
-// Runs once on page load (scriptures_db.js is loaded before the app scripts).
-// Stamps a `tags` array onto every matching verse in CHAPTERS[].
-// Safe to run multiple times — it replaces, never appends duplicates.
+// ════════════════════════════════════════════════════════════════════════════
+// THEMATIC LINKAGE MAP
+// KEY FORMAT: "Book||chapter||verse"  →  array of topic strings
+// The injection loop in index.html reads this at startup and stamps
+// a `tags` array onto matching verse objects in CHAPTERS[].
+// To add tags: just add entries here and reload. Zero edits to scripture data.
+// ════════════════════════════════════════════════════════════════════════════
 
-(function injectThematicTags() {
-  const map = window.SCRIPTURE_DATA.thematicMap;
-  if (!map || typeof CHAPTERS === 'undefined') return;
+window.SCRIPTURE_DATA.thematicMap = {
 
-  Object.entries(map).forEach(([key, tags]) => {
-    // key = "Book||chapter||verse"
-    const parts = key.split('||');
-    if (parts.length !== 3) return;
+  // ATTRIBUTES OF CHRIST
+  "1 Nephi||11||18"  : ["Attributes of Christ"],
+  "1 Nephi||11||31"  : ["Attributes of Christ"],
+  "2 Nephi||2||8"    : ["Attributes of Christ", "Atonement"],
+  "2 Nephi||9||21"   : ["Attributes of Christ", "Atonement"],
+  "2 Nephi||31||7"   : ["Attributes of Christ", "Baptism"],
+  "Mosiah||3||5"     : ["Attributes of Christ"],
+  "Mosiah||3||7"     : ["Attributes of Christ", "Atonement"],
+  "Mosiah||4||2"     : ["Attributes of Christ", "Atonement"],
+  "Alma||7||11"      : ["Attributes of Christ", "Atonement"],
+  "Alma||7||12"      : ["Attributes of Christ", "Atonement"],
+  "3 Nephi||11||10"  : ["Attributes of Christ"],
+  "3 Nephi||11||11"  : ["Attributes of Christ", "Atonement"],
+  "3 Nephi||17||6"   : ["Attributes of Christ"],
+  "3 Nephi||17||7"   : ["Attributes of Christ"],
+  "3 Nephi||17||21"  : ["Attributes of Christ"],
+  "Ether||3||14"     : ["Attributes of Christ"],
+  "Moroni||7||47"    : ["Attributes of Christ", "Charity"],
+  "Moroni||10||32"   : ["Attributes of Christ", "Atonement"],
 
-    const [book, chapter, verseStr] = parts;
-    const chKey  = book + '||' + chapter;
-    const verseN = parseInt(verseStr, 10);
-    const ch     = CHAPTERS[chKey];
-    if (!ch) return;
+  // THE GOSPEL OF CHRIST
+  "2 Nephi||31||2"   : ["The Gospel of Christ"],
+  "2 Nephi||31||11"  : ["The Gospel of Christ", "Holy Ghost"],
+  "2 Nephi||31||12"  : ["The Gospel of Christ", "Baptism"],
+  "2 Nephi||31||13"  : ["The Gospel of Christ", "Holy Ghost"],
+  "2 Nephi||31||17"  : ["The Gospel of Christ"],
+  "2 Nephi||31||18"  : ["The Gospel of Christ"],
+  "2 Nephi||31||20"  : ["The Gospel of Christ", "Enduring to the End"],
+  "2 Nephi||31||21"  : ["The Gospel of Christ"],
+  "2 Nephi||32||3"   : ["The Gospel of Christ", "Scripture Study"],
+  "2 Nephi||32||5"   : ["The Gospel of Christ", "Holy Ghost"],
+  "3 Nephi||11||31"  : ["The Gospel of Christ"],
+  "3 Nephi||11||32"  : ["The Gospel of Christ"],
+  "3 Nephi||11||33"  : ["The Gospel of Christ", "Baptism"],
+  "3 Nephi||11||35"  : ["The Gospel of Christ"],
+  "3 Nephi||11||38"  : ["The Gospel of Christ", "Repentance"],
+  "3 Nephi||11||39"  : ["The Gospel of Christ"],
+  "3 Nephi||27||13"  : ["The Gospel of Christ", "Atonement"],
+  "3 Nephi||27||14"  : ["The Gospel of Christ", "Atonement"],
+  "3 Nephi||27||16"  : ["The Gospel of Christ", "Repentance"],
+  "3 Nephi||27||19"  : ["The Gospel of Christ"],
+  "3 Nephi||27||20"  : ["The Gospel of Christ"],
+  "Moroni||8||25"    : ["The Gospel of Christ", "Baptism"],
+  "Moroni||8||26"    : ["The Gospel of Christ", "Holy Ghost"],
 
-    // Stamp tags onto BOTH the original and modern verse objects
-    ['original', 'modern'].forEach(side => {
-      const verseList = ch[side];
-      if (!Array.isArray(verseList)) return;
-      const v = verseList.find(v => v.num === verseN);
-      if (v) v.tags = tags.slice(); // clean copy per verse object
-    });
-  });
-})();
+  // COMMANDMENTS
+  "1 Nephi||3||7"    : ["Commandments"],
+  "2 Nephi||32||8"   : ["Commandments", "Prayer"],
+  "2 Nephi||32||9"   : ["Commandments", "Prayer"],
+  "Mosiah||2||17"    : ["Commandments", "Service"],
+  "Mosiah||4||10"    : ["Commandments", "Repentance"],
+  "Mosiah||4||30"    : ["Commandments"],
+  "Alma||32||21"     : ["Commandments", "Faith"],
+  "Alma||34||15"     : ["Commandments", "Atonement"],
+  "Alma||34||17"     : ["Commandments", "Prayer"],
+  "Alma||34||18"     : ["Commandments", "Prayer"],
+  "Alma||34||27"     : ["Commandments", "Prayer"],
+  "Alma||37||35"     : ["Commandments"],
+  "Alma||37||37"     : ["Commandments", "Prayer"],
+  "Helaman||5||12"   : ["Commandments"],
+  "3 Nephi||12||3"   : ["Commandments"],
+  "3 Nephi||12||6"   : ["Commandments"],
+  "3 Nephi||12||19"  : ["Commandments"],
+  "3 Nephi||12||48"  : ["Commandments"],
+  "3 Nephi||13||33"  : ["Commandments"],
+  "3 Nephi||14||7"   : ["Commandments", "Prayer"],
+  "3 Nephi||18||19"  : ["Commandments", "Prayer"],
+  "3 Nephi||18||20"  : ["Commandments", "Prayer"],
+  "3 Nephi||18||21"  : ["Commandments", "Prayer"],
+  "Mormon||9||27"    : ["Commandments"],
+  "Moroni||6||4"     : ["Commandments"],
+  "Moroni||7||45"    : ["Commandments", "Charity"],
+  "Moroni||7||48"    : ["Commandments", "Charity"],
+  "Moroni||10||4"    : ["Commandments"],
+
+  // FAITH
+  "1 Nephi||7||12"   : ["Faith"],
+  "2 Nephi||4||34"   : ["Faith"],
+  "Jacob||4||6"      : ["Faith"],
+  "Enos||1||8"       : ["Faith"],
+  "Alma||32||21"     : ["Faith"],
+  "Alma||32||28"     : ["Faith"],
+  "Alma||32||40"     : ["Faith"],
+  "Alma||32||43"     : ["Faith"],
+  "Ether||12||4"     : ["Faith"],
+  "Ether||12||6"     : ["Faith"],
+  "Ether||12||27"    : ["Faith"],
+  "Moroni||7||33"    : ["Faith"],
+
+  // REPENTANCE
+  "Mosiah||4||3"     : ["Repentance"],
+  "Mosiah||26||29"   : ["Repentance"],
+  "Alma||5||14"      : ["Repentance"],
+  "Alma||5||26"      : ["Repentance"],
+  "Alma||36||19"     : ["Repentance"],
+  "Helaman||5||10"   : ["Repentance"],
+  "3 Nephi||9||20"   : ["Repentance", "Holy Ghost"],
+  "Moroni||8||12"    : ["Repentance"],
+
+  // ATONEMENT
+  "2 Nephi||2||7"    : ["Atonement"],
+  "2 Nephi||25||23"  : ["Atonement"],
+  "Jacob||4||11"     : ["Atonement"],
+  "Mosiah||3||17"    : ["Atonement"],
+  "Mosiah||15||7"    : ["Atonement"],
+  "Alma||34||8"      : ["Atonement"],
+  "Alma||34||9"      : ["Atonement"],
+  "Alma||34||10"     : ["Atonement"],
+  "Alma||42||15"     : ["Atonement"],
+  "Helaman||14||15"  : ["Atonement"],
+  "3 Nephi||11||14"  : ["Atonement"],
+
+  // HOLY GHOST
+  "2 Nephi||31||14"  : ["Holy Ghost"],
+  "2 Nephi||33||1"   : ["Holy Ghost"],
+  "3 Nephi||19||13"  : ["Holy Ghost"],
+  "Moroni||2||3"     : ["Holy Ghost"],
+  "Moroni||10||5"    : ["Holy Ghost"],
+  "Moroni||10||7"    : ["Holy Ghost"],
+
+  // SCRIPTURE STUDY
+  "1 Nephi||19||23"  : ["Scripture Study"],
+  "2 Nephi||4||15"   : ["Scripture Study"],
+  "2 Nephi||29||3"   : ["Scripture Study"],
+  "Jacob||2||8"      : ["Scripture Study"],
+  "Alma||17||2"      : ["Scripture Study"],
+  "Alma||31||5"      : ["Scripture Study"],
+  "Helaman||3||29"   : ["Scripture Study"],
+
+  // SERVICE
+  "Mosiah||2||17"    : ["Service"],
+  "Mosiah||18||8"    : ["Service"],
+  "Mosiah||18||9"    : ["Service"],
+  "Mosiah||4||26"    : ["Service"],
+  "Alma||1||27"      : ["Service"],
+  "4 Nephi||1||3"    : ["Service"],
+
+  // ENDURING TO THE END
+  "1 Nephi||13||37"  : ["Enduring to the End"],
+  "2 Nephi||9||24"   : ["Enduring to the End"],
+  "Alma||38||2"      : ["Enduring to the End"],
+  "3 Nephi||15||9"   : ["Enduring to the End"],
+  "Moroni||8||26"    : ["Enduring to the End"],
+
+  // PRAYER
+  "1 Nephi||1||5"    : ["Prayer"],
+  "Enos||1||2"       : ["Prayer"],
+  "Enos||1||4"       : ["Prayer"],
+  "Alma||37||37"     : ["Prayer"],
+  "3 Nephi||17||15"  : ["Prayer"],
+
+  // CHARITY
+  "Moroni||7||44"    : ["Charity"],
+  "Moroni||7||45"    : ["Charity"],
+  "Moroni||7||46"    : ["Charity"],
+  "Moroni||7||47"    : ["Charity"]
+
+};
