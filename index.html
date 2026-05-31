@@ -2693,11 +2693,12 @@ DC_SECTIONS["DC||138"]={"section": 138, "verses": [{"num": 1, "text": "On the th
 // ══ LOCAL MODERN TRANSLATIONS (D&C + PGP) ══
 var DC_MODERN_INTRO = {"title": "Doctrine and Covenants", "subtitle": "Revelations given to Joseph Smith and others, 1823–1844", "body": "The Doctrine and Covenants is a collection of divine revelations and inspired declarations, given chiefly through Joseph Smith the Prophet to the Church of Jesus Christ of Latter-day Saints. Unlike the Bible and the Book of Mormon, which are accounts of God's dealings with peoples of the past, the Doctrine and Covenants speaks directly to our day — addressing specific people, specific problems, and specific spiritual needs. Each section carries a date, a context, and a voice. This Modern English Translation renders that voice in clear, natural language without sacrificing the weight or the warmth of the original."};
 
-const DC_MODERN = window.SCRIPTURE_DATA.DC_MODERN;
-const PGP_MODERN = window.SCRIPTURE_DATA.PGP_MODERN;
+// Guard against scriptures_db.js failing to load before this script runs
+const DC_MODERN  = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.DC_MODERN)  || {};
+const PGP_MODERN = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.PGP_MODERN) || {};
 
 // ══ D&C STUDY HELPS META ══
-const DC_META = window.SCRIPTURE_DATA.DC_META;
+const DC_META = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.DC_META) || {};
 
 
 
@@ -8759,7 +8760,7 @@ function loadUser() {
 // spanning Creation → Modern times across four lanes.
 // ══════════════════════════════════════════════════════════════════════════════
 
-const PTL_ERAS = window.SCRIPTURE_DATA.PTL_ERAS;
+const PTL_ERAS     = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.PTL_ERAS)     || [];
 
 let _ptlBuilt = false;
 let _ptlActiveEra = null;
@@ -9247,7 +9248,7 @@ showPage('home');
 // ══════════════════════════════════════════════ PARALLEL TIMELINE ══
 // Data model: each era has parallel events across three lanes.
 // date: display label | key: chapter key for deep-link | hub: hub search term
-const TL_DATA = window.SCRIPTURE_DATA.TL_DATA;
+const TL_DATA      = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.TL_DATA)      || [];
 
 // ── Timeline controller ──────────────────────────────────────────────────────
 const TL = {
@@ -9529,7 +9530,7 @@ const PMG = {
 /* ══════════════════════════════════════════════════════════════════
    D&C STUDY CARDS — Key sections with full Study Helps structure
    ══════════════════════════════════════════════════════════════════ */
-const DC_CARDS = window.SCRIPTURE_DATA.DC_CARDS;
+const DC_CARDS     = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.DC_CARDS)     || {};
 
 /* ══════════════════════════════════════════════════════════════════
    DC_CARDS — built from DC_META (all 138 sections).
@@ -10005,7 +10006,7 @@ function openJournalWithQuestion(question) {
 // Preach My Gospel chapters and principles, each linking to Notes/Journal
 // ══════════════════════════════════════════════════════════════════════
 function buildPMGHub(q) {
-  const PMG_CHAPTERS = window.SCRIPTURE_DATA.PMG_CHAPTERS;
+  const PMG_CHAPTERS = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.PMG_CHAPTERS) || {};
 
   // Filter by search
   var filtered = !q ? PMG_CHAPTERS : PMG_CHAPTERS.map(function(ch) {
@@ -10592,7 +10593,7 @@ function hubFilterLive() {
   if (hub) hub.scrollTop = 0;
 }
 
-const VERSE_LOOKUP = window.SCRIPTURE_DATA.VERSE_LOOKUP;
+const VERSE_LOOKUP = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.VERSE_LOOKUP) || {};
 
 // ══ DEEP DIVE ══
 var DD_PREV_SCROLL = 0;
