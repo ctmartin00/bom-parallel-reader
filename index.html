@@ -2149,6 +2149,145 @@ svg.leaflet-zoom-animated{will-change:transform}
   opacity: 0.6;
 }
 
+
+/* ══════════════════════════════════════════════════
+   STUDY HELPS — Section & Content Styles
+   ══════════════════════════════════════════════════ */
+
+.sh-summary {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.97rem;
+  line-height: 1.72;
+  color: var(--ink);
+  padding: 14px 0 10px;
+  border-bottom: 1px solid rgba(196,154,60,0.18);
+  margin-bottom: 14px;
+}
+
+.sh-section {
+  margin-bottom: 18px;
+}
+
+.sh-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(196,154,60,0.2);
+}
+
+/* Key Themes pill row */
+.sh-themes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sh-theme {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.78rem;
+  padding: 3px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(196,154,60,0.35);
+  background: rgba(196,154,60,0.08);
+  color: var(--ink-mid);
+  white-space: nowrap;
+}
+
+/* Notable Verses */
+.sh-notable {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sh-verse-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sh-verse-ref {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.sh-verse-note {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* Connections */
+.sh-connections {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sh-conn-item {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--ink);
+  padding: 8px 10px;
+  border-left: 2px solid rgba(196,154,60,0.4);
+  background: rgba(196,154,60,0.04);
+  border-radius: 0 4px 4px 0;
+}
+
+.sh-conn-item strong {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* Questions to Ponder */
+.sh-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sh-q {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ink);
+  padding-left: 14px;
+  position: relative;
+}
+
+.sh-q::before {
+  content: '❧';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+
+.sh-q strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Bolded question text from parseShBold */
+.sh-q b {
+  font-weight: 700;
+}
+
 </style>
 <body>
 
@@ -6249,12 +6388,18 @@ function _pushHistory(id, chapterKey) {
 /** Handle browser back/forward navigation */
 window.addEventListener('popstate', function(e) {
   const state = e.state;
-  if (!state) { _historyNavigating = true; showPage('home'); _historyNavigating = false; return; }
+  // On reload or stale state, always return to home
+  if (!state || state.page === 'home' || !state.page) {
+    _historyNavigating = true; showPage('home'); _historyNavigating = false; return;
+  }
   _historyNavigating = true;
   if (state.page === 'reader' && state.key && CHAPTERS[state.key]) {
     goToChapter(state.key); showPage('reader');
+  } else if (['annotations','dict','settings','topic-study','tag-browser','thematic',
+               'dc-grid','pgp-grid','book-picker','chapter-grid'].includes(state.page)) {
+    showPage(state.page);
   } else {
-    showPage(state.page || 'home');
+    showPage('home');
   }
   _historyNavigating = false;
 });
@@ -6367,7 +6512,6 @@ function showPage(id) {
     if (pr) pr.style.gridTemplateColumns = '1fr 3px 1fr';
     renderAll();
   }
-  if (id === 'tree') { buildTimeline(); }
   if (id === 'dict') { initDict(); }
   if (id === 'dc-grid') { renderDCGrid(); }
   if (id === 'pgp-grid') { renderPGPGrid(); }
@@ -12218,25 +12362,40 @@ function goToVotd() {
 }
 
 // ── STARTUP ──────────────────────────────────────────────────────────────────
-(function() {
-  // 1. Show home page (CSS hides all .page divs by default)
+// Runs once. Shows home immediately. Never calls showPage() so no
+// history.pushState fires, which prevents popstate from misfiring on reload.
+(function _boot() {
+
+  // ── 1. Force home page visible ─────────────────────────────────────────────
+  // Hide every .page, then show only home — same as showPage() but no pushState
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
   var homePg = document.getElementById('page-home');
   if (homePg) {
     homePg.style.display = 'block';
     homePg.classList.add('active');
   }
+  _navStack = ['home'];
+  _updateNavChrome('home');
 
-  // 2. Load saved progress from localStorage
-  if (typeof loadProgress === 'function') loadProgress();
+  // ── 2. Replace any existing history state with a clean home entry ───────────
+  // This prevents a stale state from triggering popstate on the next reload
+  try {
+    history.replaceState({ page: 'home' }, '', location.href);
+  } catch(e) {}
 
-  // 3. Update progress UI
-  if (typeof updateProgressUI === 'function') updateProgressUI();
+  // ── 3. Load persisted data ─────────────────────────────────────────────────
+  if (typeof loadProgress  === 'function') loadProgress();
+  if (typeof loadState     === 'function') loadState();
 
-  // 4. Verse of the Day
-  if (typeof pickVotd === 'function') pickVotd();
-
-  // 5. Jump-back bar
+  // ── 4. Update UI ───────────────────────────────────────────────────────────
+  if (typeof buildBookDrop     === 'function') buildBookDrop();
+  if (typeof updateProgressUI  === 'function') updateProgressUI();
+  if (typeof pickVotd          === 'function') pickVotd();
   if (typeof updateJumpBackBar === 'function') updateJumpBackBar();
+
 })();
 
 // ── THEMATIC TAG INJECTION ────────────────────────────────────────────────
