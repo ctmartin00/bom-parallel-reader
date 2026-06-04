@@ -8979,23 +8979,13 @@ function ptlE(s) {
 }
 
 // Handle popstate — restore era from URL hash on back-swipe
-window.addEventListener('popstate', function(e) {
-  if (e.state && e.state.tl_era) {
-    TL.renderEra(e.state.tl_era, false);
-  }
-});
 
 
-// ══ STUDY HUB ══
-var HUB_SRC_FILTER = '';
-var HUB_PGP_FILTER = '';  // sub-filter: 'Moses'|'Abraham'|'JS-M'|'JS-H'|'AoF'|''
+
+// (Study Hub removed)
 
 /* ── PGP sub-filter handler ── */
-function pgpSubSet(btn, book) {
-  HUB_PGP_FILTER = book;
-  document.querySelectorAll('.pgp-sub').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  }
+
 
 /* ── Helper: open a specific D&C section in the D&C reader ── */
 /* ── openDCSection is defined earlier in the routing section ── */
@@ -12085,6 +12075,23 @@ function showTagBrowserPage() {
     if (inp) inp.value = '';
   }, 40);
 }
+
+// ── STARTUP: show home page ─────────────────────────────────────────────────
+(function() {
+  // Ensure home is visible on initial load — .page CSS defaults to display:none
+  var homePg = document.getElementById('page-home');
+  if (homePg) {
+    homePg.style.display = 'block';
+    homePg.classList.add('active');
+  }
+  // Init votd and progress bar if those functions exist
+  if (typeof goToVotd !== 'undefined') { /* votd loaded separately */ }
+  if (typeof updateHomeProgress === 'function') updateHomeProgress();
+  if (typeof initVotd === 'function') initVotd();
+  if (typeof renderVotd === 'function') renderVotd();
+  // Restore last-read position display
+  if (typeof updateJumpBackBar === 'function') updateJumpBackBar();
+})();
 
 // ── THEMATIC TAG INJECTION ────────────────────────────────────────────────
 // Runs once after all CHAPTERS[] data is defined above.
