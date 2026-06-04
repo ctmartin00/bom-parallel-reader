@@ -2259,10 +2259,16 @@ svg.leaflet-zoom-animated{will-change:transform}
   </div>
   <div class="dash-progress-section">
     <div id="prog-summary-bar" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
-      <div>
+      <div style="flex:1;min-width:0;">
         <div class="progress-label" id="home-progress-label" style="margin-bottom:6px;">0 of 0 chapters completed</div>
-        <div class="progress-bar-wrap" style="width:220px;max-width:100%;"><div class="progress-bar-fill" id="home-progress-bar" style="width:0%"></div></div>
+        <div class="progress-bar-wrap" style="width:100%;max-width:280px;"><div class="progress-bar-fill" id="home-progress-bar" style="width:0%"></div></div>
         <div id="home-inprog-label" style="font-family:'Cinzel',serif;font-size:.56rem;color:rgba(196,154,60,.7);letter-spacing:.05em;margin-top:4px;min-height:14px;"></div>
+        <!-- Per-collection progress mini bars -->
+        <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;max-width:300px;">
+          <div id="prog-bom"></div>
+          <div id="prog-dc"></div>
+          <div id="prog-pgp"></div>
+        </div>
       </div>
       <button onclick="confirmRestartProgress()" style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.06em;padding:7px 14px;border-radius:6px;border:1px solid rgba(180,60,60,.4);background:none;color:#b04040;cursor:pointer;white-space:nowrap;flex-shrink:0;">↺ Restart</button>
     </div>
@@ -5101,28 +5107,76 @@ function cycleProgress(key) {
 }
 
 function countProgress() {
-  const keys = Object.keys(CHAPTERS);
-  const read = keys.filter(k => PROGRESS[k] === 'read').length;
-  const inprog = keys.filter(k => PROGRESS[k] === 'inprog').length;
-  return {total: keys.length, read, inprog};
+  // BOM
+  const bomKeys = Object.keys(CHAPTERS);
+  const bomRead   = bomKeys.filter(k => PROGRESS[k] === 'read').length;
+  const bomInprog = bomKeys.filter(k => PROGRESS[k] === 'inprog').length;
+
+  // D&C — 138 sections
+  const dcTotal = typeof DC_SECTIONS !== 'undefined' ? Object.keys(DC_SECTIONS).length : 0;
+  const dcRead  = typeof DC_SECTIONS !== 'undefined'
+    ? Object.keys(DC_SECTIONS).filter(k => PROGRESS[k] === 'read').length : 0;
+  const dcInprog = typeof DC_SECTIONS !== 'undefined'
+    ? Object.keys(DC_SECTIONS).filter(k => PROGRESS[k] === 'inprog').length : 0;
+
+  // PGP — count from PGP_CHAPTERS if available
+  const pgpKeys = typeof PGP_CHAPTERS !== 'undefined' ? Object.keys(PGP_CHAPTERS) : [];
+  const pgpTotal  = pgpKeys.length;
+  const pgpRead   = pgpKeys.filter(k => PROGRESS[k] === 'read').length;
+  const pgpInprog = pgpKeys.filter(k => PROGRESS[k] === 'inprog').length;
+
+  return {
+    total:  bomKeys.length + dcTotal + pgpTotal,
+    read:   bomRead + dcRead + pgpRead,
+    inprog: bomInprog + dcInprog + pgpInprog,
+    bom:    { total: bomKeys.length, read: bomRead, inprog: bomInprog },
+    dc:     { total: dcTotal,  read: dcRead,  inprog: dcInprog },
+    pgp:    { total: pgpTotal, read: pgpRead, inprog: pgpInprog }
+  };
 }
 
 function updateProgressUI() {
-  const {total, read, inprog} = countProgress();
-  const el   = document.getElementById('home-progress-label');
-  const bar  = document.getElementById('home-progress-bar');
-  const pct  = total ? Math.round(read/total*100) : 0;
-  if (el) el.textContent = `${read} of ${total} chapters completed · ${pct}%`;
+  const p = countProgress();
+  const pct = p.total ? Math.round(p.read / p.total * 100) : 0;
+
+  // Overall label
+  const el = document.getElementById('home-progress-label');
+  if (el) el.textContent = p.read + ' of ' + p.total + ' chapters completed · ' + pct + '%';
+
+  // Overall bar
+  const bar = document.getElementById('home-progress-bar');
   if (bar) {
     bar.style.width = pct + '%';
     bar.style.background = pct >= 80
       ? 'linear-gradient(90deg,#55bb77,#2a8a50)'
       : 'linear-gradient(90deg,#c49a3c,#a07828)';
   }
+
+  // In-progress label
   const ipEl = document.getElementById('home-inprog-label');
-  if (ipEl) ipEl.textContent = inprog > 0 ? `${inprog} in progress` : '';
+  if (ipEl) ipEl.textContent = p.inprog > 0 ? p.inprog + ' in progress' : '';
+
+  // Per-collection mini bars
+  _renderMiniBar('prog-bom', 'Book of Mormon', p.bom);
+  _renderMiniBar('prog-dc',  'Doctrine & Covenants', p.dc);
+  _renderMiniBar('prog-pgp', 'Pearl of Great Price', p.pgp);
+
   renderProgressTable();
 }
+
+function _renderMiniBar(id, label, d) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var pct = d.total ? Math.round(d.read / d.total * 100) : 0;
+  el.innerHTML = "<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;'>" +
+    "<span style='font-family:Cinzel,serif;font-size:.58rem;letter-spacing:.06em;color:var(--ink-light);'>" + label + "</span>" +
+    "<span style='font-family:Cinzel,serif;font-size:.58rem;color:var(--gold);'>" + d.read + "/" + d.total + "</span>" +
+    "</div>" +
+    "<div style='height:4px;background:rgba(196,154,60,.15);border-radius:2px;overflow:hidden;'>" +
+    "<div style='height:100%;width:" + pct + "%;background:linear-gradient(90deg,#c49a3c,#a07828);border-radius:2px;transition:width .4s;'></div>" +
+    "</div>";
+}
+
 
 function renderProgressTable() {
   const el = document.getElementById('progress-table');
@@ -9072,7 +9126,7 @@ const PMG = {
 /* ══════════════════════════════════════════════════════════════════
    D&C STUDY CARDS — Key sections with full Study Helps structure
    ══════════════════════════════════════════════════════════════════ */
-const DC_CARDS     = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.DC_CARDS)     || {};
+const DC_CARDS     = (window.SCRIPTURE_DATA && window.SCRIPTURE_DATA.DC_CARDS)     || [];
 
 /* ══════════════════════════════════════════════════════════════════
    DC_CARDS — built from DC_META (all 138 sections).
@@ -12076,20 +12130,112 @@ function showTagBrowserPage() {
   }, 40);
 }
 
-// ── STARTUP: show home page ─────────────────────────────────────────────────
+
+// ── VERSE OF THE DAY ──────────────────────────────────────────────────────────
+// Picks a deterministic verse each calendar day from a curated pool
+var _VOTD_POOL = [
+  { key:'1 Nephi||1',   num:20, ref:'1 Nephi 1:20' },
+  { key:'1 Nephi||3',   num:7,  ref:'1 Nephi 3:7'  },
+  { key:'2 Nephi||2',   num:25, ref:'2 Nephi 2:25' },
+  { key:'2 Nephi||31',  num:20, ref:'2 Nephi 31:20'},
+  { key:'2 Nephi||32',  num:3,  ref:'2 Nephi 32:3' },
+  { key:'Mosiah||2',    num:17, ref:'Mosiah 2:17'  },
+  { key:'Mosiah||3',    num:17, ref:'Mosiah 3:17'  },
+  { key:'Mosiah||4',    num:9,  ref:'Mosiah 4:9'   },
+  { key:'Alma||5',      num:14, ref:'Alma 5:14'    },
+  { key:'Alma||7',      num:11, ref:'Alma 7:11'    },
+  { key:'Alma||7',      num:12, ref:'Alma 7:12'    },
+  { key:'Alma||32',     num:21, ref:'Alma 32:21'   },
+  { key:'Alma||34',     num:10, ref:'Alma 34:10'   },
+  { key:'Alma||37',     num:35, ref:'Alma 37:35'   },
+  { key:'Alma||41',     num:10, ref:'Alma 41:10'   },
+  { key:'Helaman||5',   num:12, ref:'Helaman 5:12' },
+  { key:'3 Nephi||11',  num:11, ref:'3 Nephi 11:11'},
+  { key:'3 Nephi||12',  num:48, ref:'3 Nephi 12:48'},
+  { key:'3 Nephi||17',  num:7,  ref:'3 Nephi 17:7' },
+  { key:'3 Nephi||27',  num:20, ref:'3 Nephi 27:20'},
+  { key:'Ether||12',    num:6,  ref:'Ether 12:6'   },
+  { key:'Ether||12',    num:27, ref:'Ether 12:27'  },
+  { key:'Moroni||7',    num:47, ref:'Moroni 7:47'  },
+  { key:'Moroni||7',    num:48, ref:'Moroni 7:48'  },
+  { key:'Moroni||10',   num:4,  ref:'Moroni 10:4'  },
+  { key:'Moroni||10',   num:32, ref:'Moroni 10:32' },
+  { key:'Jacob||4',     num:6,  ref:'Jacob 4:6'    },
+  { key:'Enos||1',      num:4,  ref:'Enos 1:4'     },
+  { key:'Mosiah||18',   num:9,  ref:'Mosiah 18:9'  },
+  { key:'Alma||36',     num:19, ref:'Alma 36:19'   },
+];
+
+var _votdPicked = null;
+
+function pickVotd() {
+  var d  = new Date();
+  var day = Math.floor(d.getTime() / 86400000); // epoch days
+  var idx = day % _VOTD_POOL.length;
+  _votdPicked = _VOTD_POOL[idx];
+
+  var ch = CHAPTERS[_votdPicked.key];
+  if (!ch || !ch.original) { _populateVotdDisplay('Loading…', ''); return; }
+
+  var verse = ch.original.find(function(v){ return v.num === _votdPicked.num; });
+  if (!verse) { _populateVotdDisplay('Loading…', ''); return; }
+
+  var snippet = verse.text.length > 180 ? verse.text.slice(0, 178) + '…' : verse.text;
+  _populateVotdDisplay(snippet, _votdPicked.ref);
+}
+
+function _populateVotdDisplay(text, ref) {
+  var tEl = document.getElementById('votd-text');
+  var rEl = document.getElementById('votd-ref');
+  if (tEl) tEl.textContent = text;
+  if (rEl) rEl.textContent = ref;
+}
+
+function goToVotd() {
+  if (!_votdPicked) return;
+  var parts = _votdPicked.key.split('||');
+  var navBook = document.getElementById('nav-book');
+  var navCh   = document.getElementById('nav-chapter');
+  if (navBook) navBook.value = parts[0];
+  if (typeof onBookChange === 'function') onBookChange();
+  if (navCh) navCh.value = parts[1];
+  if (typeof S !== 'undefined') S.current = _votdPicked.key;
+  if (typeof renderAll === 'function') renderAll();
+  showPage('reader');
+  if (typeof _navStack !== 'undefined') _navStack.push('reader');
+  if (typeof _updateNavChrome === 'function') _updateNavChrome('reader');
+  setTimeout(function() {
+    var targets = document.querySelectorAll('.verse[data-verse="' + _votdPicked.num + '"]');
+    if (targets.length) {
+      targets[0].scrollIntoView({ behavior:'smooth', block:'center' });
+      targets.forEach(function(el) {
+        el.style.transition = 'background .2s';
+        el.style.background = 'rgba(196,154,60,.22)';
+        setTimeout(function(){ el.style.background = ''; }, 1400);
+      });
+    }
+  }, 240);
+}
+
+// ── STARTUP ──────────────────────────────────────────────────────────────────
 (function() {
-  // Ensure home is visible on initial load — .page CSS defaults to display:none
+  // 1. Show home page (CSS hides all .page divs by default)
   var homePg = document.getElementById('page-home');
   if (homePg) {
     homePg.style.display = 'block';
     homePg.classList.add('active');
   }
-  // Init votd and progress bar if those functions exist
-  if (typeof goToVotd !== 'undefined') { /* votd loaded separately */ }
-  if (typeof updateHomeProgress === 'function') updateHomeProgress();
-  if (typeof initVotd === 'function') initVotd();
-  if (typeof renderVotd === 'function') renderVotd();
-  // Restore last-read position display
+
+  // 2. Load saved progress from localStorage
+  if (typeof loadProgress === 'function') loadProgress();
+
+  // 3. Update progress UI
+  if (typeof updateProgressUI === 'function') updateProgressUI();
+
+  // 4. Verse of the Day
+  if (typeof pickVotd === 'function') pickVotd();
+
+  // 5. Jump-back bar
   if (typeof updateJumpBackBar === 'function') updateJumpBackBar();
 })();
 
