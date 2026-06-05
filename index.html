@@ -7906,6 +7906,9 @@ function applyAnnotationHL(hlNum) {
 
   saveData();
 
+  // Clear native selection immediately so custom highlight is visible at once
+  window.getSelection()?.removeAllRanges();
+
   // ── Unified fast-path span update: BOM, D&C, and PGP ────────────
   // Uses _getVerseObj so the same logic works regardless of scripture collection.
   verseNums.forEach(vn => {
@@ -7935,8 +7938,7 @@ function applyAnnotationHL(hlNum) {
 
   _selRange = null;
   _selVerseNums = [];
-  window.getSelection()?.removeAllRanges();
-  setTimeout(() => closeAnnotationToolbar(true), 300);
+  setTimeout(() => closeAnnotationToolbar(false), 50);
 }
 // ── TAGS ──────────────────────────────────────────────────────
 function buildTagsList(key, ann) {
