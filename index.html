@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -2539,6 +2539,7 @@ svg.leaflet-zoom-animated{will-change:transform}
     <button class="fbtn nav-hide-mobile" onclick="adjustFont(-1)">A−</button>
     <button class="fbtn nav-hide-mobile" onclick="adjustFont(1)">A+</button>
     <button id="bookmark-btn-dc" onclick="toggleBookmarkDC()" title="Bookmark" class="nav-icon-btn nav-hide-mobile">🔖</button>
+    <button id="dc-read-btn" class="ch-icon-btn ch-read-btn unread" onclick="cycleDCProgress()" title="Mark this section as read">○ Mark Read</button>
     <button id="panel-toggle-btn-dc" onclick="togglePanelMode()" title="Toggle parallel" class="nav-icon-btn">⇔</button>
     <button id="scroll-sync-btn-dc" onclick="toggleScrollSync()" class="nav-icon-btn nav-sync-active" aria-pressed="true">🔗</button>
     <div class="srch nav-srch-compact">
@@ -2563,6 +2564,7 @@ svg.leaflet-zoom-animated{will-change:transform}
     <button class="fbtn nav-hide-mobile" onclick="adjustFont(-1)">A−</button>
     <button class="fbtn nav-hide-mobile" onclick="adjustFont(1)">A+</button>
     <button id="bookmark-btn-pgp" onclick="toggleBookmarkPGP()" title="Bookmark" class="nav-icon-btn nav-hide-mobile">🔖</button>
+    <button id="pgp-read-btn" class="ch-icon-btn ch-read-btn unread" onclick="cyclePGPProgress()" title="Mark this chapter as read">○ Mark Read</button>
     <button id="panel-toggle-btn-pgp" onclick="togglePanelMode()" title="Toggle parallel" class="nav-icon-btn">⇔</button>
     <button id="scroll-sync-btn-pgp" onclick="toggleScrollSync()" class="nav-icon-btn nav-sync-active" aria-pressed="true">🔗</button>
     <div class="srch nav-srch-compact">
@@ -5427,6 +5429,45 @@ function updateChapterReadBtn(key) {
   btn.className = `ch-read-btn ${st}`;
   btn.textContent = st === 'read' ? '✓ Read' : st === 'inprog' ? '◐ In Progress' : '○ Mark Read';
 }
+
+// Sync the D&C read button for the current section
+function syncDCReadBtn(key) {
+  var btn = document.getElementById('dc-read-btn');
+  if (!btn) return;
+  var st = getProgress(key);
+  btn.className = 'ch-icon-btn ch-read-btn ' + st;
+  btn.textContent = st === 'read' ? '✓ Read' : st === 'inprog' ? '◐ In Progress' : '○ Mark Read';
+}
+
+// Sync the PGP read button for the current chapter
+function syncPGPReadBtn(key) {
+  var btn = document.getElementById('pgp-read-btn');
+  if (!btn) return;
+  var st = getProgress(key);
+  btn.className = 'ch-icon-btn ch-read-btn ' + st;
+  btn.textContent = st === 'read' ? '✓ Read' : st === 'inprog' ? '◐ In Progress' : '○ Mark Read';
+}
+
+// Cycle D&C section progress: unread → inprog → read → unread
+function cycleDCProgress() {
+  var key = S.current;
+  if (!key || !key.startsWith('DC||')) return;
+  var next = getProgress(key) === 'unread' ? 'inprog' : getProgress(key) === 'inprog' ? 'read' : 'unread';
+  setProgress(key, next);
+  syncDCReadBtn(key);
+}
+
+// Cycle PGP chapter progress: unread → inprog → read → unread
+function cyclePGPProgress() {
+  var key = S.current;
+  if (!key) return;
+  var pgpBooks = ['Moses','Abraham','JS-M','JS-H','AoF'];
+  if (!pgpBooks.some(function(b){ return key.startsWith(b + '||'); })) return;
+  var next = getProgress(key) === 'unread' ? 'inprog' : getProgress(key) === 'inprog' ? 'read' : 'unread';
+  setProgress(key, next);
+  syncPGPReadBtn(key);
+}
+
 
 // ══════════════════════════ CROSS-REFERENCES ══════════════════════════
 // XREFS["Book||ch||verseNum"] = [{ref: "2 Nephi 2:25", note: "..."}]
@@ -10245,6 +10286,14 @@ function renderDCSection(key) {
     origPanel.scrollTop = 0;
   }
 
+  // Mark as in-progress if unread, sync read button
+  if (getProgress(key) === 'unread') setProgress(key, 'inprog');
+  syncDCReadBtn(key);
+
+  // Auto-set in-progress on first open; sync the read button
+  if (getProgress(key) === 'unread') setProgress(key, 'inprog');
+  syncDCReadBtn(key);
+
   // Render modern panel — check cache first, then generate
   renderDCModern(key, sec);
 }
@@ -10520,6 +10569,14 @@ function renderPGPChapter(book, chapter) {
     }
     modPanel.scrollTop = 0;
   }
+
+  // Mark as in-progress if unread, sync read button
+  if (getProgress(key) === 'unread') setProgress(key, 'inprog');
+  syncPGPReadBtn(key);
+
+  // Auto-set in-progress on first open; sync the read button
+  if (getProgress(key) === 'unread') setProgress(key, 'inprog');
+  syncPGPReadBtn(key);
 
   initScrollSync();
 }
