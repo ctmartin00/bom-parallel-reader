@@ -6728,6 +6728,7 @@ function renderAll() {
   // Does NOT call renderDCSection() to avoid touching DC_MODERN.
   if (S.current.startsWith('DC||')) {
     const _dcSec = (typeof DC_SECTIONS !== 'undefined') ? DC_SECTIONS[S.current] : null;
+    const _dcMod = (typeof DC_MODERN !== 'undefined') ? DC_MODERN[S.current] : null;
     if (_dcSec) {
       _dcSec.verses.forEach(function(v) {
         const _key = S.current + '||' + v.num;
@@ -6739,6 +6740,16 @@ function renderAll() {
         // Update note dot
         const _dot = document.querySelector('.verse[data-verse="' + v.num + '"] .verse-note-dot');
         if (_dot) _dot.style.display = (_ann && _ann.note) ? 'block' : 'none';
+      });
+    }
+    // Update modern panel highlights too
+    if (_dcMod) {
+      _dcMod.forEach(function(v) {
+        const _key = S.current + '||' + v.num;
+        const _ann = S.annotations[_key];
+        document.querySelectorAll('.vtext[data-verse="' + v.num + '"][data-side="modern"]').forEach(function(sp) {
+          sp.innerHTML = buildHighlightedText(v.text, _ann, 'modern');
+        });
       });
     }
     return;
@@ -7742,20 +7753,29 @@ function showAnnotationToolbar(verseNum, side, selRect) {
   _selVerseNum = verseNum;
   _selSide = side;
 
-  // Update verse label — show range if multi-verse
-  const ch = CHAPTERS[S.current];
+  // Update verse label — show correct ref for BOM, D&C, and PGP
   let label;
-  if (ch) {
-    if (_selVerseNums && _selVerseNums.length > 1) {
-      const first = _selVerseNums[0], last = _selVerseNums[_selVerseNums.length - 1];
-      label = `${ch.book} ${ch.chapter}:${first}–${last}`;
-    } else {
-      label = `${ch.book} ${ch.chapter}:${verseNum}`;
-    }
+  const _cur = S.current || '';
+  const _ch = CHAPTERS[_cur];
+  const _dcSec = !_ch && typeof DC_SECTIONS !== 'undefined' ? DC_SECTIONS[_cur] : null;
+  const _pgpCh = !_ch && !_dcSec && typeof PGP_CHAPTERS !== 'undefined' ? PGP_CHAPTERS[_cur] : null;
+
+  const _multiVerse = _selVerseNums && _selVerseNums.length > 1;
+  const _vFirst = _multiVerse ? _selVerseNums[0] : verseNum;
+  const _vLast  = _multiVerse ? _selVerseNums[_selVerseNums.length-1] : verseNum;
+  const _vRange = _multiVerse ? `${_vFirst}–${_vLast}` : String(verseNum);
+
+  if (_ch) {
+    label = `${_ch.book} ${_ch.chapter}:${_vRange}`;
+  } else if (_dcSec) {
+    label = `D&C ${_dcSec.section}:${_vRange}`;
+  } else if (_pgpCh) {
+    const pgpLabels = {'Moses':'Moses','Abraham':'Abraham','JS-M':'JS—Matthew','JS-H':'JS—History','AoF':'Articles of Faith'};
+    const [_pgpBook, _pgpChNum] = _cur.split('||');
+    const _bookName = pgpLabels[_pgpBook] || _pgpBook;
+    label = `${_bookName} ${_pgpChNum}:${_vRange}`;
   } else {
-    label = _selVerseNums && _selVerseNums.length > 1
-      ? `Verses ${_selVerseNums[0]}–${_selVerseNums[_selVerseNums.length-1]}`
-      : `Verse ${verseNum}`;
+    label = _multiVerse ? `Verses ${_vFirst}–${_vLast}` : `Verse ${verseNum}`;
   }
   document.getElementById('ann-tb-verselabel').textContent = label;
 
