@@ -12468,10 +12468,16 @@ function goToVotd() {
   if (typeof loadState     === 'function') loadState();
 
   // ── 4. Update UI ───────────────────────────────────────────────────────────
-  if (typeof buildBookDrop     === 'function') buildBookDrop();
-  if (typeof updateProgressUI  === 'function') updateProgressUI();
-  if (typeof pickVotd          === 'function') pickVotd();
-  if (typeof updateJumpBackBar === 'function') updateJumpBackBar();
+  if (typeof buildBookDrop           === 'function') buildBookDrop();
+  if (typeof updateProgressUI        === 'function') updateProgressUI();
+  if (typeof pickVotd                === 'function') pickVotd();
+  if (typeof updateJumpBackBar       === 'function') updateJumpBackBar();
+
+  // ── 5. Wire annotation/highlight/selection system ───────────────────────
+  // setupSelectionListener attaches mouseup/touchend/pointerup handlers that
+  // detect text selection across all panels (BOM, D&C, PGP) and show the
+  // annotation toolbar. Must run once after DOM is ready.
+  if (typeof setupSelectionListener  === 'function') setupSelectionListener();
 
 })();
 
