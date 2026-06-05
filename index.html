@@ -8214,6 +8214,45 @@ function setupSelectionListener() {
   document.addEventListener('mouseup',  onSelectEnd);
   document.addEventListener('touchend', onSelectEnd);
 
+  // ── TAP ON ALREADY-HIGHLIGHTED VERSE ─────────────────────────────────────
+  // When the user taps (no drag/selection) on an annotated verse, open the
+  // toolbar so they can change or remove the highlight, edit the note, etc.
+  document.addEventListener('click', function(e) {
+    // Must be a collapsed selection (tap, not drag)
+    const sel = window.getSelection();
+    if (sel && !sel.isCollapsed) return;
+
+    const vtextEl = e.target.closest('.vtext');
+    if (!vtextEl) return;
+
+    const verseDiv = vtextEl.closest('.verse[data-verse]');
+    if (!verseDiv) return;
+
+    const verseNum = parseInt(verseDiv.dataset.verse);
+    if (isNaN(verseNum)) return;
+
+    const panelEl = vtextEl.closest('.panel');
+    const side = panelEl ? (panelEl.id === 'panel-original' ? 'original' : 'modern') : 'original';
+
+    // Only open toolbar if this verse has an existing annotation
+    const key = S.current + '||' + verseNum;
+    const ann = S.annotations[key];
+    const hasHL = ann && (ann.hl > 0 || (ann.ranges && ann.ranges.length > 0));
+    const hasNote = ann && ann.note && ann.note.length > 0;
+    const hasTags = ann && ann.tags && ann.tags.length > 0;
+
+    if (!hasHL && !hasNote && !hasTags) return;
+
+    // Set selection state so toolbar actions know which verse to modify
+    _selVerseNum  = verseNum;
+    _selVerseNums = [verseNum];
+    _selSide      = side;
+    _selRange     = { start: 0, end: 99999 };
+
+    const rect = vtextEl.getBoundingClientRect();
+    showAnnotationToolbar(verseNum, side, rect);
+  });
+
   // Dismiss on tap outside toolbar and outside verse text
   document.addEventListener('pointerdown', e => {
     if (!_annToolbar || _annToolbar.style.display === 'none') return;
