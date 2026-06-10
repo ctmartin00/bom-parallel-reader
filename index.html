@@ -2700,6 +2700,20 @@ svg.leaflet-zoom-animated{will-change:transform}
         </div>
       </div>
 
+      <!-- Custom Panel/Secondary Background Color -->
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Custom Panel Color</div>
+          <div class="settings-sub">Override the secondary background used for cards, panels, and sidebars</div>
+        </div>
+        <div class="color-custom">
+          <label for="custom-panel-bg">Panel</label>
+          <input type="color" id="custom-panel-bg" value="#faf7f1"
+            oninput="setCustomPanelBg(this.value); saveData();"
+            title="Custom panel/card background color">
+        </div>
+      </div>
+
       <!-- Custom Text Color -->
       <div class="settings-row">
         <div>
@@ -8921,6 +8935,8 @@ function setTheme(name, el) {
   setCustomText(t.text);
   const bgInp = document.getElementById('custom-bg');
   if (bgInp) bgInp.value = t.bg;
+  const panelInp = document.getElementById('custom-panel-bg');
+  if (panelInp) panelInp.value = t.p1;
   S._themeName = name;
   saveData();
 }
@@ -8928,6 +8944,13 @@ function setCustomBg(v){
   document.documentElement.style.setProperty('--bg',v);
   document.documentElement.style.setProperty('--parchment',v);
   document.documentElement.style.setProperty('--panel-bg',v);
+  S._themeName = 'custom';
+  saveData();
+}
+function setCustomPanelBg(v){
+  document.documentElement.style.setProperty('--panel-bg', v);
+  document.documentElement.style.setProperty('--parchment-mid', v);
+  document.documentElement.style.setProperty('--panel2-bg', v);
   S._themeName = 'custom';
   saveData();
 }
@@ -8973,7 +8996,8 @@ function _applyVisState(vis) {
     const themeBtn = document.querySelector(`.theme-opt[data-theme="${vis.themeName}"]`);
     if (themeBtn) setTheme(vis.themeName, themeBtn);
   } else if (vis.customBg || vis.customText) {
-    if (vis.customBg)   { setCustomBg(vis.customBg);   const bgInp = document.getElementById('custom-bg');   if(bgInp) bgInp.value = vis.customBg; }
+    if (vis.customBg)       { setCustomBg(vis.customBg);           const bgInp = document.getElementById('custom-bg');       if(bgInp) bgInp.value = vis.customBg; }
+    if (vis.customPanelBg) { setCustomPanelBg(vis.customPanelBg); const pInp  = document.getElementById('custom-panel-bg'); if(pInp)  pInp.value  = vis.customPanelBg; }
     if (vis.customText) { setCustomText(vis.customText); }
   }
 }
@@ -8986,8 +9010,9 @@ async function saveData() {
       fontSize:  S.fontSize,
       hlColors:  S.hlColors,
       themeName: S._themeName || 'parchment',
-      customBg:  getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),
-      customText:getComputedStyle(document.documentElement).getPropertyValue('--ink').trim(),
+      customBg:       getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),
+      customPanelBg:  getComputedStyle(document.documentElement).getPropertyValue('--panel-bg').trim(),
+      customText:     getComputedStyle(document.documentElement).getPropertyValue('--ink').trim(),
     };
     const payload = JSON.stringify({
       annotations: S.annotations,
